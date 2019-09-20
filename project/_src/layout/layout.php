@@ -62,7 +62,6 @@ if(!the()->requestUrl->isAjax){
             <div id="main-content" history-receiver>
                 <?=$view->insideContent?>
             </div>
-            <?=$view->render("layout/footer")?>
         </main>
 
 

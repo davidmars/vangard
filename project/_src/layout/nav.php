@@ -2,37 +2,44 @@
 /** @var \Classiq\Models\Nav $menu */
 $menu=\Classiq\Models\Nav::getByName("menu",true);
 ?>
-<nav id="nav" class="shadow-medium">
-    <div id="nav-mask" data-nav-menu-toggle></div>
+<nav id="nav">
 
     <div id="nav-bar" >
 
-        <a class="logo bgimg-cover"
-           style="background-image: url('<?=the()->fileSystem->filesystemToHttp("project/logo.png")?>')"
-           href="<?=cq()->homePage()->href()?>"></a>
+        <button data-nav-menu-toggle class="unstyled logo">
+            <span>h</span>
+            <span>e</span>
+            <span>l</span>
+            <span>l</span>
+            <span>o,</span>
 
-        <button data-nav-menu-toggle class="burger d-flex d-xl-none unstyled">
-            <?=pov()->svg->use("startup-burger")?>
-            <?=pov()->svg->use("startup-close")?>
+            <span>&nbsp;</span>
+
+            <span>w</span>
+            <span>e</span>
+            <span>&nbsp;</span>
+            <span>are</span>
+
+            <span>&nbsp;</span>
+
+            <b>v</b>
+            <span>an</span>
+            <b>g</b>
+            <span>a</span>
+            <b>rd</b>
         </button>
 
     </div>
 
     <div id="nav-content">
 
-        <?=$menu->wysiwyg()->field("items")
-            ->listJson(["layout/item"])
-            ->horizontal()
-            ->contextMenuSize(SIZE_SMALL)
-            ->onlyRecords("page")
-            ->htmlTag("ul")
-            ->addClass("menu")
-        ?>
+        <div>
+            <?=utils()->string->loremIspum(100,100)?>>
 
-        <ul class="right">
-            <?=$view->render("./menu-languages")?>
-
-        </ul>
+        </div>
+        <div>
+            <?=utils()->string->loremIspum(100,100)?>>
+        </div>
 
     </div>
 </nav>
