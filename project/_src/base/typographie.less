@@ -7,32 +7,28 @@ body {
   --font-paragraphe-normal: "Futura Std";
 }
 
-.titre-video{
-  font-family: var(--font-DrukXCondensed-super);
-  font-size: 200px;
-  color:#fff;
+.text-rich{
+  line-height: 1.7;
+  h2{
+    color: var(--color-white);
+    font-size: inherit;
+    margin-bottom: 0.75em;
+  }
+  h5{
+    color: inherit;
+    font-size: 80%;
+    font-weight: inherit;
+  }
+  a{
+    &:hover{
+      color: var(--color-grey-light);
+    }
+  }
 }
 
-.textes-nav{
-  font-family: var(--font-paragraphe-normal);
-  color:#818181;
-  font-size: 48px;
-  .titre{
-    font-family: var(--font-paragraphe-titre);
-    font-weight: 900;
-    color:#fff;
-  }
-}
-.textes-a-lire{
-  font-family: var(--font-paragraphe-normal);
-  color:#818181;
-  font-size: 36px;
-  .titre{
-    font-family: var(--font-paragraphe-titre);
-    font-weight: 900;
-    color:#fff;
-  }
-}
+
+
+
 
   body{
     font-family: var(--font-paragraphe-normal);
@@ -41,7 +37,7 @@ body {
       font-size: 14px;
     }
     @media(min-width: @screen-xl){
-      font-size: 16px;
+      font-size: 18px;
     }
   }
   h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{
@@ -50,12 +46,14 @@ body {
     //letter-spacing: -0.05em;
   }
   h1,.h1{
-    font-size: 2em;
+    font-family: var(--font-DrukXCondensed-super);
+    text-transform: uppercase;
+    font-size: 5vw;
     @media(min-width: @screen-sm){
-      font-size: 3em;
+      //font-size: 3em;
     }
     @media(min-width: @screen-lg){
-      font-size: 4vw;
+      //font-size: 4vw;
     }
 
   }
