@@ -1,0 +1,29 @@
+[hello-logo]{
+  display: flex;
+  .h1;
+  *{
+    //font-weight: bold;
+    display: inline-flex;
+    //outline: 1px solid red;
+    height: 1em;
+    font-weight: bold;
+    font-style: normal;
+  }
+  >i{
+    transition: color 0.1s linear 0.0s, max-width 0.4s ease-in 0.05s;
+    max-width: 0px;
+    overflow: hidden;
+    color: #666;
+  }
+}
+
+.nav-open{
+  [hello-logo]{
+    >i{
+      transition: color 0.2s linear 0.2s, max-width 0.6s ease-out 0.0s;
+      color: #fff;
+      width: auto;
+      max-width: 300px;
+    }
+  }
+}
