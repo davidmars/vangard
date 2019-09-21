@@ -1,85 +1,117 @@
-@import "./fonts/open-sans.less";
-@import "./fonts/libre-baskerville.less";
+@import "fonts/drukx/stylesheet.css";
+@import "fonts/futura/stylesheet.css";
 
-@font-normal:'Open Sans';
-@font-titre:'Libre Baskerville';
-body{
-  font-family: @font-normal;
-  font-size: 12px;
-  @media(min-width: @screen-sm){
-    font-size: 14px;
-  }
-  @media(min-width: @screen-xl){
-    font-size: 16px;
-  }
-}
-h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{
-  font-family: @font-titre;
-  font-weight: bold;
-  //letter-spacing: -0.05em;
-}
-h1,.h1{
-  font-size: 2em;
-  @media(min-width: @screen-sm){
-    font-size: 3em;
-  }
-  @media(min-width: @screen-lg){
-    font-size: 4vw;
-  }
-
-}
-h2,.h2{
-  font-size: 1.75em;
-  @media(min-width: @screen-sm){
-    font-size: 2.5em;
-  }
-  @media(min-width: @screen-lg){
-    font-size: 3vw;
-  }
-}
-h3,.h3{
-  font-size: 1.5em;
-  @media(min-width: @screen-lg){
-    font-size: 2vw;
-  }
-}
-h4,.h4{
-  font-size: 1.15em;
-}
-h5,.h5{
-  font-size: 1em;
-}
-h6,.h6{
-  font-size: 0.8em;
-}
-label{
-  font-family: @font-normal;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 0.8em;
-}
-small{
-  opacity: 0.8;
-  font-size: 0.8em;
+body {
+  --font-DrukXCondensed-super: "Druk XCondensed";
+  --font-paragraphe-titre: "Futura Std";
+  --font-paragraphe-normal: "Futura Std";
 }
 
+.titre-video{
+  font-family: var(--font-DrukXCondensed-super);
+  font-size: 200px;
+  color:#fff;
+}
 
-.fsz-1{
-  font-size: 25px !important;
+.textes-nav{
+  font-family: var(--font-paragraphe-normal);
+  color:#818181;
+  font-size: 48px;
+  .titre{
+    font-family: var(--font-paragraphe-titre);
+    font-weight: 900;
+    color:#fff;
+  }
 }
-.fsz-2{
-  font-size: 20px !important;
+.textes-a-lire{
+  font-family: var(--font-paragraphe-normal);
+  color:#818181;
+  font-size: 36px;
+  .titre{
+    font-family: var(--font-paragraphe-titre);
+    font-weight: 900;
+    color:#fff;
+  }
 }
-.fsz-3{
-  font-size: 18px !important;
-}
-.fsz-4{
-  font-size: 15px !important;
-}
-.fsz-5{
-  font-size: 12px !important;
-}
-.fsz-6{
-  font-size: 10px !important;
-}
+
+  body{
+    font-family: var(--font-paragraphe-normal);
+    font-size: 12px;
+    @media(min-width: @screen-sm){
+      font-size: 14px;
+    }
+    @media(min-width: @screen-xl){
+      font-size: 16px;
+    }
+  }
+  h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{
+    font-family: var(--font-paragraphe-titre);
+    font-weight: bold;
+    //letter-spacing: -0.05em;
+  }
+  h1,.h1{
+    font-size: 2em;
+    @media(min-width: @screen-sm){
+      font-size: 3em;
+    }
+    @media(min-width: @screen-lg){
+      font-size: 4vw;
+    }
+
+  }
+  h2,.h2{
+    font-size: 1.75em;
+    @media(min-width: @screen-sm){
+      font-size: 2.5em;
+    }
+    @media(min-width: @screen-lg){
+      font-size: 3vw;
+    }
+  }
+  h3,.h3{
+    font-size: 1.5em;
+    @media(min-width: @screen-lg){
+      font-size: 2vw;
+    }
+  }
+  h4,.h4{
+    font-size: 1.15em;
+  }
+  h5,.h5{
+    font-size: 1em;
+  }
+  h6,.h6{
+    font-size: 0.8em;
+  }
+  label{
+    font-family: var(--font-paragraphe-normal);
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.8em;
+  }
+  small{
+    opacity: 0.8;
+    font-size: 0.8em;
+  }
+
+
+  .fsz-1{
+    font-size: 25px !important;
+  }
+  .fsz-2{
+    font-size: 20px !important;
+  }
+  .fsz-3{
+    font-size: 18px !important;
+  }
+  .fsz-4{
+    font-size: 15px !important;
+  }
+  .fsz-5{
+    font-size: 12px !important;
+  }
+  .fsz-6{
+    font-size: 10px !important;
+  }
+
 
