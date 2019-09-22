@@ -1,6 +1,6 @@
 <?php
 /** @var Page $vv */
-use Classiq\Models\Page;
+use Classiq\Models\Film;
 the()->htmlLayout()->pageInfo->isHome=false;
 $view->inside("layout/layout",$vv);
 ?>
@@ -12,7 +12,6 @@ $view->inside("layout/layout",$vv);
                 ->string(\Pov\Utils\StringUtils::FORMAT_NO_HTML_SINGLE_LINE)
                 ->setDefaultValue($vv->name)
                 ->htmlTag("h1")
-                ->addClass("mb-big")
             ?>
         </div>
 
