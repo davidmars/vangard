@@ -1,4 +1,5 @@
 import Slick from "./organisms/Slick.js";
+import OneByOne from "./films-list/OneByOne";
 
 export default class Site{
     constructor() {
@@ -11,6 +12,14 @@ export default class Site{
         //---------------------go------------------------------------------
         me.resizeStage();
         me.onDomChange();
+        /**
+         * La liste des films
+         * @type {OneByOne}
+         */
+        this.films=window.films=new OneByOne($("#films"))
+        setInterval(function(){
+            films.refresh()
+        },1000);
         Site.navActive();
     }
 
@@ -46,16 +55,7 @@ export default class Site{
 
         //changement d'url et HTML injecté
         $body.on(EVENTS.HISTORY_CHANGE_URL_LOADED_INJECTED,function(){
-            $body.attr("data-page-transition-state","end");
-            me.onDomChange();
-            //scroll top
-            $(window).scrollTop(0);
-            Site.navActive();
-
-            if(typeof gtag !== 'undefined' && LayoutVars.googleAnalyticsId){
-                //hit google analytics
-                gtag('config', LayoutVars.googleAnalyticsId, {'page_path': location.pathname});
-            }
+            me.onPageDone();
 
         });
 
@@ -91,7 +91,21 @@ export default class Site{
      * Initialisations d'objets dom
      */
     onDomChange(){
-        Slick.initFromDom();
+        Slick       .initFromDom();
+        //OneByOne    .initFromDom();
         //ou pas :)
+    }
+    onPageDone(){
+        let me=this;
+        $body.attr("data-page-transition-state","end");
+        me.onDomChange();
+        //scroll top
+        $(window).scrollTop(0);
+        Site.navActive();
+        $body.attr("is-home",PovHistory.currentPageInfo.isHome);
+        if(typeof gtag !== 'undefined' && LayoutVars.googleAnalyticsId){
+            //hit google analytics
+            gtag('config', LayoutVars.googleAnalyticsId, {'page_path': location.pathname});
+        }
     }
 }

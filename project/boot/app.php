@@ -5,47 +5,23 @@ use Classiq\Wysiwyg\Wysiwyg;
 use Classiq\Wysiwyg\WysiwygConfig;
 use Localization\Lang;
 
-//----------bdd-------------------
-include_once __DIR__ . "/db.php";
-include_once __DIR__ . "/events.php";
+
+
+//les messages d'erreur sur les modèles
 include_once __DIR__ . "/gump.php";
-
-//définir la version en random pour contourner le cache
-the()->version(date("Y-m-d-His"));
-
-Classiq::install();
+//load la bdd
+include_once __DIR__ . "/db.php";
+//les events...
+include_once __DIR__ . "/events.php";
+//logged in ou pas
+include_once __DIR__ . "/common.php";
+//définition des modèles / admin / seo
+include_once __DIR__ . "/models.php";
+//email config
 include_once __DIR__ . "/mail-config.php";
 
-//loged in?
-if(User::connected()){
-    the()->human->isAdmin = Wysiwyg::$enabled = User::connected()->isAdmin();
-}
-if(the()->human->isAdmin){
-    //conf backoffice
-    //\Classiq\Wysiwyg\WysiwygConfig::inst()->recordsWeCanBrowse=["Page","Monmodelecustom"];
-    //\Classiq\Wysiwyg\WysiwygConfig::inst()->recordsWeCanCreate=["Page","Monmodelecustom"];
-    //\Classiq\Wysiwyg\WysiwygConfig::inst()->recordsWeCanSelect=["Page","Monmodelecustom"]; 
-}
-
-//seo
-//\Classiq\Seo\C_sitemap_xml::$modelTypesToIndex=["page","modeleetc"];
-
-/**
- * Pour avoir des textes d'interface
- * @param string $term
- * @return string
- */
-function trad($term){
-    return the()->project->translation($term);
-}
-/**
- * Accès rapide vers les classes utilitaires
- * @return \Pov\Utils\Utils
- */
-function utils(){
-    return pov()->utils;
-}
-
+the()->version(date("Y-m-d-His"));
+//the()->version(); //TODO mettre en fixe (pour avoir un cache css js etc...)
 /**
  * Accès rapide vers methodes et variables propres au site
  * @return \Startup\Site
@@ -54,6 +30,6 @@ function site(){
     return \Startup\Site::inst();
 }
 
-Lang::$flagsUrlBasePath="vendor/davidmars/localization/flags/";
+
 
 

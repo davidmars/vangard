@@ -34,3 +34,46 @@ html{
   }
 }
 @import "nav.less";
+
+
+#films{
+  transition: transform 0.25s;
+  transform-origin: top;
+  &[one-by-one-enabled='0']{
+    background-color: red;
+  }
+}
+
+body.nav-open{
+
+}
+
+body{
+  &.nav-open{
+    #films{
+      display: block !important;
+      .film{
+        height: 200px;
+        .h0{
+          font-size: 12vw;
+
+        }
+      }
+    }
+    #main-content{
+      display: none;
+    }
+  }
+
+  &[is-home='true']{
+    #main-content{
+      display: none;
+    }
+  }
+
+  &[is-home='false']{
+    #films{
+      display: none;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 <?php
+
 $view->inside("layout/layout", $vv);
 ?>
 
