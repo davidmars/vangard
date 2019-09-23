@@ -31,4 +31,19 @@ class Preview extends Classiqmodel
         }
         return $v;
     }
+
+    /**
+     * @return Filerecord|null[string
+     */
+    public function video($asString=true){
+        /** @var Filerecord $r */
+        $r= Filerecord::getByUid($this->video);
+        if($r){
+            if($asString){
+                return  $r->httpPath();
+            }
+            return $r;
+        }
+        return null;
+    }
 }

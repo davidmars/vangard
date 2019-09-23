@@ -15,5 +15,11 @@ class Film extends Page
 {
     static $icon="cq-tests-film-play";
 
+    /**
+     * @return Preview[]
+     */
+    public function previews(){
+        return Preview::getByUids($this->previews);
+    }
 
 }

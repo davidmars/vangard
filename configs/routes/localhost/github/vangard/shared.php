@@ -1,7 +1,10 @@
 <?php
-the()->project->languages=["fr","en"];
+the()->project->languages=[
+    //"fr",
+    "en"
+];
 the()->project->languagesUrls=[
-    "fr"=>"http://localhost/github/vangard/fr",
+    //"fr"=>"http://localhost/github/vangard/fr",
     "en"=>"http://localhost/github/vangard/en"
 ];
 //force https?

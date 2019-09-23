@@ -15,7 +15,7 @@
 
     <fieldset>
         <label>Previews</label>
-        <?=$vv->wysiwyg()->field("preview")
+        <?=$vv->wysiwyg()->field("previews")
             ->recordPicker("preview",true)
         ->buttonRecord()
         ->render()
