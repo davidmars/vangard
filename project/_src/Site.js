@@ -1,5 +1,6 @@
 import Slick from "./organisms/Slick.js";
 import OneByOne from "./films-list/OneByOne";
+import FilmPreview from "./films-list/FilmPreview";
 
 export default class Site{
     constructor() {
@@ -16,9 +17,35 @@ export default class Site{
          * La liste des films
          * @type {OneByOne}
          */
-        this.films=window.films=new OneByOne($("#films"))
+        this.filmsList=window.filmsList=new OneByOne($("#films"),1,true);
+        this.filmsList.$main.find(".film").each(function(){
+            new FilmPreview($(this))
+        })
+        this.filmsList.on("ACTIVE",function($film){
+            console.log("active")
+            if($film){
+                /**
+                 * @type {FilmPreview}
+                 */
+                let o=$film.data("obj");
+                o.playFirst();
+
+            }
+
+        });
+        this.filmsList.on("INACTIVE",function($film){
+            console.log("inactive")
+            if($film) {
+                /**
+                 * @type {FilmPreview}
+                 */
+                let o=$film.data("obj");
+                o.pauseAll();
+                o.change();
+            }
+        });
         setInterval(function(){
-            films.refresh()
+            filmsList.refresh()
         },1000);
         Site.navActive();
     }

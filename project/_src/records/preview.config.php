@@ -22,5 +22,14 @@
             ->button()->render()
         ?>
     </fieldset>
+    
+    <fieldset>
+        <img class="img-responsive" src="<?=$vv->thumbnail()->href()?>">
+    </fieldset>
+    <fieldset>
+        <video style="object-fit: cover;"
+               controls class="img-responsive"
+               src="<?=$vv->video(true)?>">
+    </fieldset>
 
 </div>

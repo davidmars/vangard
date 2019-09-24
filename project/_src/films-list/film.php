@@ -10,7 +10,7 @@ $film=$vv->targetUid(true);
 <?if($film):?>
     <div class="film item" <?=$vv->wysiwyg()->attr()?>>
         <a class="h0" href="<?=$film->href()?>">
-            <?=$film->name_lang?>
+            <span><?=$film->name_lang?></span>
             <div class="previews">
                 <?foreach ($film->previews() as $p):?>
                     <?=$view->render("films-list/preview",$p)?>

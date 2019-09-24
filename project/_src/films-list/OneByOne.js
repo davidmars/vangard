@@ -1,30 +1,13 @@
 import TweenMax from "gsap";
+var EventEmitter = require('event-emitter-es6');
 require("./one-by-one.less");
 /**
  *
  */
-export default class OneByOne{
-    get enabled() {
-        return this._enabled;
-    }
+export default class OneByOne extends EventEmitter{
 
-    set enabled(value) {
-        let me=this;
-        this._enabled = value;
-        this.$main.attr("one-by-one-enabled",value?'1':'0');
-        if(!this.enabled){
-            TweenMax.set(this.$content,{"top":0});
-        }else{
-            this.refresh();
-
-            setTimeout(function(){
-                me.refresh()
-            },1000);
-
-        }
-
-    }
     constructor($main,speed=1,lockCenter){
+        super();
         let me = this;
         OneByOne.all.push(this);
         this.$main=$main;
@@ -33,6 +16,11 @@ export default class OneByOne{
         this.$content=this.$main.find(".content");
         this._lastActive=false;
         this.refresh();
+        /**
+         * La liste est active ou pas?
+         * @type {boolean}
+         * @private
+         */
         this._enabled=true;
         this.enabled=true;
     }
@@ -86,12 +74,19 @@ export default class OneByOne{
         let active=this.ratio(percent,100,itemsCount-1,0,0);
         active=Math.round(active);
         if(active !== this._lastActive){
+            console.log(active,this._lastActive);
+            this._lastActive=active;
+            let $oldActive=this.$items.filter("[the-one]");
+            let $active=this.$items.eq(active);
             this.$items.removeAttr("the-one");
             this.$items.eq(active).attr("the-one","");
+            this.emit("INACTIVE",$oldActive.length?$oldActive:null);
+            this.emit("ACTIVE",$active.length?$active:null);
         }
         if(this.lockCenter){
             y=this.ratio(active,itemsCount-1,max,0,min);
         }
+        y=Math.round(y);
         TweenMax.set(this.$content,{"top":y});
         /*
         console.log("scrolll",scrolll);
@@ -119,6 +114,25 @@ export default class OneByOne{
         let product = (inputValue - inputMin) / (inputMax - inputMin);
         return ((outputMax - outputMin) * product) + outputMin;
     };
+    get enabled() {
+        return this._enabled;
+    }
+    set enabled(value) {
+        let me=this;
+        this._enabled = value;
+        this.$main.attr("one-by-one-enabled",value?'1':'0');
+        if(!this.enabled){
+            TweenMax.set(this.$content,{"top":0});
+        }else{
+            this.refresh();
+
+            setTimeout(function(){
+                me.refresh()
+            },1000);
+
+        }
+
+    }
 
     static initFromDom(){
         $("[one-by-one='']").each(function(){

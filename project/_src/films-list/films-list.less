@@ -5,51 +5,89 @@
   left: 0;
   height: 100vw;
   width: 100%;
-
-
-
-
   .list{
     transition: all 0.5s ease-out;
     max-width: 90%;
     margin: 0 auto;
-    //outline: 1px solid yellow;outline-offset: -2px;
     .film{
       .h0{
-
       }
     }
   }
+
+
+
 }
 
+//masque
+.film{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  a{
+    //mix-blend-mode: lighten;
+    background-color: rgba(0, 0, 0, 1);
+    //border: 2px solid black;
+    overflow: hidden;
+    //padding: 40px;
+    z-index: 1;
+    position: relative;
+    top: 0;
+    display: inline-block;
+    backface-visibility: hidden;
+    &:hover{
+      text-shadow: 0px 0px 1vw #ffffff;
+      //mix-blend-mode: screen;
+      //color: #222;
+    }
+    .previews{
+      overflow: hidden;
+      mix-blend-mode: multiply;
+      position: absolute;
+      z-index: 2;
+      background-color: red;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left:0;
+
+    }
+  }
+  color:#fff;
+  filter: brightness(0.6) saturate(0);
+  //transition: filter 1s;
+  &[the-one]{
+    color: #fff;
+    filter: none;
+  }
+}
 
 .film{
-  //outline: 1px solid #ff5066;outline-offset: -4px;
   line-height: 1;
-  height: 17vw;
+  font-size:25vw;
+  height: 25vw;
   overflow: hidden;
   position: relative;
   text-align: center;
-  color:#f00;
+  &.paused{
+    >video{
+      display: none;
+    }
+
+  }
   a{
     position: relative;
-    z-index: 1;
     text-decoration: none !important;
-    //mix-blend-mode: lighten;
-    background-color: rgba(0, 0, 0, 0.53);
     .previews{
       pointer-events: none;
-      mix-blend-mode: multiply;
-      z-index: 2;
       .preview{
-        background-color: yellow;
         //affiche que la premiere preview
         display: none;
         &:nth-child(1){
           display: block;
         }
 
-        >video{
+        >video,>img{
           display: block;
           position: absolute;
           top: 0;
@@ -60,15 +98,5 @@
         }
       }
     }
-
-
   }
-
-  &[the-one]{
-    color: #FFF;
-  }
-
-
-
-
 }
