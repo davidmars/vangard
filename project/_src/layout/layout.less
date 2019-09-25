@@ -1,15 +1,16 @@
 
 #root{
+  --grid-padding:1vw;
   --nav-menu-width:300px;
-  --nav-bar-height:50px;
+  --nav-bar-height:6vw;
   @media(min-width: @screen-md){
     --nav-menu-width:400px;
-    --nav-bar-height:80px;
+    --nav-bar-height:6vw;
   }
   //à partir de là on est plus en burger
   @media(min-width: @screen-lg){
     //--menu-width:400px; plus d'intérêt
-    --nav-bar-height:100px;
+    --nav-bar-height:6vw;
   }
 }
 
@@ -40,7 +41,7 @@ html{
   transition: transform 0.25s;
   transform-origin: top;
   &[one-by-one-enabled='0']{
-    background-color: red;
+    //background-color: red;
   }
 }
 
@@ -64,15 +65,21 @@ body{
     }
   }
 
+
+  #main-content{
+    z-index: @z-page;
+  }
+
+  #films{
+    display: none;
+  }
   &[is-home='true']{
+    #films{
+      display: block;
+    }
     #main-content{
       display: none;
     }
   }
 
-  &[is-home='false']{
-    #films{
-      display: none;
-    }
-  }
 }

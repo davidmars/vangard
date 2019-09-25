@@ -16,7 +16,6 @@ use Pov\Utils\StringUtils; ?>
     <div id="nav-content" class="container-fluid">
         <div class="row">
             <div class="col-sm-3">
-                <hr>
                 <?=$menu
                     ->wysiwyg()
                     ->field("vars.leftContent_lang")
@@ -28,10 +27,8 @@ use Pov\Utils\StringUtils; ?>
             </div>
             <div class="col-sm-7">
                 <?//films list placeholder?>
-                <hr>
             </div>
             <div class="col-sm-2">
-                <hr>
                 <?=$menu
                     ->wysiwyg()
                     ->field("vars.rightContent_lang")

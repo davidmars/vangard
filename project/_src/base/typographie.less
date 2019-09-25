@@ -10,13 +10,23 @@ body {
 .text-rich{
   line-height: 1.7;
   h2{
+    &:before{
+      content: "";
+      display: block;
+      height: 5px;
+      width: 100%;
+      border-top: 5px solid var(--color-grey-dark);
+      border-top: 10px solid var(--color-grey-dark);
+      margin-bottom: 0.75em;
+      margin-top: 1.5em;
+    }
     color: var(--color-white);
     font-size: inherit;
     margin-bottom: 0.75em;
   }
   h5{
     color: inherit;
-    font-size: 80%;
+    font-size: 70%;
     font-weight: inherit;
   }
   a{
@@ -31,6 +41,8 @@ body {
 
 
   body{
+    --typo-size-h1:5vw;
+
     font-family: var(--font-paragraphe-normal);
     font-size: 12px;
     @media(min-width: @screen-sm){
@@ -53,7 +65,7 @@ body {
   h1,.h1{
     font-family: var(--font-DrukXCondensed-super);
     text-transform: uppercase;
-    font-size: 5vw;
+    font-size:var(--typo-size-h1);
     @media(min-width: @screen-sm){
       //font-size: 3em;
     }

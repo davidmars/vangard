@@ -48,6 +48,7 @@ export default class Site{
             filmsList.refresh()
         },1000);
         Site.navActive();
+        me.onPageDone();
     }
 
     /**

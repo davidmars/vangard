@@ -6,4 +6,4 @@ the()->configProjectUrl->seoActive=true;
 the()->boot->loadProject("project");
 the()->project->langCode="en";
 
-include (__DIR__ . "/pp.vangard.paris.php");
+include (__DIR__ . "/pp.shared.php");

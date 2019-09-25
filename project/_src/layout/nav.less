@@ -7,12 +7,14 @@
 #nav-bar{
   position: fixed;
   z-index: @z-nav;
-  top: 0;
+  top:  0;
   left: 0;
-  height: var(--nav-bar-height,80px);
+  padding: var(--grid-padding);
+  height: var(--nav-bar-height);
+  //outline: 1px solid red;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  //padding: 10px;
   align-items: center;
   //background-color: #1ab7ea;
   color: var(--color-white);
@@ -28,8 +30,9 @@
   height: 100%;
   position: fixed;
   //la place du logo
-  top: calc( var(--nav-bar-height));
-  max-height: calc(100vh - var(--nav-bar-height));
+  top: 0;
+  padding-top: var(--nav-bar-height);
+  max-height: calc(100vh);
   left: 0;
   display: flex;
   //padding: var(--spacing-medium);
@@ -41,10 +44,23 @@
 
   hr{
     border-top-width: 5px;
+    //border-top-style: dotted;
     border-color: var(--color-grey-dark);
+    //flex-grow: 1;
+    //flex-shrink: 0;
+    width: 100%;
   }
   .row{
+    width: 100%;
+
     >div{
+      //display: flex;
+      //flex-direction: column;
+      //justify-content: center;
+      //align-items: center;
+      padding-left: var(--grid-padding);
+      padding-right: var(--grid-padding);
+      min-height: 100px;
       max-height: calc(100vh - var(--nav-bar-height));
       //outline: 1px solid rgba(255, 255, 0, 0.13);outline-offset: -10px;
       overflow-x: hidden;
@@ -52,15 +68,17 @@
 
       /* Demonstrate a "mostly customized" scrollbar
        * (won't be visible otherwise if width/height is specified) */
+      /*
       &::-webkit-scrollbar {
         width: 1px;
         height: 1px;
-        background-color: #000; /* or add it to the track */
+        background-color: #000;
       }
-      /* Add a thumb */
       &::-webkit-scrollbar-thumb {
         background: #111;
       }
+
+       */
 
       background-color: rgba(0, 0, 0, 0.2);
       padding-bottom: 15px;
@@ -79,16 +97,23 @@
 //open / close
 
 #nav-content{
+  z-index:@z-under-page;
   transition: all 0.2s;
-  opacity:0;
+  opacity:0.0;
   pointer-events: none;
+  *{
+    pointer-events: none;
+  }
+  a,[contenteditable]{
+    pointer-events: auto;
+  }
   transform: scale(1.3);
 }
 body.nav-open{
   #nav-content{
+    z-index: @z-nav;
     opacity: 1;
     transform: scale(1) translateX(0px);
-    pointer-events: auto;
   }
 }
 
