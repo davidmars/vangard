@@ -1,6 +1,6 @@
 <?php
 /**
- * @var Preview $vv
+ * @var \Classiq\Models\Preview $vv
  */
 
 use Classiq\Models\Classiqmodel;

@@ -3,6 +3,8 @@
 
 namespace Classiq\Models;
 
+use GUMP;
+
 /**
  * Class Preview
  * @package Classiq\Models
@@ -45,5 +47,25 @@ class Preview extends Classiqmodel
             return $r;
         }
         return null;
+    }
+
+    public function getErrors(){
+        /** @var Filerecord $video */
+        $video=$this->video(false);
+        $errors=parent::getErrors();
+        if($this->video){
+            if(!$video){
+                $errors["video"]="problème vidéo";
+            }
+            if($video && !strpos($video->mime,"webm")){
+                $errors["video"]="Il faudrait encoder la vidéo en .webm";
+            }
+        }
+
+        if($this->thumbnail && !$this->thumbnail(true)){
+            $errors["thumbnail"]="problème preview";
+        }
+
+        return $errors;
     }
 }
