@@ -1,6 +1,7 @@
 import Slick from "./organisms/Slick.js";
 import OneByOne from "./films-list/OneByOne";
 import FilmPreview from "./films-list/FilmPreview";
+import NavMenu from "./layout/NavMenu";
 
 export default class Site{
     constructor() {
@@ -13,14 +14,29 @@ export default class Site{
         //---------------------go------------------------------------------
         me.resizeStage();
         me.onDomChange();
+        window.navMenu=new NavMenu();
         /**
          * La liste des films
          * @type {OneByOne}
          */
-        this.filmsList=window.filmsList=new OneByOne($("#films"),1,true);
+        this.filmsList=window.filmsList=new OneByOne($("#films"),1.5,false);
+        this.filmsList.isModeHover=true;
+
+
+        window.navMenu.on("OPEN",function(){
+            //filmsList.speed=1.5;
+            filmsList.lockCenter=false;
+            filmsList.refresh();
+        });
+        window.navMenu.on("CLOSE",function(){
+            filmsList.speed=1;
+            filmsList.lockCenter=false;
+            filmsList.refresh();
+        });
+
         this.filmsList.$main.find(".film").each(function(){
             new FilmPreview($(this))
-        })
+        });
         this.filmsList.on("ACTIVE",function($film){
             console.log("active")
             if($film){
@@ -59,8 +75,6 @@ export default class Site{
 
         let me=this;
 
-        require("./layout/NavMenu");
-        NavMenu.__init();
         require("./components/data-zoom-img");
         require("./components/data-is-lang");
         require("./organisms/data-cards-container.js");
@@ -78,7 +92,7 @@ export default class Site{
             setTimeout(function(){
                 PovHistory.readyToinject=true;
             },500);
-            NavMenu.close();
+            navMenu.close();
         });
 
         //changement d'url et HTML injecté

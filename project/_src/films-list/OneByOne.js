@@ -5,6 +5,27 @@ require("./one-by-one.less");
  *
  */
 export default class OneByOne extends EventEmitter{
+    get isModeHover() {
+        return this._isModeHover;
+    }
+
+    set isModeHover(value) {
+        let me=this;
+        let $items=this.$content.find(".item");
+        this.$main.attr("is-mode-hover",value?"true":"false");
+        this._isModeHover = value;
+        this.$main.height("auto");
+        $items.off("mouseenter").off("mouseleave");
+        if(value){
+            $items.on("mouseenter",function(){
+                me._isTheOne($(this));
+            });
+            $items.on("mouseleave",function(){
+                me._isNotTheOne($(this));
+            })
+        }
+
+    }
 
     constructor($main,speed=1,lockCenter){
         super();
@@ -23,6 +44,7 @@ export default class OneByOne extends EventEmitter{
          */
         this._enabled=true;
         this.enabled=true;
+        this._isModeHover=false;
     }
 
     /**
@@ -30,12 +52,16 @@ export default class OneByOne extends EventEmitter{
      * @private
      */
     _refreshVariables(){
+        this.__winHeight = $(window).height();
         this.$items=this.$content.find(".item");
         this.__itemsCount=this.$items.length;
         this.__itemHeight=this.$items.outerHeight();
+
         this.$main.height(
-            this.__itemsCount*this.__itemHeight*(1/this.speed)
+            this.__itemsCount*this.__itemHeight + this.__winHeight
         );
+
+
         this.__contentHeight=this.$content.height();
         this.__docHeight = $(document).height();
         this.__winHeight = $(window).height();
@@ -46,12 +72,18 @@ export default class OneByOne extends EventEmitter{
      * Rafraichit la taille (en fonction du nombre d'items)
      */
     refresh(){
+        if(this.isModeHover){
+           return;
+        }
         this._refreshVariables();
         this.loop();
     }
 
     loop(){
-        if(!this.enabled){
+        if(!this.enabled || this.isModeHover){
+            if(this.isModeHover){
+                this.$main.css("opacity",1+Math.random());
+            }
             return;
         }
         let itemsCount=this.__itemsCount;
@@ -78,16 +110,20 @@ export default class OneByOne extends EventEmitter{
             this._lastActive=active;
             let $oldActive=this.$items.filter("[the-one]");
             let $active=this.$items.eq(active);
-            this.$items.removeAttr("the-one");
-            this.$items.eq(active).attr("the-one","");
-            this.emit("INACTIVE",$oldActive.length?$oldActive:null);
-            this.emit("ACTIVE",$active.length?$active:null);
+            if($oldActive.length){
+                this._isNotTheOne($oldActive);
+            }
+            if($active.length){
+                this._isTheOne($active);
+            }
+
         }
         if(this.lockCenter){
             y=this.ratio(active,itemsCount-1,max,0,min);
         }
         y=Math.round(y);
         TweenMax.set(this.$content,{"top":y});
+        //TweenMax.to(this.$content,3,{"y":y,ease:Elastic.easeOut});
         /*
         console.log("scrolll",scrolll);
         console.log("winH",winH);
@@ -100,6 +136,17 @@ export default class OneByOne extends EventEmitter{
 
 
     }
+
+    _isTheOne($item){
+        this.emit("ACTIVE",$item);
+        $item.attr("the-one","");
+
+    }
+    _isNotTheOne($item){
+        this.emit("INACTIVE",$item);
+        $item.removeAttr("the-one");
+    }
+
 
     /**
      *

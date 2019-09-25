@@ -1,30 +1,29 @@
-var NavMenu={
-    $nav:$("#nav"),
-    open:function(){
+var EventEmitter = require('event-emitter-es6');
+
+export default class NavMenu extends EventEmitter{
+    constructor(){
+        super();
+        let me=this;
+        this.$nav=$("#nav");
+        $body.on("click","[data-nav-menu-toggle]",function(){
+            me.toggle()
+        })
+    }
+    open(){
         $body.addClass("nav-open");
-        filmsList.speed=1;
-        filmsList.lockCenter=false;
-        filmsList.refresh();
+        this.emit("OPEN");
         //films.enabled=false;
-    },
-    close:function(){
+    }
+    close(){
         $body.removeClass("nav-open");
-        filmsList.speed=1.5;
-        filmsList.lockCenter=true;
-        filmsList.refresh();
+        this.emit("CLOSE");
         //films.enabled=true;
-    },
-    toggle:function(){
+    }
+    toggle(){
         if($body.is(".nav-open")){
             this.close();
         }else{
             this.open();
         }
-    },
-    __init:function () {
-        $body.on("click","[data-nav-menu-toggle]",function(){
-            NavMenu.toggle()
-        })
     }
-};
-window.NavMenu=NavMenu;
+}
