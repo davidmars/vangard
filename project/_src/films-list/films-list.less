@@ -35,11 +35,35 @@
     top: 0;
     display: inline-block;
     backface-visibility: hidden;
+    span{
+      transition: transform 0.1s;
+    }
     &:hover{
-      text-shadow: 0px 0px 1vw #ffffff;
+      //text-shadow: 0px 0px 1vw #ffffff;
       //mix-blend-mode: screen;
       //color: #222;
+      span{
+        transform: skewY(-3deg);
+      }
+      i{
+        transform: rotateX(180deg) rotateY(180deg) skewY(-3deg);
+      }
     }
+    >span{
+      display: block;
+      line-height: 1;
+      margin-bottom: -0.15em;
+    }
+
+    >i{
+      display: block;
+      font-style: normal;
+      font-size: 1vw;
+      line-height: 1;
+      font-family: var(--font-paragraphe-titre);
+      margin-top: -1.5vw;
+    }
+
     .previews{
       overflow: hidden;
       mix-blend-mode: multiply;
@@ -50,7 +74,6 @@
       height: 100%;
       top: 0;
       left:0;
-
     }
   }
   color:#fff;
@@ -65,7 +88,7 @@
 .film{
   line-height: 1;
   font-size:25vw;
-  height: 25vw;
+  height: 29vw;
   overflow: hidden;
   position: relative;
   text-align: center;
@@ -78,6 +101,7 @@
   a{
     position: relative;
     text-decoration: none !important;
+    text-align: center;
     .previews{
       pointer-events: none;
       .preview{
