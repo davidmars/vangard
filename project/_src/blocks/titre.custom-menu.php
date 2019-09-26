@@ -17,9 +17,3 @@ use Classiq\Models\JsonModels\ListItem;
     ->onSavedRefreshListItem($vv)
     ->buttonValueSetter("h2")
 ?>
-<?=$vv->wysiwyg()
-    ->field("style")
-    ->string()
-    ->onSavedRefreshListItem($vv)
-    ->buttonValueSetter("h3")
-?>

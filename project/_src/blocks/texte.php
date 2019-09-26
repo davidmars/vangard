@@ -6,7 +6,7 @@
  */
 ?>
 <div <?=$vv->wysiwyg()->attr()?> class="block block-texte py-medium">
-    <div class="container">
+    <div class="container-page">
             <?=$vv->wysiwyg()
                 ->field("texte_lang")
                 ->string(\Pov\Utils\StringUtils::FORMAT_HTML)

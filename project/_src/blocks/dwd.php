@@ -16,11 +16,8 @@ if($file){
 ?>
 <? if (cq()->wysiwyg() || $url): ?>
 <div <?= $vv->wysiwyg()->openConfigOnCreate()->attr() ?> class="block block-dwd py-medium">
-<div class="container">
+<div class="container-page">
     <? if ($url): ?>
-        <label class="mb-small">
-            <?= trad("télécharger") ?>
-        </label>
         <a href="<?= $url ?>" target="_blank" class="row">
                 <?=pov()->svg->use("startup-arrow-down")?>
             <div>
