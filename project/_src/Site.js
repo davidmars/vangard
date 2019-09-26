@@ -2,6 +2,7 @@ import Slick from "./organisms/Slick.js";
 import OneByOne from "./films-list/OneByOne";
 import FilmPreview from "./films-list/FilmPreview";
 import NavMenu from "./layout/NavMenu";
+import PrevNext from "./components/prev-next/PrevNext";
 
 export default class Site{
     constructor() {
@@ -149,5 +150,6 @@ export default class Site{
             //hit google analytics
             gtag('config', LayoutVars.googleAnalyticsId, {'page_path': location.pathname});
         }
+        PrevNext.initFromDom();
     }
 }

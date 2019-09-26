@@ -1,9 +1,9 @@
 <?php
 if(the()->human->isAdmin){
     //conf backoffice
-    \Classiq\Wysiwyg\WysiwygConfig::inst()->recordsWeCanBrowse=["page","film","preview"];
-    \Classiq\Wysiwyg\WysiwygConfig::inst()->recordsWeCanCreate=["page","film","preview"];
-    \Classiq\Wysiwyg\WysiwygConfig::inst()->recordsWeCanSelect=["page","film","preview"];
+    \Classiq\Wysiwyg\WysiwygConfig::inst()->recordsWeCanBrowse=["Page","Film","Preview"];
+    \Classiq\Wysiwyg\WysiwygConfig::inst()->recordsWeCanCreate=["Page","Film","Preview"];
+    \Classiq\Wysiwyg\WysiwygConfig::inst()->recordsWeCanSelect=["Page","Film","Preview"];
 }
 
 //seo

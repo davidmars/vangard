@@ -1,0 +1,15 @@
+<svg version="1.0" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 142 70" enable-background="new 0 0 142 70" xml:space="preserve">
+
+	<line fill="none" stroke="currentcolor" x1="70" y1="70" x2="70" y2="0"/>
+
+	<line class="horiz-line" fill="none" stroke="currentcolor" x1="0" y1="35" x2="140" y2="35"/>
+
+	<g id="next">
+		<polyline fill="none" stroke="currentcolor" points="115,60 140,35 115,10 	"/>
+	</g>
+
+	<g id="prev">
+		<polyline fill="none" stroke="currentcolor" points="25,10 0,35 25,60 	"/>
+	</g>
+
+</svg>

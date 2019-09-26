@@ -6,12 +6,35 @@
     <fieldset>
         <label>Vidéo principale</label>
         <?=$vv->wysiwyg()->field("video")
-            ->file()
-            ->setMimeAcceptVideoOnly()
-            //->onSavedRefresh("$(this).closest('[data-pov-v-path]')")
-            ->button()->render()
+            ->string()
+            ->textarea("url vimeo")
         ?>
     </fieldset>
+    <fieldset>
+        <label>Sous titre</label>
+        <?=$vv->wysiwyg()->field("subtitle_en")
+            ->string()
+            ->setPlaceholder("Mon super sous titre ici")
+            ->input()
+        ?>
+    </fieldset>
+    <fieldset>
+        <label>Catégorie</label>
+        <?=$vv->wysiwyg()->field("category_en")
+            ->string()
+            ->setPlaceholder("Advertising, Music video...")
+            ->input()
+        ?>
+    </fieldset>
+    <fieldset>
+        <label>Année</label>
+        <?=$vv->wysiwyg()->field("year")
+            ->string()
+            ->setPlaceholder("1999")
+            ->input()
+        ?>
+    </fieldset>
+
 
     <fieldset>
         <label>Previews</label>

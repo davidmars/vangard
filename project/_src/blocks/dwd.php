@@ -18,11 +18,11 @@ if($file){
 <div <?= $vv->wysiwyg()->openConfigOnCreate()->attr() ?> class="block block-dwd py-medium">
 <div class="container-page">
     <? if ($url): ?>
-        <a href="<?= $url ?>" target="_blank" class="row">
+        <a href="<?= $url ?>" target="_blank" class="">
                 <?=pov()->svg->use("startup-arrow-down")?>
             <div>
                 <?= $label ?>
-                <br><small><?=$details?></small>
+                <br><h5><?=$details?></h5>
             </div>
         </a>
     <? else: ?>

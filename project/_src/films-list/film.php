@@ -11,13 +11,12 @@ $film=$vv->targetUid(true);
     <div class="film item" <?=$vv->wysiwyg()->attr()?>>
         <a class="h0" href="<?=$film->href()?>">
             <span><?=$film->name_lang?></span>
-            <i>subtitle - here baby</i>
+            <i><?=$film->category_lang?></i>
             <div class="previews">
                 <?foreach ($film->previews() as $p):?>
                     <?=$view->render("films-list/preview",$p)?>
                 <?endforeach?>
             </div>
         </a>
-
     </div>
 <?endif?>

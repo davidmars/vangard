@@ -7,18 +7,27 @@ body {
   --font-paragraphe-normal: "Futura Std";
 }
 
+
+.divider(){
+  height: 3px;
+  background-color: var(--color-grey-dark);
+  border-top: none;
+  margin-bottom: calc(var(--typo-size-normal) * 1.5);
+  margin-top: calc(var(--typo-size-normal)*0.5);
+}
+
+hr{
+  .divider();
+}
+
 .text-rich{
   line-height: 1.7;
   h2{
     &:before{
       content: "";
       display: block;
-      height: 5px;
       width: 100%;
-      border-top: 5px solid var(--color-grey-dark);
-      border-top: 10px solid var(--color-grey-dark);
-      margin-bottom: 0.75em;
-      margin-top: 1.5em;
+     .divider();
     }
     color: var(--color-white);
     font-size: inherit;
@@ -41,16 +50,22 @@ body {
 
 
   body{
-    --typo-size-h1:5vw;
-
     font-family: var(--font-paragraphe-normal);
-    font-size: 12px;
+
+    --typo-size-h1:10vw;
+    --typo-size-normal:12px;
+    --typo-size-small:10px;
     @media(min-width: @screen-sm){
-      font-size: 14px;
+      --typo-size-small:12px;
+      --typo-size-normal:14px;
+      --typo-size-h1:10vw;
     }
     @media(min-width: @screen-xl){
-      font-size: 18px;
+      --typo-size-normal:18px;
+      --typo-size-small:12px;
+      --typo-size-h1:5vw;
     }
+    font-size: var(--typo-size-normal);
   }
   h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{
     font-family: var(--font-paragraphe-titre);
@@ -75,13 +90,9 @@ body {
 
   }
   h2,.h2{
-    font-size: 1.75em;
-    @media(min-width: @screen-sm){
-      font-size: 2.5em;
-    }
-    @media(min-width: @screen-lg){
-      font-size: 3vw;
-    }
+    font-family: var(--font-paragraphe-titre);
+    font-size: var(--typo-size-normal);
+    text-transform: none;
   }
   h3,.h3{
     font-size: 1.5em;
@@ -93,7 +104,8 @@ body {
     font-size: 1.15em;
   }
   h5,.h5{
-    font-size: 1em;
+    font-weight: normal;
+    font-size: var(--typo-size-small);
   }
   h6,.h6{
     font-size: 0.8em;

@@ -5,10 +5,24 @@
   left: 0;
   height: 100vw;
   width: 100%;
+
+  >a{
+    padding: 5vw;
+    text-align: center;
+    svg{
+      width: 30px;
+      height: 30px;
+    }
+    display: none;
+    .nav-open & {
+      display: block;
+    }
+  }
+
   .list{
     //déplacement de la liste
     //transition: all 0.1s ease-out;
-    max-width: 90%;
+    max-width: 80vw;
     margin: 0 auto;
     .film{
       .h0{
@@ -26,16 +40,19 @@
     transition: transform 0.1s;
   }
   &:hover{
+    /*
     span{
       transform: skewY(-3deg);
     }
     i{
       transform: rotateX(180deg) rotateY(180deg) skewY(-3deg);
     }
+
+     */
   }
   //the one ou pas?
   color:#fff;
-  filter: brightness(1) saturate(0);
+  //filter: brightness(1);
   &[the-one]{
     filter: none;
   }

@@ -1,0 +1,62 @@
+[data-js="PrevNext"]{
+
+  position: relative;
+  --svg-width:100px;
+  --svg-height: 70px;
+  --padd:10px;
+
+  @media(min-width: @screen-md){
+    --svg-width:142px;
+    --svg-height: 70px;
+    --padd:30px;
+  }
+
+    height: var(--svg-height);
+    display: flex;
+    flex-grow: 1;
+    >a{
+      //font-size: 30px;
+      width: 50%;
+      flex-shrink: 0;
+      height: 100%;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      >span{
+        opacity: 0.2;
+        transition: opacity 0.5s;
+      }
+      &:hover{
+        >span{
+          opacity: 1;
+        }
+      }
+
+      &[prev]{
+        justify-content: flex-end;
+        text-align: right;
+        >span{
+          padding-right: calc(var(--svg-width) / 2 + var(--padd));
+        }
+      }
+      &[next]{
+        >span{
+          padding-left: calc(var(--svg-width) / 2 + var(--padd));
+        }
+      }
+
+    }
+    svg{
+      display: block;
+      width: var(--svg-width);
+      height: 100%;
+      top:0;
+      left:calc(50% - var(--svg-width) / 2);
+      position: absolute;
+      pointer-events: none;
+    }
+
+
+
+}
