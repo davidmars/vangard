@@ -5,27 +5,9 @@ require("./one-by-one.less");
  *
  */
 export default class OneByOne extends EventEmitter{
-    get isModeHover() {
-        return this._isModeHover;
-    }
 
-    set isModeHover(value) {
-        let me=this;
-        let $items=this.$content.find(".item");
-        this.$main.attr("is-mode-hover",value?"true":"false");
-        this._isModeHover = value;
-        this.$main.height("auto");
-        $items.off("mouseenter").off("mouseleave");
-        if(value){
-            $items.on("mouseenter",function(){
-                me._isTheOne($(this));
-            });
-            $items.on("mouseleave",function(){
-                me._isNotTheOne($(this));
-            })
-        }
 
-    }
+
 
     constructor($main,speed=1,lockCenter){
         super();
@@ -137,11 +119,41 @@ export default class OneByOne extends EventEmitter{
 
     }
 
+    get isModeHover() {
+        return this._isModeHover;
+    }
+    set isModeHover(value) {
+        let me=this;
+        let $items=this.$content.find(".item");
+        this.$main.attr("is-mode-hover",value?"true":"false");
+        this._isModeHover = value;
+        this.$main.height("auto");
+        $items.off("mouseenter").off("mouseleave");
+        if(value){
+            $items.on("mouseenter",function(){
+                me._isTheOne($(this));
+            });
+            $items.on("mouseleave",function(){
+                me._isNotTheOne($(this));
+            })
+        }
+    }
+    /**
+     * Définit un itm comme actif
+     * @param $item
+     * @private
+     */
     _isTheOne($item){
         this.emit("ACTIVE",$item);
         $item.attr("the-one","");
 
     }
+
+    /**
+     * Définit un item comme inactif
+     * @param $item
+     * @private
+     */
     _isNotTheOne($item){
         this.emit("INACTIVE",$item);
         $item.removeAttr("the-one");

@@ -19,18 +19,18 @@ export default class Site{
          * La liste des films
          * @type {OneByOne}
          */
-        this.filmsList=window.filmsList=new OneByOne($("#films"),1.5,false);
+        this.filmsList=window.filmsList=new OneByOne($("#films"),1.5,true);
         this.filmsList.isModeHover=true;
 
 
         window.navMenu.on("OPEN",function(){
             //filmsList.speed=1.5;
-            filmsList.lockCenter=false;
+            filmsList.lockCenter=true;
             filmsList.refresh();
         });
         window.navMenu.on("CLOSE",function(){
             filmsList.speed=1;
-            filmsList.lockCenter=false;
+            filmsList.lockCenter=true;
             filmsList.refresh();
         });
 
