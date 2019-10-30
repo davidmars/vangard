@@ -11,6 +11,7 @@
   left: 0;
   padding: var(--grid-padding);
   height: var(--nav-bar-height);
+  width: 100%;
   //outline: 1px solid red;
   display: flex;
   justify-content: space-between;
@@ -18,10 +19,34 @@
   align-items: center;
   //background-color: #1ab7ea;
   color: var(--color-white);
-  >button{
+  >button,>a{
+    text-decoration: none;
     height: var(--nav-bar-height,80px);
+    //border: 1px solid red;
   }
 
+
+  [burger-icon]{
+
+
+    color: #fff;
+    width: var(--nav-bar-height,80px);
+    height: var(--nav-bar-height,80px);
+    //outline: 1px solid pink;
+    outline-offset: -1px;
+
+    svg{
+      width: 100px;
+      height: 100px;
+      //outline: 1px solid yellow;
+      *{
+        //shape-rendering:crispEdges !important;
+      }
+    }
+    line{
+      stroke: currentColor;
+    }
+  }
 
 }
 #nav-content{

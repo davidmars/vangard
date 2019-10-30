@@ -7,9 +7,10 @@ use Pov\Utils\StringUtils; ?>
 
     <div id="nav-bar" >
 
-        <button data-nav-menu-toggle class="unstyled logo">
+        <a href="<?=site()->homePage()->href()?>"  class="unstyled logo">
             <?=$view->render("layout/hello-logo")?>
-        </button>
+        </a>
+        <button data-nav-menu-toggle burger-icon class="unstyled"></button>
 
     </div>
 

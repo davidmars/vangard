@@ -4,10 +4,6 @@ $list=\Classiq\Models\Nav::getByName("liste de films",true);
 ?>
 <div id="films" one-by-one>
 
-    <a href="<?=site()->homePage()->href()?>">
-        <?=pov()->svg->use("startup-close")?>
-    </a>
-
     <?=$list->wysiwyg()->field("vars.films")
     ->listJson("films-list/film")
     ->contextMenuSize(SIZE_SMALL)
