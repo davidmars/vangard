@@ -1,9 +1,14 @@
 #films{
-
+  //padding-top: calc(50vh - 15vw);
+  //padding-bottom: calc(50vh - 15vw);
   position: absolute;
   top: 0;
   left: 0;
-  height: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  //height: auto;
+
+
   width: 100%;
 
   >a{
@@ -20,12 +25,16 @@
   }
 
   .list{
+    padding-top: calc(50vh - 15vw);
+    padding-bottom: calc(50vh - 15vw);
     //déplacement de la liste
     //transition: all 0.1s ease-out;
-    max-width: 80vw;
+    //max-width: 80vw;
     margin: 0 auto;
     .film{
+      transition: all 0.5s ease-in-out;
       .h0{
+        transition: all 0.5s ease-in-out;
       }
     }
   }

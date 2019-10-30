@@ -3,6 +3,9 @@ import OneByOne from "./films-list/OneByOne";
 import FilmPreview from "./films-list/FilmPreview";
 import NavMenu from "./layout/NavMenu";
 import PrevNext from "./components/prev-next/PrevNext";
+import TextMotion from "./motion/TextMotion";
+import Films from "./films-list/Films";
+require("./utils");
 
 export default class Site{
     constructor() {
@@ -16,10 +19,28 @@ export default class Site{
         me.resizeStage();
         me.onDomChange();
         window.navMenu=new NavMenu();
+        window.textMotion=new TextMotion();
+        window.films=new Films($("#films"));
+        textMotion.apparitions();
+
+
+        /*
+        setInterval(function(){
+            $("#films").find("[tt]").each(function(){
+                let r=[];
+                while (r.length<8){
+                    r.push(randChar())
+                }
+               $(this).text(r.join(""))
+            });
+        },20)
+        */
+
         /**
          * La liste des films
          * @type {OneByOne}
          */
+        /*
         this.filmsList=window.filmsList=new OneByOne($("#films"),1.5,true);
         this.filmsList.isModeHover=true;
 
@@ -30,20 +51,22 @@ export default class Site{
             filmsList.refresh();
         });
         window.navMenu.on("CLOSE",function(){
+
             filmsList.speed=1;
             filmsList.lockCenter=true;
             filmsList.refresh();
+
         });
 
         this.filmsList.$main.find(".film").each(function(){
             new FilmPreview($(this))
         });
+
+
         this.filmsList.on("ACTIVE",function($film){
+
             console.log("active")
             if($film){
-                /**
-                 * @type {FilmPreview}
-                 */
                 let o=$film.data("obj");
                 o.playFirst();
 
@@ -53,9 +76,6 @@ export default class Site{
         this.filmsList.on("INACTIVE",function($film){
             console.log("inactive")
             if($film) {
-                /**
-                 * @type {FilmPreview}
-                 */
                 let o=$film.data("obj");
                 o.pauseAll();
                 o.change();
@@ -64,6 +84,7 @@ export default class Site{
         setInterval(function(){
             filmsList.refresh()
         },1000);
+         */
         Site.navActive();
         me.onPageDone();
     }

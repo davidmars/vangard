@@ -2,7 +2,7 @@
 /** @var \Classiq\Models\Nav $menu */
 $list=\Classiq\Models\Nav::getByName("liste de films",true);
 ?>
-<div id="films" one-by-one>
+<div id="films" zzone-by-one>
 
     <?=$list->wysiwyg()->field("vars.films")
     ->listJson("films-list/film")

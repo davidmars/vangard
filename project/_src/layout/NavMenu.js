@@ -17,11 +17,16 @@ export default class NavMenu extends EventEmitter{
         this.burgerBtn.close();
         this.emit("OPEN");
         //films.enabled=false;
+
+        films.scroll.update();
+        films.scroll.scrollTo(0,0,1000)
     }
     close(){
         $body.removeClass("nav-open");
         this.burgerBtn.menu();
         this.emit("CLOSE");
+        films.scroll.update();
+        //films.scroll.scrollTo(0,0,1000)
         //films.enabled=true;
     }
     toggle(){
