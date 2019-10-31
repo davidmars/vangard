@@ -19,10 +19,10 @@ if(isset($vv["next"])){
 <nav data-js="PrevNext" class="my-big">
 
         <?if($prev):?>
-        <a class="h1" prev href="<?=$prev->href()?>"><span><?=$prev->name?></span></a>
+        <a class="h1" prev  href="<?=$prev->href()?>"><span page-transition-click><?=$prev->name?></span></a>
         <?endif;?>
         <?if($next):?>
-        <a class="h1" next href="<?=$next->href()?>"><span><?=$next->name?></span></a>
+        <a class="h1" next href="<?=$next->href()?>"><span page-transition-click><?=$next->name?></span></a>
         <?endif?>
         <div class="svg-icon"></div>
         <?//=$view->render("svg","prev-next")?>

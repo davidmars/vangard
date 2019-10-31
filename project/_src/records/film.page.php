@@ -72,13 +72,13 @@ $view->inside("layout/layout",$vv);
                         ?>
                     </div>
 
-                    <hr>
+                    <hr class="my-big">
 
                 </div>
-                <div class="col-sm-2">
+                <div class="d-none d-xl-block col-xl-2">
 
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-6 col-xl-4">
                     <h2>Credits</h2>
                     <div class="text-rich">
                         <?=$vv->wysiwyg()
