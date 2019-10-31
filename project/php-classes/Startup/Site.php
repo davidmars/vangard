@@ -32,6 +32,10 @@ class Site extends AbstractSingleton
         "blocks/iframe",
         "blocks/dwd"
     ];
+    /**
+     * @var array
+     */
+    public $richTextFormats=["h2","bold","h5","anchor","select-record","removeFormat"];
 
     /**
      * Renvoie la home page

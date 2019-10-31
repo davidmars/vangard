@@ -6,9 +6,9 @@ $view->inside("layout/layout",$vv);
 ?>
 <div class="film-page">
 
-        <div class="top container-page">
-            <div>
-                <iframe class="emebed"
+        <div class="top container-page full">
+            <div class="js-video-wrap">
+                <iframe class="js-video"
                         src="<?=$vv->getVideoEmbed()?>"
                         frameborder="0"
                         allow="autoplay; fullscreen" allowfullscreen>
@@ -17,7 +17,7 @@ $view->inside("layout/layout",$vv);
         </div>
 
         <div class="body container-page">
-            <div class="row align-items-end">
+            <div class="row align-items-end js-after-video">
                 <div class="col-sm-6 col-lg-6 ">
                     <?=$vv->wysiwyg()
                         ->field("name_lang")
@@ -66,6 +66,7 @@ $view->inside("layout/layout",$vv);
                         <?=$vv->wysiwyg()
                             ->field("about_lang")
                             ->string(\Pov\Utils\StringUtils::FORMAT_HTML)
+                            ->setMediumButtons(site()->richTextFormats)
                             ->setPlaceholder("A propos bla bla...")
                             ->htmlTag("div")
                         ?>
@@ -83,6 +84,7 @@ $view->inside("layout/layout",$vv);
                         <?=$vv->wysiwyg()
                             ->field("credits_lang")
                             ->string(\Pov\Utils\StringUtils::FORMAT_HTML)
+                            ->setMediumButtons(site()->richTextFormats)
                             ->setPlaceholder("sous titre")
                             ->htmlTag("div")
                         ?>
