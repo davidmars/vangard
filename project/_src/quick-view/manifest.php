@@ -26,8 +26,8 @@ foreach ($iconsSizes as $size){
 "scope": "<?=$start?>",
 "display": "standalone",
 "orientation": "portrait",
-"background_color": "#222222",
-"theme_color": "#FF0000",
+"background_color": "#000000",
+"theme_color": "#000000",
 "icons": <?=json_encode($icons,JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)?>
 
 
