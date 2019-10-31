@@ -42,9 +42,9 @@ $invert=$vv->getData("invert")?"invert":"";
                     ->field("texte_lang")
                     ->string(\Pov\Utils\StringUtils::FORMAT_HTML)
                     ->setPlaceholder("Saisissez votre texte")
-                    //->setMediumButtons(["bold", "italic","select-record","removeFormat"])
+                    ->setMediumButtons(site()->richTextFormats)
                     ->htmlTag("div")
-                    ->addClass("txt")
+                    ->addClass("text-rich")
                 ?>
             </div>
         </div>

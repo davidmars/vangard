@@ -11,15 +11,9 @@
                 ->field("texte_lang")
                 ->string(\Pov\Utils\StringUtils::FORMAT_HTML)
                 ->setPlaceholder("Saisissez votre texte")
-                ->setMediumButtons([
-                    "h1","h2",
-                    "bold","italic","underline","strikethrough",
-                    "orderedlist","unorderedlist",
-                    "anchor","select-record",
-                    "removeFormat"]
-                )
+                ->setMediumButtons(site()->richTextFormats)
                 ->htmlTag("div")
-                ->addClass("txt")
+                ->addClass("text-rich")
             ?>
     </div>
 </div>

@@ -7,10 +7,10 @@ use Pov\Utils\StringUtils; ?>
 
     <div id="nav-bar" >
 
-        <a href="<?=site()->homePage()->href()?>"  class="unstyled logo">
+        <a href="#" data-nav-menu-toggle  class="unstyled logo">
             <?=$view->render("layout/hello-logo")?>
         </a>
-        <button data-nav-menu-toggle burger-icon class="unstyled"></button>
+        <a href="<?=site()->homePage()->href()?>"  burger-icon class="unstyled"></a>
 
     </div>
 
@@ -21,7 +21,7 @@ use Pov\Utils\StringUtils; ?>
                     ->wysiwyg()
                     ->field("vars.leftContent_lang")
                     ->string(StringUtils::FORMAT_HTML)
-                    ->setMediumButtons(["h2","bold","h5","anchor","select-record","removeFormat"])
+                    ->setMediumButtons(site()->richTextFormats)
                     ->htmlTag("div",true,true)
                     ->addClass("text-rich");
                 ?>
@@ -34,7 +34,7 @@ use Pov\Utils\StringUtils; ?>
                     ->wysiwyg()
                     ->field("vars.rightContent_lang")
                     ->string(StringUtils::FORMAT_HTML)
-                    ->setMediumButtons(["h2","bold","h5","anchor","select-record","removeFormat"])
+                    ->setMediumButtons(site()->richTextFormats)
                     ->htmlTag("div",true,true)
                     ->addClass("text-rich");
                 ?>
