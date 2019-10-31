@@ -16,7 +16,7 @@ if(isset($vv["next"])){
 }
 
 ?>
-<nav data-js="PrevNext">
+<nav data-js="PrevNext" class="my-big">
 
         <?if($prev):?>
         <a class="h1" prev href="<?=$prev->href()?>"><span><?=$prev->name?></span></a>
