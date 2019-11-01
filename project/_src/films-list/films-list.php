@@ -3,7 +3,9 @@
 $list=\Classiq\Models\Nav::getByName("liste de films",true);
 ?>
 <div id="films" zzone-by-one>
-
+    <div class="tick"></div>
+    <div class="line"></div>
+    <div class="mouse-selector"></div>
     <?=$list->wysiwyg()->field("vars.films")
     ->listJson("films-list/film")
     ->contextMenuSize(SIZE_SMALL)

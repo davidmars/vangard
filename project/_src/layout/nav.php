@@ -14,32 +14,35 @@ use Pov\Utils\StringUtils; ?>
 
     </div>
 
-    <div id="nav-content" class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3">
-                <?=$menu
-                    ->wysiwyg()
-                    ->field("vars.leftContent_lang")
-                    ->string(StringUtils::FORMAT_HTML)
-                    ->setMediumButtons(site()->richTextFormats)
-                    ->htmlTag("div",true,true)
-                    ->addClass("text-rich");
-                ?>
-            </div>
-            <div class="col-sm-7">
-                <?//films list placeholder?>
-            </div>
-            <div class="col-sm-2">
-                <?=$menu
-                    ->wysiwyg()
-                    ->field("vars.rightContent_lang")
-                    ->string(StringUtils::FORMAT_HTML)
-                    ->setMediumButtons(site()->richTextFormats)
-                    ->htmlTag("div",true,true)
-                    ->addClass("text-rich");
-                ?>
+    <div id="nav-content">
+        <div class="wrap container-fluid">
+            <div class="row">
+                <div class="col-md-4 col-lg-3 a ">
+                    <?=$menu
+                        ->wysiwyg()
+                        ->field("vars.leftContent_lang")
+                        ->string(StringUtils::FORMAT_HTML)
+                        ->setMediumButtons(site()->richTextFormats)
+                        ->htmlTag("div",true,true)
+                        ->addClass("text-rich");
+                    ?>
+                </div>
+                <div class="col-md-4 col-lg-7 b">
+                    <?//films list placeholder?>
+                </div>
+                <div class="col-md-4 col-lg-2 c">
+                    <?=$menu
+                        ->wysiwyg()
+                        ->field("vars.rightContent_lang")
+                        ->string(StringUtils::FORMAT_HTML)
+                        ->setMediumButtons(site()->richTextFormats)
+                        ->htmlTag("div",true,true)
+                        ->addClass("text-rich");
+                    ?>
+                </div>
             </div>
         </div>
+
 
     </div>
 </nav>

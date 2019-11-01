@@ -9,7 +9,7 @@ $film=$vv->targetUid(true);
 ?>
 <?if($film):?>
     <div class="film item" <?=$vv->wysiwyg()->attr()?>>
-        <a class="h0" href="<?=$film->href()?>">
+        <a page-transition-click class="h0" href="<?=$film->href()?>">
             <span tt="<?=$film->name_lang?>" tm style="visibility: hidden"><?=$film->name_lang?></span>
             <i><?=$film->category_lang?></i>
             <div class="previews">

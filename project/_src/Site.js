@@ -5,6 +5,7 @@ import NavMenu from "./layout/NavMenu";
 import PrevNext from "./components/prev-next/PrevNext";
 import TextMotion from "./motion/TextMotion";
 import Films from "./films-list/Films";
+import PageTransition from "./motion/PageTransition";
 require("./utils");
 
 export default class Site{
@@ -21,6 +22,7 @@ export default class Site{
         window.navMenu=new NavMenu();
         window.textMotion=new TextMotion();
         window.films=new Films($("#films"));
+        window.pageTransition=new PageTransition();
         textMotion.apparitions();
 
 
@@ -87,6 +89,9 @@ export default class Site{
          */
         Site.navActive();
         me.onPageDone();
+
+
+
     }
 
     /**
@@ -107,20 +112,11 @@ export default class Site{
 
         //ferme le menu quand on change d'url
         $body.on(EVENTS.HISTORY_CHANGE_URL,function(){
-            $body.attr("data-page-transition-state","start");
-            //stope en attendant que la transition soit finie
-            PovHistory.readyToinject=false;
-            //dit qu'on est prêt à afficher la page (s'assure qu'on reste au moins une seconde sur l'écran de transition)
-            setTimeout(function(){
-                PovHistory.readyToinject=true;
-            },500);
-            navMenu.close();
+            me.onPageQuit();
         });
-
         //changement d'url et HTML injecté
         $body.on(EVENTS.HISTORY_CHANGE_URL_LOADED_INJECTED,function(){
             me.onPageDone();
-
         });
 
         STAGE.on(EVENTS.RESIZE,function(){
@@ -129,11 +125,6 @@ export default class Site{
         $body.on(Pov.events.DOM_CHANGE,function(){
             me.onDomChange();
         });
-
-
-
-
-
     }
 
     /**
@@ -159,13 +150,46 @@ export default class Site{
         //OneByOne    .initFromDom();
         //ou pas :)
     }
+    onPageQuit(){
+        $body.attr("data-page-transition-state","start");
+        //stope en attendant que la transition soit finie
+        PovHistory.readyToinject=false;
+        //dit qu'on est prêt à afficher la page (s'assure qu'on reste au moins une seconde sur l'écran de transition)
+
+        navMenu.close();
+        setTimeout(function(){
+            PovHistory.readyToinject=true;
+        },1000)
+    }
     onPageDone(){
         let me=this;
         $body.attr("data-page-transition-state","end");
         me.onDomChange();
         //scroll top
         $(window).scrollTop(0);
-        Site.navActive();
+        /*
+        setTimeout(function(){
+            switch(true){
+                case PovHistory.currentPageInfo.recordType==="film":
+                    pageTransition.filmShow();
+                    break;
+                case PovHistory.currentPageInfo.isHome:
+                    pageTransition.homeShow();
+                    break;
+            }
+        },100);
+        */
+
+        if(PovHistory.currentPageInfo.isHome){
+            navMenu.burgerBtn.nothing();
+        }else{
+            navMenu.burgerBtn.menu();
+        }
+
+
+
+
+        //Site.navActive();
         $body.attr("is-home",PovHistory.currentPageInfo.isHome);
         if(typeof gtag !== 'undefined' && LayoutVars.googleAnalyticsId){
             //hit google analytics

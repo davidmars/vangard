@@ -2,7 +2,7 @@
 
     >.top{
       //background-color: #222;
-      height: calc(100vh - var(--typo-size-h1) - 30px );
+
     }
     >.body{
 
@@ -14,10 +14,18 @@
 
   .top{
     position: relative;
+    margin-top: calc(var(--nav-bar-height));
+    @media(min-width: @nav-breakpoint){
+      margin-top: 0;
+    }
     >div{
-      margin-top: 10px;
+
       position: relative;
-      height: calc(100% - 40px);
+      height: calc( 100vw / 16 * 9);
+      @media(min-width: @nav-breakpoint){
+        margin-top: 10px;
+        height: calc(100vh - var(--typo-size-h1) - 30px );
+      }
       width: 100%;
       iframe{
         width: 100%;
