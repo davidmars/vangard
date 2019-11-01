@@ -64,11 +64,24 @@ if(!the()->requestUrl->isAjax){
             </div>
         </main>
 
-        <div id="transition-rect"></div>
-
-
         <?=$view->render("layout/nav")?>
+
         <?=$view->render("films-list/films-list")?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         <!--svg-collection icons-->
