@@ -1,13 +1,11 @@
 export default class BurgerIcon{
     constructor($el){
-        console.log("burger icon")
         this.$el=$el;
         let me=this;
         if(!$el || $el.length===0 ){
             alert("BurgerIcon pas bueno")
         }
         let svg=require("./burger.svg.html");
-        console.log("svg",svg);
         let $svg=$(svg);
         $el.append($svg);
 
@@ -18,9 +16,6 @@ export default class BurgerIcon{
         this.time=0.15;
         this.mouseIn=false;
         this.menu();
-        //TweenMax.to(this.h, this.time, {stroke:"#ff0000"  ,                   ease:Power4.easeOut});
-        //TweenMax.to(this.b, this.time, {stroke:"#0000ff",                     ease:Power4.easeOut});
-        //TweenMax.to(this.m, this.time, {stroke:"#00ff00"  ,                   ease:Power4.easeOut});
 
         $el.on("mouseenter",function(){
             me.mouseenter();
@@ -38,7 +33,15 @@ export default class BurgerIcon{
         TweenMax.to(this.b, 0.1, {rotation:0,ease:Linear.easeNone});
         TweenMax.to(this.m, 0.1, {rotation:0,ease:Linear.easeNone});
     }
-
+    nothing(){
+        this.kill();
+        this.state="nothing";
+        let tl=new TimelineMax();
+        this.smooth(true);
+        tl.to(this.m, this.time*2, {attr:{x1:-30,y1:50,  x2:0,y2:50},                     ease:Back.easeIn});
+        tl.to(this.h, this.time, {attr:{x1:66,y1:33,  x2:66,y2:33},                     ease:Power4.easeOut});
+        tl.to(this.b, this.time, {attr:{x1:66,y1:66,  x2:66,y2:66},                     ease:Power4.easeOut});
+    }
     close(){
         this.kill();
         this.state="close";
@@ -85,8 +88,7 @@ export default class BurgerIcon{
             TweenMax.to(this.h, 0.5, {attr:{x1:33,y1:33,  x2:66,y2:33},                     ease: Elastic.easeOut.config(1, 0.3)});
             TweenMax.to(this.b, 0.5, {attr:{x1:33,y1:66,  x2:66,y2:66},                     ease: Elastic.easeOut.config(1, 0.3)});
             TweenMax.to(this.m, 0.5, {attr:{x1:33,y1:50,  x2:66,y2:50},                     ease: Elastic.easeOut.config(1, 0.3),onComplete:function(){ me.smooth(false)}});
-
-        }else{
+        }else if(this.state==="close"){
             me.smooth(true);
             TweenMax.to(this.m, this.time, {attr:{x1:-30,y1:50,  x2:0,y2:50},                             ease:Elastic.easeOut.config(1, 0.3)});
             TweenMax.to(this.h, this.time*3, {attr:{x1:33,y1:66,  x2:66,y2:33},                     ease:Elastic.easeOut.config(1, 0.1)});
@@ -109,7 +111,7 @@ export default class BurgerIcon{
             TweenMax.to(this.h, 0.5, {attr:{x1:33-5,y1:33-5,  x2:66+5,y2:33+5},                     ease: Elastic.easeOut.config(1, 0.3)});
             TweenMax.to(this.b, 0.5, {attr:{x1:33-5,y1:66-5,  x2:66+5,y2:66+5},                     ease: Elastic.easeOut.config(1, 0.3)});
             TweenMax.to(this.m, 0.5, {attr:{x1:33-5,y1:50-5,  x2:66+5,y2:50+5},                     ease: Elastic.easeOut.config(1, 0.3)});
-        }else{
+        }else if(this.state==="close"){
             TweenMax.to(this.m, this.time, {attr:{x1:-30,y1:50,  x2:0,y2:50},                             ease:Elastic.easeOut.config(1, 0.3)});
             TweenMax.to(this.h, this.time, {attr:{x1:33+5,y1:66-5,  x2:66-5,y2:33+5},                     ease:Elastic.easeOut.config(1, 0.3)});
             TweenMax.to(this.b, this.time, {attr:{x1:33+5,y1:33+5,  x2:66-5,y2:66-5},                     ease:Elastic.easeOut.config(1, 0.3)});
