@@ -1,47 +1,46 @@
 #films{
-
+  background-color: #ca6109;
+  .tick
+  ,.line
+  ,.mouse-selector{
+    position: absolute;
+    top: 0;
+  }
+  .tick{
+    right:12px;
+    font-size: 10px;
+  }
+  .line,.mouse-selector{
+    height: 1px;
+    width: 30px;
+    border-top: 1px solid var(--color-grey);
+  }
+  .line{
+    right: 30px;
+  }
+  .mouse-selector{
+    right: 0;
+  }
   &[input-mode="wheel"]{
     cursor: none !important;
     *{
       cursor: none !important;
     }
   }
-  &[input-mode="wheel"],&[input-mode="touch"],&[input-mode="touch drag"]{
+  &[input-mode="wheel"],
+  &[input-mode="touch"],
+  &[input-mode="touch drag"]{
     .line{
       display: none;
     }
   }
 
-  //padding-top: calc(50vh - 15vw);
-  //padding-bottom: calc(50vh - 15vw);
   position: absolute;
   top: 0;
   left: 0;
-  height: 100vh;
-  overflow-y: hidden;
-  //height: auto;
+  height: 100%;
   width: 100%;
-
-  .tick{
-    position: absolute;
-    top: 0;
-    right:12px;
-    font-size: 10px;
-  }
-  .line,.mouse-selector{
-    position: absolute;
-    top: 0;
-    height: 1px;
-    width: 30px;
-    border-top: 1px solid var(--color-grey-light);
-  }
-
-  .line{
-    right: 30px;
-  }
-  .mouse-selector{
-    right: 0px;
-  }
+  overflow: hidden;
 
   .list{
     padding-top: calc(50vh - 15vw);
@@ -61,127 +60,5 @@
 
 
 }
+@import "film.less";
 
-//actif & hover
-.film{
-  span{
-    //transition: transform 0.1s;
-  }
-  &:hover{
-    /*
-    span{
-      transform: skewY(-3deg);
-    }
-    i{
-      transform: rotateX(180deg) rotateY(180deg) skewY(-3deg);
-    }
-    */
-  }
-  //the one ou pas?
-  color:#fff;
-  filter: brightness(0.5);
-  &[the-one]{
-    filter: none;
-  }
-
-}
-
-//masque
-.film{
-  position: relative;
-  display: flex;
-  justify-content: center;
-  a{
-    //mix-blend-mode: lighten;
-    background-color: rgba(0, 0, 0,1);
-    //border: 2px solid black;
-    overflow: hidden;
-    //padding: 40px;
-    z-index: 1;
-    position: relative;
-    top: 0;
-    display: inline-block;
-    backface-visibility: hidden;
-
-
-    >span{
-      display: block;
-      line-height: 1;
-      margin-bottom: -0.15em;
-    }
-
-    >i{
-      display: block;
-      font-style: normal;
-      font-size: 16px;
-      @media(min-width: @screen-lg){
-        font-size: 1vw;
-      }
-
-      line-height: 1;
-      font-family: var(--font-paragraphe-titre);
-      margin-top: -1.5vw;
-    }
-
-    .previews{
-      overflow: hidden;
-      mix-blend-mode: multiply;
-      position: absolute;
-      z-index: 2;
-      //background-color: red;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left:0;
-    }
-  }
-
-}
-
-.film{
-  line-height: 1;
-  font-size:25vw;
-  height: 27vw;
-  @media(min-width: @screen-lg){
-    height: 23vw;
-  }
-
-  overflow: hidden;
-  position: relative;
-  text-align: center;
-  border: 2px solid #000;
-  &.paused{
-    >video{
-      display: none;
-    }
-  }
-  a{
-    position: relative;
-    height: 100%;
-    text-decoration: none !important;
-    text-align: center;
-    .previews{
-      pointer-events: none;
-      .preview{
-        //affiche que la premiere preview
-        display: none;
-        &:nth-child(1){
-          display: block;
-        }
-
-        >video,>img{
-          padding: 0;
-          margin:0;
-          display: block;
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: calc(100%);
-          overflow: hidden;
-          object-fit: cover;
-        }
-      }
-    }
-  }
-}

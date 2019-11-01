@@ -1,0 +1,106 @@
+//actif & hover
+.film{
+  //the one ou pas?
+  color:#fff;
+  filter: brightness(0.5);
+  &[the-one]{
+    filter: none;
+  }
+
+}
+//masque
+.film{
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  border: 2px solid #000; //pour éviter de voir la video (bug affichage)
+  a{
+    background-color: rgba(0, 0, 0,1);
+    overflow: hidden;
+    z-index: 1;
+    position: relative;
+    top: 0;
+    display: inline-block;
+    backface-visibility: hidden;
+    >span{
+      display: block;
+    }
+    >i{
+      display: block;
+    }
+    .previews{
+      overflow: hidden;
+      mix-blend-mode: multiply;
+      position: absolute;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left:0;
+    }
+  }
+}
+//typographie etc...
+.film{
+  text-align: center;
+  line-height: 1;
+  font-size:25vw;
+  height: 27vw;
+  @media(min-width: @screen-lg){
+    height: 23vw;
+  }
+  a{
+    height: 100%;
+    text-decoration: none !important;
+    text-align: center;
+    >span{
+      line-height: 1;
+      margin-bottom: -0.15em;
+    }
+    >i{
+      font-style: normal;
+      font-size: 16px;
+      @media(min-width: @screen-lg){
+        font-size: 1vw;
+      }
+      line-height: 1;
+      font-family: var(--font-paragraphe-titre);
+      margin-top: -1.5vw;
+    }
+  }
+}
+
+//previews...
+.film{
+  &.paused{
+    video{
+      display: none !important;
+    }
+  }
+  .previews{
+    pointer-events: none;
+    .preview{
+      //affiche que la premiere preview
+      display: none;
+      &:nth-child(1){
+        display: block;
+      }
+      >img{
+        //filter: blur(16px);
+      }
+      >video,>img{
+        padding: 0;
+        margin:0;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: calc(100%);
+        overflow: hidden;
+        object-fit: cover;
+      }
+    }
+  }
+}
