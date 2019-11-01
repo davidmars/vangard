@@ -1,11 +1,27 @@
 @nav-breakpoint:@screen-lg;
 
 #root{
-  --grid-padding:1vw;
+  -webkit-tap-highlight-color: transparent;
+  --grid-padding:10px;
   --nav-bar-height:70px;
+  --film-font-size:25vw;
+  --film-font-size-small:12px;
+  --film-height:32vw;
+
   @media(min-width: @screen-md){
     --nav-bar-height:100px;
   }
+  @media(min-width:@screen-lg){
+    --film-height:24vw;
+    --film-font-size-small:1vw;
+  }
+  .nav-open & {
+    @media(min-width: @nav-breakpoint){
+      --film-height: 14vw;
+      --film-font-size: 12vw;
+    }
+  }
+
   //à partir de là on est plus en burger
   @media(min-width: @screen-xl){
     //--menu-width:400px; plus d'intérêt
@@ -16,60 +32,46 @@
 html{
   overflow-y: scroll;
 }
-#root{
-  >#main{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: calc(100vh - var(--nav-bar-height,"80px"));
-    >#main-content{
-
-    }
-  }
-}
 @import "nav.less";
-
-
-#films{
-  transition: transform 0.25s;
-  transform-origin: top;
-  &[one-by-one-enabled='0']{
-    //background-color: red;
-  }
-}
-
 body{
   &.nav-open{
-    #films{
-      display: block !important;
-      .film{
-        @media(min-width: @nav-breakpoint){
-          height: 12vw;
-          .h0{
-            font-size: 12vw;
-          }
-        }
-      }
+    #root{
+
     }
+
     #main-content{
       display: none;
     }
   }
-
 
   #main-content{
     z-index: @z-page;
   }
 
-  #films{
-    display: none;
+  #main{
+    background-color: #2f4f90;
   }
+  #films{
+    //background-color: #ca6109;
+  }
+
+
+  #films{
+    //position: absolute;
+    //top: 0;
+    //left: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+  }
+
   &[is-home='true']{
     #films{
       display: block;
     }
     #main-content{
-      display: none;
+      //display: none;
+
     }
   }
 

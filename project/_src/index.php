@@ -5,6 +5,6 @@ the()->htmlLayout()->pageInfo->isHome=true;
 $view->inside("layout/layout", $vv);
 ?>
 
-<div class="container py-big">
+<div class="">
 
 </div>

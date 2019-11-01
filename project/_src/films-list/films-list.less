@@ -1,25 +1,7 @@
 #films{
-  .tick
-  ,.line
-  ,.mouse-selector{
-    position: absolute;
-    top: 0;
-  }
-  .tick{
-    right:12px;
-    font-size: 10px;
-  }
-  .line,.mouse-selector{
-    height: 1px;
-    width: 30px;
-    border-top: 1px solid var(--color-grey);
-  }
-  .line{
-    right: 30px;
-  }
-  .mouse-selector{
-    right: 0;
-  }
+  position: relative;
+  user-select: none;
+
   &[input-mode="wheel"]{
     cursor: none !important;
     *{
@@ -32,28 +14,35 @@
     .line{
       display: none;
     }
+    .mouse-selector,.tick{
+      position: fixed;
+      top: 50vh;
+      &.tick{
+        margin-top: 10px;
+      }
+    }
+  }
+  &[input-mode="touch"],
+  &[input-mode="touch drag"]{
+    height: auto;
+    .list{
+      [is-home='false'] & {
+        padding-top: 30px;
+      }
+
+    }
   }
 
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
+
 
   .list{
-    padding-top: calc(50vh - 15vw);
-    padding-bottom: calc(50vh - 15vw);
+    padding-top: calc(50vh - var(--film-height) / 2);
+    padding-bottom: calc(50vh - var(--film-height) / 2);
     //déplacement de la liste
     //transition: all 0.1s ease-out;
     //max-width: 80vw;
     margin: 0 auto;
-    .film{
-      transition: height 0.5s ease-in-out;
-      .h0{
-        transition: all 0.45s ease-in-out;
-      }
-    }
+
   }
 
 

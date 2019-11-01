@@ -153,13 +153,15 @@ export default class Site{
     onPageQuit(){
         $body.attr("data-page-transition-state","start");
         //stope en attendant que la transition soit finie
+        //scroll top
+        $(window).scrollTop(0);
+
         PovHistory.readyToinject=false;
         //dit qu'on est prêt à afficher la page (s'assure qu'on reste au moins une seconde sur l'écran de transition)
-
         navMenu.close();
-        setTimeout(function(){
+        //setTimeout(function(){
             PovHistory.readyToinject=true;
-        },1000)
+        //},1000)
     }
     onPageDone(){
         let me=this;

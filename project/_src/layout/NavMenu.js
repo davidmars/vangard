@@ -18,6 +18,7 @@ export default class NavMenu extends EventEmitter{
         this.burgerBtn.close();
         this.emit("OPEN");
         films.goTop();
+        films.modeNav(true);
         //films.enabled=false;
 
         //films.scroll.update();
@@ -25,6 +26,7 @@ export default class NavMenu extends EventEmitter{
     }
     close(){
         films.goTop();
+        films.modeNav(false);
         $body.removeClass("nav-open");
         if(PovHistory.currentPageInfo.isHome){
             this.burgerBtn.nothing();

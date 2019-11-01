@@ -1,10 +1,33 @@
 //actif & hover
 .film{
+  //border: 10px solid yellow;
   //the one ou pas?
   color:#fff;
   filter: brightness(0.5);
   &[the-one]{
     filter: none;
+    animation-name: film-selected;
+    animation-iteration-count: 1;
+    animation-duration: 0.75s;
+  }
+
+  transition: height 0.5s ease-in-out;
+  a{
+    >span{
+      transition: all 0.45s ease-in-out;
+    }
+  }
+
+  @keyframes film-selected{
+    0%{
+      transform: scale(1);
+    }
+    50%{
+      transform: scale(1.05);
+    }
+    100%{
+      transform: scale(1);
+    }
   }
 
 }
@@ -14,15 +37,20 @@
   overflow: hidden;
   display: flex;
   justify-content: center;
+  align-items: center;
   border: 2px solid #000; //pour éviter de voir la video (bug affichage)
   a{
+    border: 2px solid #000;
     background-color: rgba(0, 0, 0,1);
     overflow: hidden;
     z-index: 1;
     position: relative;
     top: 0;
-    display: inline-block;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     backface-visibility: hidden;
+    flex-direction: column;
     >span{
       display: block;
     }
@@ -45,28 +73,23 @@
 .film{
   text-align: center;
   line-height: 1;
-  font-size:25vw;
-  height: 27vw;
-  @media(min-width: @screen-lg){
-    height: 23vw;
-  }
+  position: relative;
+  height: var(--film-height);
   a{
     height: 100%;
     text-decoration: none !important;
     text-align: center;
     >span{
+      font-size:var(--film-font-size) !important;
       line-height: 1;
       margin-bottom: -0.15em;
     }
     >i{
       font-style: normal;
-      font-size: 16px;
-      @media(min-width: @screen-lg){
-        font-size: 1vw;
-      }
+      font-size: var(--film-font-size-small);
       line-height: 1;
       font-family: var(--font-paragraphe-titre);
-      margin-top: -1.5vw;
+      //margin-top: -1.5vw;
     }
   }
 }

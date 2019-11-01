@@ -11,20 +11,10 @@ export default class Films {
         this.$list=$main.find(".list");
         this.$$list=this.$list[0];
 
-        this.$tick=$main.find(".tick");
-        this.$$tick=this.$tick[0];
-
-        this.$mouseSelector=$main.find(".mouse-selector");
-        this.$$mouseSelector=this.$mouseSelector[0];
-
-        this.$line=$main.find(".line");
-        this.$$line=this.$line[0];
-
         this.MODE_NULL="";
         this.MODE_WHEEL="wheel";
         this.MODE_MOUSE="mouse";
         this.MODE_TOUCH="touch";
-        this.MODE_TOUCH_DRAG="touch drag";
 
         this._setInputMode(me.MODE_NULL);
 
@@ -33,11 +23,6 @@ export default class Films {
          * @type {number}
          */
         this.wheelDelta=0;
-        /**
-         *
-         * @type {Scrollbar}
-         */
-        //this.scroll=SmoothScrollbar.init(me.$main[0], {damping:0.09});
         /**
          *
          * @type {FilmPreview[]}
@@ -59,9 +44,14 @@ export default class Films {
 
         //wheel
         let mouseWheelTimeOut=null;
-        window.addEventListener("wheel", event => {
+        this.$$main.addEventListener("wheel", e => {
+            if(me.y<-10){
+                //empeche de scroller dans le body si on est pas en haut de la liste
+                e.preventDefault();
+                e.stopPropagation();
+            }
             me._setInputMode(me.MODE_WHEEL);
-            me.wheelDelta=event.deltaY;
+            me.wheelDelta=e.deltaY;
             if(mouseWheelTimeOut){
                 clearTimeout(mouseWheelTimeOut);
             }
@@ -76,51 +66,37 @@ export default class Films {
         });
 
         //-------------touch-----------------------
-        let touchStartY=0;
-        let touchStartTime=0;
-        let yWhenTouchStart=0;
         let manageTouchEvent=function(e){
             me._setInputMode(me.MODE_TOUCH);
             return e.changedTouches[0].clientY;
         };
         me.$$main.addEventListener("touchstart", e => {
-            touchStartY=manageTouchEvent(e);
-            yWhenTouchStart=me.y;
-            touchStartTime=e.timeStamp;
+            manageTouchEvent(e);
         });
         me.$$main.addEventListener("touchmove", e => {
-            e.preventDefault();
-            e.stopPropagation();
-            let ty=manageTouchEvent(e);
-            let timeDiff=e.timeStamp-touchStartTime;
-            //if(timeDiff>500){
-                me.wheelDelta=0;
-            me._setInputMode(me.MODE_TOUCH_DRAG);
-                me.y=yWhenTouchStart+(ty-touchStartY);
-                console.log(me.y);
-            //}
-            //me.wheelDelta=touchStartY-ty;
+            manageTouchEvent(e);
         });
         me.$$main.addEventListener("touchend", e => {
-            let ty=manageTouchEvent(e);
-            me.wheelDelta=0;
-            let timeDiff=e.timeStamp-touchStartTime;
-            if(timeDiff<500){
-                let speed=ratio(timeDiff,0,4,500,0);
-                me.wheelDelta=speed*(touchStartY-ty);
-                if(mouseWheelTimeOut){
-                    clearTimeout(mouseWheelTimeOut);
-                }
-                mouseWheelTimeOut=setTimeout(function(){
-                    me.wheelDelta=0;
-                },500)
-            }
+            manageTouchEvent(e);
         });
 
-        setInterval(function(){me.loop()},33);
+        setInterval(function(){
+            me.loop();
+            me.loopTestTheOne();
+        },33);
         this.y=0;
 
     }
+    modeNav(isNav){
+        let me=this;
+        if(isNav){
+            me.goTop();
+        }
+        if(STAGE.width<1000){
+            me.isNav=isNav;
+        }
+    }
+
     _setInputMode(m){
         this.inputMode=m;
         this.$main.attr("input-mode",m);
@@ -130,6 +106,12 @@ export default class Films {
     loop(){
         let me=this;
         if(me.moving){
+            return;
+        }
+        if(!this.isTopScreen()){
+            return;
+        }
+        if(this.inputMode===me.MODE_TOUCH){
             return;
         }
 
@@ -148,10 +130,6 @@ export default class Films {
                 my=center+me.wheelDelta*25;
                 break;
 
-            case me.MODE_TOUCH:
-                my=center+me.wheelDelta*5;
-                break;
-
             default:
                 my=center;
 
@@ -159,7 +137,6 @@ export default class Films {
         }
         my=Math.max(my,0);
         my=Math.min(my,h);
-        TweenMax.set(me.$$line,{y:my})
         let speed=ratio(
             my,
             h,
@@ -175,34 +152,35 @@ export default class Films {
         y=Math.max(y,max);
         let changed= y!==me.y;
 
-        if(changed || me.inputMode===me.MODE_TOUCH_DRAG){
+        if(changed){
             //uniquement si la propriété y a changé
             let duration=1.5;
-            if(me.inputMode===me.MODE_TOUCH_DRAG){
-                duration=0.5;
-            }else{
-                me.y=y;
+            let ease= Power1.easeOut;
+            if(me.inputMode===me.MODE_WHEEL){
+                duration=0.6;
+                let ease= SlowMo.ease.config(0.7, 0.7, false);
             }
-            TweenMax.to(me.$$list,duration,{y:me.y,roundProps:"y"});
-            let tickY=ratio(y,max,h-20,min,100);
-            TweenMax.to(me.$$tick,1,{y:tickY,roundProps:"y"});
+            me.y=y;
+            TweenMax.to(me.$$list,duration,{y:me.y,roundProps:"y",ease:ease});
         }
 
-        me.$tick.text(`${changed} ${me.inputMode} d:${me.wheelDelta} y:${Math.abs(Math.floor(y))}`);
+    }
 
+    loopTestTheOne(){
         //savoir lequel est sous la souris
-
-        let mouse=center;
+        let me=this;
+        let mouse;
         switch (me.inputMode) {
             case me.MODE_MOUSE:
-                mouse=my;
+                mouse=STAGE.mouseY;
                 break;
+            default:
+                mouse=STAGE.height/2;
         }
-        TweenMax.to(me.$$mouseSelector,0.2,{y:mouse,roundProps:"y"});
-
         for(let p of me.previews){
             let $f=p.$film;
-            let r=$f.offset();
+            let r=$f[0].getBoundingClientRect();
+            //$f.find("i").text(`${Math.floor(r.top)} / ${mouse} / ${me.inputMode}`);
             if(r.top < mouse){
                 if(r.top+$f.height()>mouse){
                     me.setActiveOne(p);
@@ -210,6 +188,18 @@ export default class Films {
                 }
             }
         }
+    }
+
+
+    isTopScreen(){
+        let pos=this.$$main.getBoundingClientRect().top;
+        let is= pos<1;
+        if(is && !this._isTopScreen){
+            this.goTop();
+            this.moving=false;
+        }
+        this._isTopScreen=is;
+        return is;
     }
 
     /**
@@ -220,8 +210,8 @@ export default class Films {
         this.y=0;
         me.moving=true;
         TweenMax.to(me.$$list,2,{y:me.y,onComplete:function(){
-                me.moving=false;
-            }});
+            me.moving=false;
+        }});
     }
 
     /**
@@ -238,10 +228,7 @@ export default class Films {
             this.$main.find("[the-one]").removeAttr('the-one');
             this.activeOne=preview;
             if(preview){
-                //if(!me.inputMode===me.MODE_TOUCH){
-                    preview.playFirst();
-                //}
-
+                preview.playFirst();
                 preview.$film.attr("the-one","");
             }
             for(let p of me.previews){

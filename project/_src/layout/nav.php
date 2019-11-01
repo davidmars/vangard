@@ -14,35 +14,30 @@ use Pov\Utils\StringUtils; ?>
 
     </div>
 
-    <div id="nav-content">
-        <div class="wrap container-fluid">
-            <div class="row">
-                <div class="col-md-4 col-lg-3 a ">
-                    <?=$menu
-                        ->wysiwyg()
-                        ->field("vars.leftContent_lang")
-                        ->string(StringUtils::FORMAT_HTML)
-                        ->setMediumButtons(site()->richTextFormats)
-                        ->htmlTag("div",true,true)
-                        ->addClass("text-rich");
-                    ?>
-                </div>
-                <div class="col-md-4 col-lg-7 b">
-                    <?//films list placeholder?>
-                </div>
-                <div class="col-md-4 col-lg-2 c">
-                    <?=$menu
-                        ->wysiwyg()
-                        ->field("vars.rightContent_lang")
-                        ->string(StringUtils::FORMAT_HTML)
-                        ->setMediumButtons(site()->richTextFormats)
-                        ->htmlTag("div",true,true)
-                        ->addClass("text-rich");
-                    ?>
-                </div>
-            </div>
-        </div>
-
-
-    </div>
 </nav>
+
+<div id="nav-content">
+
+    <div class="left">
+        <?=$menu
+            ->wysiwyg()
+            ->field("vars.leftContent_lang")
+            ->string(StringUtils::FORMAT_HTML)
+            ->setMediumButtons(site()->richTextFormats)
+            ->htmlTag("div",true,true)
+            ->addClass("text-rich");
+        ?>
+    </div>
+
+    <div class="right">
+        <?=$menu
+            ->wysiwyg()
+            ->field("vars.rightContent_lang")
+            ->string(StringUtils::FORMAT_HTML)
+            ->setMediumButtons(site()->richTextFormats)
+            ->htmlTag("div",true,true)
+            ->addClass("text-rich");
+        ?>
+    </div>
+
+</div>
