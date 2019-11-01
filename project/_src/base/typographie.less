@@ -2,9 +2,9 @@
 @import "fonts/futura/stylesheet.css";
 
 body {
-  --font-DrukXCondensed-super: "Druk XCondensed";
-  --font-paragraphe-titre: "Futura Std";
-  --font-paragraphe-normal: "Futura Std";
+  --font-DrukXCondensed-super: "Druk XCondensed", sans-serif;
+  --font-paragraphe-titre: "Futura Std", sans-serif;
+  --font-paragraphe-normal: "Futura Std", sans-serif;
 }
 
 
@@ -55,13 +55,15 @@ hr{
   body{
     font-family: var(--font-paragraphe-normal);
 
-    --typo-size-h1:10vw;
-    --typo-size-normal:12px;
+    --typo-size-h1:12vw;
+    --typo-size-normal:16px;
     --typo-size-small:10px;
     @media(min-width: @screen-sm){
-      --typo-size-small:12px;
+      /*
+      --typo-size-small:16px;
       --typo-size-normal:14px;
       --typo-size-h1:10vw;
+       */
     }
     @media(min-width: @screen-xl){
       --typo-size-normal:18px;

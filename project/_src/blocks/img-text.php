@@ -13,7 +13,7 @@ $invert=$vv->getData("invert")?"invert":"";
     <div class="container-page">
     <div class="row">
 
-        <div class="col-6">
+        <div class="col-lg-6">
 
             <? if ($img && $img->isImage()): ?>
             <div class="block-img py-medium">
@@ -35,7 +35,7 @@ $invert=$vv->getData("invert")?"invert":"";
             <? endif ?>
         </div>
 
-        <div class="col-6">
+        <div class="col-lg-6">
 
             <div class="block-texte py-medium">
                 <?= $vv->wysiwyg()
