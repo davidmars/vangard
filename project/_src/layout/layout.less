@@ -21,10 +21,7 @@
       --film-font-size: 12vw;
     }
   }
-
-  //à partir de là on est plus en burger
   @media(min-width: @screen-xl){
-    //--menu-width:400px; plus d'intérêt
     --nav-bar-height:6vw;
   }
 }
@@ -35,43 +32,17 @@ html{
 @import "nav.less";
 body{
   &.nav-open{
-    #root{
-
-    }
-
     #main-content{
       display: none;
     }
   }
-
   #main-content{
     z-index: @z-page;
   }
 
-  #main{
-    background-color: #2f4f90;
-  }
-  #films{
-    //background-color: #ca6109;
-  }
-
-
-  #films{
-    //position: absolute;
-    //top: 0;
-    //left: 0;
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
-  }
-
   &[is-home='true']{
-    #films{
-      display: block;
-    }
     #main-content{
       //display: none;
-
     }
   }
 
