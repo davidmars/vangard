@@ -10,7 +10,7 @@ use Pov\Utils\StringUtils; ?>
         <a href="#" data-nav-menu-toggle  class="unstyled logo">
             <?=$view->render("layout/hello-logo")?>
         </a>
-        <a href="<?=site()->homePage()->href()?>"  burger-icon class="unstyled"></a>
+        <a href="#"  burger-icon class="unstyled"></a>
 
     </div>
 

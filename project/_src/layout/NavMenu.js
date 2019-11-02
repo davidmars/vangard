@@ -11,6 +11,18 @@ export default class NavMenu extends EventEmitter{
         $body.on("click","[data-nav-menu-toggle]",function(e){
             e.preventDefault();
             me.toggle()
+        });
+        $body.on("click","[burger-icon]",function(e){
+            e.preventDefault();
+            if(PovHistory.currentPageInfo.isHome){
+                me.close();
+            }else{
+                if(me.isOpen()){
+                    me.close();
+                }else{
+                    Site.goHome();
+                }
+            }
         })
     }
     open(){
@@ -39,10 +51,13 @@ export default class NavMenu extends EventEmitter{
         //films.enabled=true;
     }
     toggle(){
-        if($body.is(".nav-open")){
+        if(this.isOpen()){
             this.close();
         }else{
             this.open();
         }
+    }
+    isOpen(){
+        return $body.is(".nav-open");
     }
 }

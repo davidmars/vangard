@@ -26,6 +26,8 @@ export default class Site{
         textMotion.apparitions();
 
 
+        this.$mainContent=$("#main-content");
+
         /*
         setInterval(function(){
             $("#films").find("[tt]").each(function(){
@@ -125,6 +127,12 @@ export default class Site{
         $body.on(Pov.events.DOM_CHANGE,function(){
             me.onDomChange();
         });
+    }
+
+    goHome(){
+        this.$mainContent.empty();
+        $body.attr("is-home","true");
+        PovHistory.goToHomePage();
     }
 
     /**
