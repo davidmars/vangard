@@ -21,3 +21,14 @@ window.isVisible=function(elm) {
     var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
     return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
 };
+
+
+let ua = window.navigator.userAgent;
+window.machine={};
+machine.isIos=/iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+machine.isWebkit = !!ua.match(/WebKit/i);
+machine.isIosSafari = machine.isIos && machine.isWebkit && !ua.match(/CriOS/i);
+machine.isInApp=window.matchMedia('(display-mode: standalone)').matches;
+machine.isAndroid=/(android)/i.test(ua);
+machine.isTouch=!!('ontouchstart' in window) || !!('msmaxtouchpoints' in window.navigator);
+machine.hasHover=window.matchMedia("(hover: hover)").matches ? true : false;
