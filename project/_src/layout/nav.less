@@ -58,39 +58,39 @@
 
 //open / close
 #nav-content{
-  display: none;
+  position: fixed;
+  height: 0;
   z-index:@z-under-page;
+  background-color: #FFFC00;
+
 }
 body.nav-open{
   #nav-content{
-    display: block;
+    position: relative;
+    height: auto;
   }
   #films{
     @media(max-width: @nav-breakpoint){
-      height: auto;
       .list{
         padding-top: 30px;
-        //padding-bottom: 30px;
-
       }
     }
   }
 }
 //ca se passe dedans
 #nav-content{
-  background-color: red;
   .left,.right{
-    background-color: #000000;
     &.left{
-      margin-top: var(--nav-bar-height);
+      @media(min-width: @nav-breakpoint){
+        margin-top: var(--nav-bar-height);
+      }
     }
     @media(min-width: @nav-breakpoint){
-
         z-index: @z-nav;
-        width: 30vw;
+        width: 25vw;
         position: fixed;
         &.left{
-
+          top: 0;
         }
         &.right{
           right: 0;

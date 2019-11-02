@@ -1,9 +1,12 @@
-import SmoothScrollbar from "smooth-scrollbar";
 import FilmPreview from "./FilmPreview";
+var EventEmitter = require('event-emitter-es6');
 
-export default class Films {
+export default class Films extends EventEmitter{
 
     constructor($main){
+
+        super();
+
         let me = this;
         this.$main=$main;
         this.$$main=$main[0];
@@ -15,8 +18,28 @@ export default class Films {
         this.MODE_WHEEL="wheel";
         this.MODE_MOUSE="mouse";
         this.MODE_TOUCH="touch";
+        this.inputMode=false;
 
-        this._setInputMode(me.MODE_NULL);
+
+        /**
+         * Le premier argument est le nouveau film, le second l'ancien
+         * @type {string}
+         */
+        this.EVENT_FILM_CHANGE="EVENT_FILM_CHANGE";
+        this.EVENT_DISABLE="EVENT_DISABLE";
+        this.EVENT_ENABLE="EVENT_ENABLE";
+        /**
+         * Le premier argument est le nouveau mode, le second l'ancien
+         * @type {string}
+         */
+        this.EVENT_INPUT_MODE_CHANGE="EVENT_INPUT_MODE_CHANGE";
+
+
+        /**
+         * La position y de la liste (sauf en MODE_TOUCH )
+         * @type {number}
+         */
+        this.y=0;
 
         /**
          * Mouse wheel
@@ -82,9 +105,16 @@ export default class Films {
 
         setInterval(function(){
             me.loop();
-            me.loopTestTheOne();
+            me._loopTestTheOne();
         },33);
-        this.y=0;
+
+        this.on(this.EVENT_INPUT_MODE_CHANGE,function(){
+         if(me.inputMode===me.MODE_TOUCH){
+             me.goTop();
+         }
+        })
+        this._setInputMode(me.MODE_NULL);
+
 
     }
     modeNav(isNav){
@@ -92,17 +122,32 @@ export default class Films {
         if(isNav){
             me.goTop();
         }
-        if(STAGE.width<1000){
-            me.isNav=isNav;
-        }
     }
 
+    /**
+     * Pour définir le mode de déplacement
+     * @param m
+     * @private
+     */
     _setInputMode(m){
-        this.inputMode=m;
-        this.$main.attr("input-mode",m);
+        //force touch
+        if(!machine.hasHover){
+            if(machine.isTouch){
+                m=this.MODE_TOUCH;
+            }
+        }
+        if(m !== this.inputMode){
+            let old=this.inputMode;
+            this.inputMode=m;
+            this.$main.attr("input-mode",m);
+            this.emit(this.EVENT_INPUT_MODE_CHANGE,[m,old]);
+        }
+
     }
 
-
+    /**
+     * Boucle qui se charge de faire scroller le bazard
+     */
     loop(){
         let me=this;
         if(me.moving){
@@ -114,26 +159,20 @@ export default class Films {
         if(this.inputMode===me.MODE_TOUCH){
             return;
         }
-
         let y=this.y;
         let h=STAGE.height;
         let center=h/2;
         let my;
 
-
         switch (me.inputMode) {
             case me.MODE_MOUSE:
                 my=STAGE.mouseY;
                 break;
-
             case me.MODE_WHEEL:
                 my=center+me.wheelDelta*25;
                 break;
-
             default:
                 my=center;
-
-
         }
         my=Math.max(my,0);
         my=Math.min(my,h);
@@ -163,10 +202,13 @@ export default class Films {
             me.y=y;
             TweenMax.to(me.$$list,duration,{y:me.y,roundProps:"y",ease:ease});
         }
-
     }
 
-    loopTestTheOne(){
+    /**
+     * Boucle qui se charge de déterminer quel film est actif
+     * @private
+     */
+    _loopTestTheOne(){
         //savoir lequel est sous la souris
         let me=this;
         let mouse;
@@ -184,13 +226,22 @@ export default class Films {
             if(r.top < mouse){
                 if(r.top+$f.height()>mouse){
                     me.setActiveOne(p);
-                    break;
+                    return r;
                 }
             }
         }
+        //si on est là c'est que rien n'est actif
+        if(me.activeOne){
+            //si précédemment il y en avait un
+            me.setActiveOne(null);
+            me.pauseAllVideos();
+        }
     }
 
-
+    /**
+     * Détermine si on est dans la zone d'activité de l'objet
+     * @returns {boolean}
+     */
     isTopScreen(){
         let pos=this.$$main.getBoundingClientRect().top;
         let is= pos<1;
@@ -207,7 +258,7 @@ export default class Films {
      */
     goTop(){
         let me=this;
-        this.y=0;
+        me.y=0;
         me.moving=true;
         TweenMax.to(me.$$list,2,{y:me.y,onComplete:function(){
             me.moving=false;
@@ -226,6 +277,7 @@ export default class Films {
                 //this.activeOne.change();
             }
             this.$main.find("[the-one]").removeAttr('the-one');
+            me.emit(me.EVENT_FILM_CHANGE,[preview,this.activeOne]);
             this.activeOne=preview;
             if(preview){
                 preview.playFirst();
@@ -240,8 +292,16 @@ export default class Films {
                     }
                 }
             }
-
         }
+    }
 
+    /**
+     * Stoppe toutes les vidéos
+     */
+    pauseAllVideos(){
+        let me=this;
+        for(let p of me.previews){
+            p.pauseAll();
+        }
     }
 }

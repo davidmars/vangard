@@ -30,10 +30,40 @@ html{
   overflow-y: scroll;
 }
 @import "nav.less";
+
+#main-content{
+  transition: all 0.5s;
+  margin-top: calc(var(--nav-bar-height));
+  @media(min-width: @nav-breakpoint){
+    margin-top: 0;
+  }
+}
+#nav-content{
+  .left{
+    transition: all 0.5s;
+    transform: translateX(-100%);
+  }
+  .right{
+    transition: all 0.5s;
+    transform: translateX(100%);
+  }
+}
 body{
   &.nav-open{
     #main-content{
-      display: none;
+      position: absolute;
+      max-height: 0;
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 0.2;
+    }
+    #nav-content{
+      .left{
+        transform: translateX(0);
+      }
+      .right{
+        transform: translateX(0);
+      }
     }
   }
   #main-content{
@@ -41,9 +71,6 @@ body{
   }
 
   &[is-home='true']{
-    #main-content{
-      //display: none;
-    }
   }
 
 }
