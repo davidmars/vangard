@@ -34,6 +34,7 @@ export default class BurgerIcon{
         TweenMax.to(this.m, 0.1, {rotation:0,ease:Linear.easeNone});
     }
     nothing(){
+        console.log("burger nothing");
         this.kill();
         this.state="nothing";
         let tl=new TimelineMax();
@@ -43,6 +44,7 @@ export default class BurgerIcon{
         tl.to(this.b, this.time, {attr:{x1:66,y1:66,  x2:66,y2:66},                     ease:Power4.easeOut});
     }
     close(){
+        console.log("burger close");
         this.kill();
         this.state="close";
         let tl=new TimelineMax();
@@ -59,6 +61,7 @@ export default class BurgerIcon{
         tl.to(this.b, this.time, {attr:{x1:33,y1:33,  x2:66,y2:66},                     ease:Power4.easeOut});
     }
     menu(){
+        console.log("burger menu");
         this.kill();
         let tl=new TimelineMax();
         this.state="menu";
@@ -81,6 +84,7 @@ export default class BurgerIcon{
     }
     */
     mouseleave(){
+        console.log("burger mouse leave");
         this.mouseIn=false;
         let me=this;
         me.kill();
@@ -93,14 +97,18 @@ export default class BurgerIcon{
             TweenMax.to(this.m, this.time, {attr:{x1:-30,y1:50,  x2:0,y2:50},                             ease:Elastic.easeOut.config(1, 0.3)});
             TweenMax.to(this.h, this.time*3, {attr:{x1:33,y1:66,  x2:66,y2:33},                     ease:Elastic.easeOut.config(1, 0.1)});
             TweenMax.to(this.b, this.time*5, {attr:{x1:33,y1:33,  x2:66,y2:66},                     ease:Elastic.easeOut.config(1, 0.1)});
+        }else if(this.state==="nothing"){
+            me.smooth(true);
+            me.nothing();
         }
         TweenMax.to(this.h, 0, {css:{"stroke-width":1}});
         TweenMax.to(this.b, 0, {css:{"stroke-width":1}});
         TweenMax.to(this.m, 0, {css:{"stroke-width":1}});
     }
 
-
     mouseenter(){
+        console.log("burger mouse enter");
+        let me=this;
         this.kill();
         this.mouseIn=true;
         this.smooth(true);
@@ -115,7 +123,10 @@ export default class BurgerIcon{
             TweenMax.to(this.m, this.time, {attr:{x1:-30,y1:50,  x2:0,y2:50},                             ease:Elastic.easeOut.config(1, 0.3)});
             TweenMax.to(this.h, this.time, {attr:{x1:33+5,y1:66-5,  x2:66-5,y2:33+5},                     ease:Elastic.easeOut.config(1, 0.3)});
             TweenMax.to(this.b, this.time, {attr:{x1:33+5,y1:33+5,  x2:66-5,y2:66-5},                     ease:Elastic.easeOut.config(1, 0.3)});
+        }else if(this.state==="nothing"){
+            me.nothing();
         }
+
     }
     smooth(smooth){
         let prop="crispEdges";
