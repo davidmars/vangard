@@ -3,8 +3,10 @@
  * @var \Classiq\Models\Preview $vv
  */
 ?>
+<?if($vv->video()):?>
 <div class="preview paused">
     <img src="<?=$vv->thumbnail()->href()?>">
-    <video class="" loop="loop" muted="muted" src="<?=$vv->video()?>"
+    <video size="<?=$vv->video(false)->humanFileSize()?>" class="" loop="loop" muted="muted" src="<?=$vv->video()?>"
     ></video>
 </div>
+<?endif?>

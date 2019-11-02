@@ -11,6 +11,35 @@ export default class FilmPreview {
         $film.data("obj",this);
         this.$text=this.$film.find("span");
         this.text=this.$text.text();
+        this.debug();
+        this.$film.find(".debug").on("mousedown",function(e){
+            $(".film .debug").css("display","none");
+            e.preventDefault();
+            e.stopPropagation();
+        })
+    }
+    debug(){
+        let $d=this.$film.find(".debug");
+        let $v=this.$videos().first();
+        let $$v=$v.get(0);
+        let percent=0;
+        let duration="???";
+        try {
+            let buffered=$$v.buffered.end(0);
+            duration=$$v.duration;
+            percent=Math.floor(100/duration*buffered);
+        }catch (e) {
+
+        }
+
+        let t=[];
+        t.push($v.attr("src"));
+        t.push(`poids ${$v.attr("size")}`);
+        t.push(`duree ${duration} sec`);
+        t.push(`loaded ${percent}%`);
+        t.push("pause:"+$$v.paused);
+        $d.html(t.join("<br>"));
+
     }
     glitch(){
         let me =this;
@@ -30,10 +59,14 @@ export default class FilmPreview {
      */
     change(){
         console.log("change");
+        this.$videos().each(function(){
+            console.log($(this).attr("src"), $(this)[0].readyState)
+        });
         this.yetPlayed=false;
         this.pauseAll();
         let $last=this.$film.find(".preview").last();
         this.$previews.prepend($last);
+        this.debug();
     }
 
     /**
@@ -43,7 +76,8 @@ export default class FilmPreview {
         this.$film.addClass("paused");
         this.$videos().each(function(){
             $(this).get(0).pause();
-        })
+        });
+        this.debug();
     }
 
     /**
@@ -51,8 +85,14 @@ export default class FilmPreview {
      */
     playFirst(){
         this.yetPlayed=true;
+
         this.pauseAll();
         this.$film.removeClass("paused");
-        this.$videos().first().get(0).play();
+        let $v=this.$videos().first();
+        let $preview=$v.closest(".preview");
+        let $$v=$v.get(0);
+        $$v.currentTime=0;
+        $$v.play();
+        this.debug();
     }
 }

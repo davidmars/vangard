@@ -96,6 +96,22 @@
 
 //previews...
 .film{
+  position: relative;
+  .debug{
+    position: absolute;
+    z-index: 2;
+    font-size: 12px;
+    font-family: monospace;
+    //background-color: #fff;
+    //padding: 4px;
+    color: #fff;
+    top: 50%;
+    right: 5%;
+    //transform: translateX(-50%) translateY(-50%);
+    text-align: left;
+    max-width: 300px;
+    word-break: break-all;
+  }
   &.paused{
     video{
       display: none !important;
