@@ -64,6 +64,15 @@ export default class Films extends EventEmitter{
                 //me.setActiveOne(fp);
             });
         });
+        /**
+         * Si false rien ne se passe
+         * @type {boolean}
+         */
+        this.enabled=true;
+
+        document.addEventListener( 'visibilitychange' , function() {
+            me.enabled = !document.hidden;
+        }, false );
 
         //wheel
         let mouseWheelTimeOut=null;
@@ -104,8 +113,11 @@ export default class Films extends EventEmitter{
         });
 
         setInterval(function(){
-            me.loop();
-            me._loopTestTheOne();
+            if(me.enabled){
+                me.loop();
+                me._loopTestTheOne();
+            }
+
         },33);
 
         this.on(this.EVENT_INPUT_MODE_CHANGE,function(){
