@@ -160,16 +160,13 @@ export default class Site{
     }
     onPageQuit(){
         $body.attr("data-page-transition-state","start");
-        //stope en attendant que la transition soit finie
-        //scroll top
-        $(window).scrollTop(0);
-
         PovHistory.readyToinject=false;
-        //dit qu'on est prêt à afficher la page (s'assure qu'on reste au moins une seconde sur l'écran de transition)
         navMenu.close();
-        //setTimeout(function(){
+        //dit qu'on est prêt à afficher la page (s'assure qu'on reste au moins une seconde sur l'écran de transition)
+        pageTransition.hide(function(){
+            $(window).scrollTop(0);
             PovHistory.readyToinject=true;
-        //},1000)
+        })
     }
     onPageDone(){
         let me=this;
@@ -177,19 +174,7 @@ export default class Site{
         me.onDomChange();
         //scroll top
         $(window).scrollTop(0);
-        /*
-        setTimeout(function(){
-            switch(true){
-                case PovHistory.currentPageInfo.recordType==="film":
-                    pageTransition.filmShow();
-                    break;
-                case PovHistory.currentPageInfo.isHome:
-                    pageTransition.homeShow();
-                    break;
-            }
-        },100);
-        */
-
+        pageTransition.show(function(){});
         if(PovHistory.currentPageInfo.isHome){
             navMenu.burgerBtn.nothing();
         }else{

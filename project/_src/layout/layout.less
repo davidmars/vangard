@@ -26,13 +26,19 @@
   }
 }
 
+
+#films{
+  //background-color: #FFFC00;
+  z-index: calc( @z-page + 1 );
+}
+
 html{
   overflow-y: scroll;
 }
 @import "nav.less";
 
 #main-content{
-  transition: all 0.5s;
+  //transition: all 0.5s;
   margin-top: calc(var(--nav-bar-height));
   @media(min-width: @nav-breakpoint){
     margin-top: 0;

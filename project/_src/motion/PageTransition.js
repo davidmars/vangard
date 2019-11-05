@@ -5,11 +5,82 @@ export default class PageTransition{
         this.$rect=$("#transition-rect");
         this.rectColor="#222222";
         this.transparent="rgba(0,0,0,0)";
+        this.$films=$("#films");
+        this.$page=$("#main-content");
         /*
         $body.on("mousedown","[page-transition-click]",function(){
             pageTransition.rectToElement($(this));
         });
         */
+    }
+
+    $elements(){
+        let $elements=$body
+            .find("#films .film")
+            .add("#main-content .top")
+            .add("#main-content h1")
+            .add("#main-content h2")
+            .add("#main-content .photo-item")
+            .add("#main-content .text-rich")
+            .add("#main-content hr")
+            .add("#main-content .embed-responsive")
+            .add("#main-content [data-js='PrevNext'] a")
+            .add("#main-content [data-js='PrevNext'] svg")
+        ;
+        return $elements;
+    }
+    hide(cb){
+        let tl=new TimelineMax();
+        let me=this;
+        films.enabled=false;
+        let $elements=this.$elements();
+        let $visibles=[];
+        let $invisibles=[];
+        $elements.each(function(){
+            let $el=$(this);
+                TweenMax.set($el, {overflow: 'hidden'});
+                if(isVisible($(this)[0])){
+                    $visibles.push($(this));
+                } else{
+                    $invisibles.push($(this))
+                }
+        });
+        for(let $el of $invisibles){
+            TweenMax.set($el, {visibility: 'hidden'});
+        }
+        for(let $el of $visibles){
+            let t=2.5;
+            //tl.to($el,t,{y:-300,opacity:0,scaleY:1.1,filter:"blur(8px)"},"-=2.0");
+            tl.to($el,t,{y:-300,opacity:0,scaleY:1.1,ease: Power2.easeOut},"-=2.0");
+        }
+        tl.eventCallback("onComplete",
+            function(){
+                if(cb) {cb();}
+            } ,[]
+        );
+    }
+    show(cb){
+        let tl=new TimelineMax();
+        let me=this;
+        let $elements=this.$elements();
+        TweenMax.set($elements, {clearProps: 'all'});
+        $elements.each(function(){
+            let $el=$(this);
+            let t=0;
+            if(isVisible($el[0])){
+                t=0.2;
+            }
+            tl.from($el,t,{y:30,opacity:0});
+        });
+
+        tl.eventCallback("onComplete",
+            function(){
+                if(cb) {cb();}
+                films.enabled=true;
+                TweenMax.set($elements, {clearProps: 'all'});
+            } ,[]
+        );
+
     }
 
     rectToElement($el,cb){
