@@ -175,11 +175,13 @@ export default class Site{
         //scroll top
         $(window).scrollTop(0);
         pageTransition.show(function(){});
+        /*
         if(PovHistory.currentPageInfo.isHome){
             navMenu.burgerBtn.nothing();
         }else{
             navMenu.burgerBtn.menu();
         }
+         */
 
 
 

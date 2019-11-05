@@ -15,7 +15,7 @@ export default class BurgerIcon{
         this.b=$el.find(".bas")[0];
         this.time=0.15;
         this.mouseIn=false;
-        this.menu();
+        this.nothing();
 
         $el.on("mouseenter",function(){
             me.mouseenter();

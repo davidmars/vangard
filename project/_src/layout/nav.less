@@ -4,7 +4,7 @@
 @pad:15px;
 #nav-bar{
   position: fixed;
-  z-index: @z-nav;
+  z-index: var(--z-nav);
   top:  0;
   left: 0;
   padding: var(--grid-padding);
@@ -60,7 +60,7 @@
 #nav-content{
   position: fixed;
   height: 0;
-  z-index:@z-under-page;
+  z-index:var(--z-nav);
   //background-color: #FFFC00;
 
 }
@@ -86,7 +86,7 @@ body.nav-open{
       }
     }
     @media(min-width: @nav-breakpoint){
-        z-index: @z-nav;
+        z-index: var(--z-nav);
         width: 25vw;
         position: fixed;
         &.left{

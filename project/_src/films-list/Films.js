@@ -274,6 +274,7 @@ export default class Films extends EventEmitter{
      * Positionne la liste en haut
      */
     goTop(){
+        return;
         let me=this;
         me.y=0;
         TweenMax.to(me.$$list,0,{y:me.y,onComplete:function(){
