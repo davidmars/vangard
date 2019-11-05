@@ -130,8 +130,8 @@ export default class Site{
     }
 
     goHome(){
-        this.$mainContent.empty();
-        $body.attr("is-home","true");
+        //this.$mainContent.empty();
+        //$body.attr("is-home","true");
         PovHistory.goToHomePage();
     }
 

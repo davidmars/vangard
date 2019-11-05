@@ -15,27 +15,66 @@ export default class PageTransition{
     }
 
     $elements(){
-        let $elements=$body
-            .find("#films .film")
-            .add("#main-content .top")
-            .add("#main-content h1")
-            .add("#main-content h2")
-            .add("#main-content .photo-item")
-            .add("#main-content .text-rich")
-            .add("#main-content hr")
-            .add("#main-content .embed-responsive")
-            .add("#main-content [data-js='PrevNext'] a")
-            .add("#main-content [data-js='PrevNext'] svg")
-        ;
+        let me=this;
+        let $elements=
+            this.$prevNext()
+            .add(me.$traits())
+            .add(me.$embeds())
+            .add(me.$photos())
+            .add(me.$top())
+            .add(me.$titres())
+            .add(me.$textes())
+            .add(me.$filmItems())
+            .add(me.$filmItemsSmall());
         return $elements;
     }
+
+    $prevNext(){
+        let $elements=$body.find("#main-content [data-js='PrevNext']");
+        return $elements;
+    }
+    $traits(){
+        let $elements=$body.find("#main-content hr");
+        return $elements;
+    }
+    $embeds(){
+        let $elements=$body.find("#main-content .embed-responsive");
+        return $elements;
+    }
+    $photos(){
+        let $elements=$body.find("#main-content .photo-item");
+        return $elements;
+    }
+    $top(){
+        let $elements=$body.find("#main-content .top");
+        return $elements;
+    }
+    $titres(){
+        let $elements=$body.find("#main-content h1")
+                            .add("#main-content h2");
+        return $elements;
+    }
+    $textes(){
+        let $elements=$body.find("#main-content .text-rich");
+        return $elements;
+    }
+    $filmItems(){
+        let $elements=$body.find("#films .film span");
+        return $elements;
+    }
+    $filmItemsSmall(){
+        let $elements=$body.find("#films .film i");
+        return $elements;
+    }
+
     hide(cb){
-        let tl=new TimelineMax();
+
         let me=this;
-        films.enabled=false;
+        films.disable()
         let $elements=this.$elements();
         let $visibles=[];
         let $invisibles=[];
+
         $elements.each(function(){
             let $el=$(this);
                 TweenMax.set($el, {overflow: 'hidden'});
@@ -48,6 +87,37 @@ export default class PageTransition{
         for(let $el of $invisibles){
             TweenMax.set($el, {visibility: 'hidden'});
         }
+
+
+        TweenMax.to(me.$textes(),1.5,{y:-50,opacity:0,ease: Power2.easeInOut})
+        TweenMax.to(me.$prevNext(),1.5,{y:-80,opacity:0,ease: Power2.easeInOut})
+        TweenMax.to(me.$titres(),1.5,{y:-60,opacity:0,ease: Power3.easeInOut})
+        TweenMax.to(me.$embeds(),1.5,{y:-200,opacity:0,ease: Back.easeIn})
+        TweenMax.to(me.$top(),1.8,{y:-120,opacity:0,ease: Back.easeIn})
+        TweenMax.to(me.$traits(),1.5,{width:0,ease: Expo.easeOut})
+
+        //TweenMax.to(me.$photos(),1.5,{y:-100,opacity:0,ease: Power4.easeInOut})
+        me.$photos().each(function(){
+            TweenMax.to($(this),1.5,{y:-50*Math.random()-50,opacity:0,ease: Power4.easeInOut})
+        });
+
+        //TweenMax.to(me.$filmItems(),1.5,{y:-30,opacity:0,ease: Power1.easeInOut})
+        me.$filmItems().each(function(){
+            //TweenMax.to($(this),Math.random()+0.5,{y:-50*Math.random()-50,opacity:0,ease: Back.easeIn})
+            TweenMax.to($(this),0.5,{y:-500,ease: Power2.easeInOut})
+        });
+        me.$filmItemsSmall().each(function(){
+            //TweenMax.to($(this),Math.random()+0.5,{y:-50*Math.random()-50,opacity:0,ease: Back.easeIn})
+            TweenMax.to($(this),0.7,{y:-500,delay:0.4,ease:Power2.easeInOut})
+        });
+
+        setTimeout(function(){
+            if(cb) {cb();}
+        },1000)
+
+        /*
+        //timeline
+        let tl=new TimelineMax();
         for(let $el of $visibles){
             let t=2.5;
             //tl.to($el,t,{y:-300,opacity:0,scaleY:1.1,filter:"blur(8px)"},"-=2.0");
@@ -58,11 +128,44 @@ export default class PageTransition{
                 if(cb) {cb();}
             } ,[]
         );
+        */
     }
     show(cb){
-        let tl=new TimelineMax();
         let me=this;
         let $elements=this.$elements();
+        TweenMax.set($elements, {clearProps: 'all'});
+
+        TweenMax.from(me.$textes(),1.5,{y:50,opacity:0,ease: Power1.easeInOut})
+        TweenMax.from(me.$prevNext(),1.5,{y:80,opacity:0,ease: Power2.easeInOut})
+        TweenMax.from(me.$titres(),1.5,{y:60,opacity:0,ease: Power3.easeInOut})
+        TweenMax.from(me.$embeds(),1.5,{y:200,opacity:0,ease: Back.easeOut})
+        TweenMax.from(me.$top(),1.8,{y:120,opacity:0,ease: Expo.easeOut})
+        TweenMax.from(me.$traits(),1.5,{width:0,ease: Expo.easeOut})
+
+        //TweenMax.to(me.$photos(),1.5,{y:-100,opacity:0,ease: Power4.easeInOut})
+        me.$photos().each(function(){
+            TweenMax.from($(this),1.5,{y:50*Math.random()-50,opacity:0,ease: Power4.easeInOut})
+        });
+
+        //TweenMax.to(me.$filmItems(),1.5,{y:-30,opacity:0,ease: Power1.easeInOut})
+        me.$filmItems().each(function(){
+            //TweenMax.to($(this),Math.random()+0.5,{y:-50*Math.random()-50,opacity:0,ease: Back.easeIn})
+            TweenMax.from($(this),0.5,{y:500,ease: Power2.easeInOut})
+        });
+        me.$filmItemsSmall().each(function(){
+            //TweenMax.to($(this),Math.random()+0.5,{y:-50*Math.random()-50,opacity:0,ease: Back.easeIn})
+            TweenMax.from($(this),0.7,{y:500,ease: Power2.easeInOut})
+        });
+
+        setTimeout(function(){
+            if(cb) {cb();}
+            films.enable();
+            TweenMax.set($elements, {clearProps: 'all'});
+        },2000)
+
+        return;
+
+
         TweenMax.set($elements, {clearProps: 'all'});
         $elements.each(function(){
             let $el=$(this);
@@ -73,10 +176,11 @@ export default class PageTransition{
             tl.from($el,t,{y:30,opacity:0});
         });
 
+
         tl.eventCallback("onComplete",
             function(){
                 if(cb) {cb();}
-                films.enabled=true;
+                films.enable();
                 TweenMax.set($elements, {clearProps: 'all'});
             } ,[]
         );

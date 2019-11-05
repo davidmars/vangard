@@ -157,14 +157,20 @@ export default class Films extends EventEmitter{
 
     }
 
+    disable(){
+        this.enabled=false;
+        TweenMax.killTweensOf(this.$list);
+    }
+    enable(){
+        this.enabled=true;
+        TweenMax.killTweensOf(this.$$list);
+    }
+
     /**
      * Boucle qui se charge de faire scroller le bazard
      */
     loop(){
         let me=this;
-        if(me.moving){
-            return;
-        }
         if(!this.isTopScreen()){
             return;
         }
@@ -259,7 +265,6 @@ export default class Films extends EventEmitter{
         let is= pos<1;
         if(is && !this._isTopScreen){
             this.goTop();
-            this.moving=false;
         }
         this._isTopScreen=is;
         return is;
@@ -271,9 +276,7 @@ export default class Films extends EventEmitter{
     goTop(){
         let me=this;
         me.y=0;
-        me.moving=true;
-        TweenMax.to(me.$$list,2,{y:me.y,onComplete:function(){
-            me.moving=false;
+        TweenMax.to(me.$$list,0,{y:me.y,onComplete:function(){
         }});
     }
 
