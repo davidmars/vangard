@@ -27,8 +27,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    text-decoration: none;
   }
-  >button,>a{
+  >button,>.right{
+    flex-shrink: 0;
     text-decoration: none;
     height: var(--nav-bar-height,80px);
   }
@@ -36,21 +38,72 @@
     color: #fff;
     width: var(--nav-bar-height,80px);
     height: var(--nav-bar-height,80px);
-    //outline: 1px solid pink;
-    outline-offset: -1px;
-
     svg{
-      @media(min-width: @nav-breakpoint){
-        width: 100px;
-        height: 100px;
-      }
-
+      width: var(--nav-bar-height,80px);
+      height: var(--nav-bar-height,80px);
       line{
         stroke: currentColor;
       }
     }
-
   }
+
+  .right{
+    --separator-w:20px;
+    min-width: 30px;
+    //outline: 1px solid red;
+    position: relative;
+    display: flex;
+    >*{
+      flex-shrink: 0;
+    }
+    .langs{
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      position: absolute;
+      height: 100%;
+      top: 0;
+      right: 100%;
+      a{
+        display: flex;
+        align-items: center;
+        text-transform: uppercase;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        span{
+          opacity: 0.5;
+        }
+        &.active{
+          span{
+            opacity: 1;
+          }
+        }
+        &:first-child{
+          &:after{
+            content: "";
+            display: block;
+            width: var(--separator-w);
+            border-top: 1px solid #333;
+            height: 1px;
+            margin-left: 10px;
+            margin-right: 10px;
+          }
+        }
+      }
+      @media(min-width: @nav-breakpoint){
+          --separator-w:40px;
+          top:100%;
+          right: 50%;
+          height: auto;
+          transform-origin: right;
+          transform: rotate(-90deg);
+      }
+    }
+  }
+
 
 }
 
@@ -80,6 +133,7 @@ body.nav-open{
 //ca se passe dedans
 #nav-content{
   .left,.right{
+    display: none;
     &.left{
       @media(min-width: @nav-breakpoint){
         margin-top: var(--nav-bar-height);

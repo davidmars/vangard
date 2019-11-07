@@ -10,8 +10,19 @@ use Pov\Utils\StringUtils; ?>
         <a href="#" data-nav-menu-toggle  class="unstyled logo">
             <?=$view->render("layout/hello-logo")?>
         </a>
-        <a href="#"  burger-icon class="unstyled"></a>
-
+        <div class="right">
+            <a href="#"  burger-icon class="unstyled"></a>
+            <?if(count(cq()->langActives(false))>1):?>
+                <div class="langs">
+                <?foreach (cq()->langActives(false) as $langCode):?>
+                    <a class="hvr <?=the()->project->langCode==$langCode?"active":""?>"
+                       data-is-lang="<?=$langCode?>" href="#">
+                        <span class="underline-hvr""><?=$langCode?></span>
+                    </a>
+                <?endforeach;?>
+                </div>
+            <?endif;?>
+        </div>
     </div>
 
 </nav>

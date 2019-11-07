@@ -175,17 +175,7 @@ export default class Site{
         //scroll top
         $(window).scrollTop(0);
         pageTransition.show(function(){});
-        /*
-        if(PovHistory.currentPageInfo.isHome){
-            navMenu.burgerBtn.nothing();
-        }else{
-            navMenu.burgerBtn.menu();
-        }
-         */
-
-
-
-
+        navMenu.displayRight(! PovHistory.currentPageInfo.isHome);
         //Site.navActive();
         $body.attr("is-home",PovHistory.currentPageInfo.isHome);
         if(typeof gtag !== 'undefined' && LayoutVars.googleAnalyticsId){

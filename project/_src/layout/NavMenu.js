@@ -25,16 +25,23 @@ export default class NavMenu extends EventEmitter{
                 }
             }
         })
+        this.$right=this.$nav.find(".right");
+    }
+    displayRight(show=true){
+        this.$right.css("display",show?"block":"none");
+        if(show){
+            this.burgerBtn.close();
+        }else{
+            this.burgerBtn.nothing();
+        }
     }
     open(){
-
         if(this.isOpen()){
             return;
         }
         let me=this;
         let $main=$("#main-content");
-
-        this.burgerBtn.close();
+        this.displayRight(true);
         this.emit("OPEN");
         pageTransition.hidePage();
 
@@ -49,6 +56,7 @@ export default class NavMenu extends EventEmitter{
         films.goTop();
     }
     close(){
+        this.displayRight(false);
         if(!this.isOpen()){
             return;
         }
@@ -60,16 +68,11 @@ export default class NavMenu extends EventEmitter{
             TweenMax.set($main, {height:"auto",y:0});
             TweenMax.from($main,1, {height:0,y:STAGE.height,ease: Power4.easeIn})
             me.resetElements();
-        },700)
+        },700);
 
         films.goTop();
         //films.modeNav(false);
         $body.removeClass("nav-open");
-        //if(PovHistory.currentPageInfo.isHome){
-            this.burgerBtn.nothing();
-        //}else{
-            //this.burgerBtn.menu();
-        //}
         this.emit("CLOSE");
     }
     toggle(){
