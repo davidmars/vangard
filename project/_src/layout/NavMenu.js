@@ -7,16 +7,18 @@ export default class NavMenu extends EventEmitter{
     constructor(){
         super();
         let me=this;
+        this.$nav=$("#nav");
+        this.$right=this.$nav.find(".right");
         /**
          *
          * @type {BurgerIcon}
          * @private
          */
         this._burgerBtn=new BurgerIcon($("[burger-icon]"));
-        this._burgerBtn.nothing();
-        this.displayRight(false);
+        //this._burgerBtn.nothing(true);
+        this.displayRight(false,true);
 
-        this.$nav=$("#nav");
+
         $body.on("click","[data-nav-menu-toggle]",function(e){
             e.preventDefault();
             me.toggle()
@@ -32,16 +34,20 @@ export default class NavMenu extends EventEmitter{
                     Site.goHome();
                 }
             }
-        })
-        this.$right=this.$nav.find(".right");
+        });
+
     }
-    displayRight(show=true){
+    displayRight(show=true,direct=false){
+        let t=0.5;
+        if(direct){
+            t=0;
+        }
         if(show){
             this._burgerBtn.close();
-            TweenMax.to(this.$right,0.5,{top:0,opacity:1})
+            TweenMax.to(this.$right,t,{top:0,opacity:1})
         }else{
             this._burgerBtn.nothing();
-            TweenMax.to(this.$right,0.5,{top:-200,opacity:0})
+            TweenMax.to(this.$right,t,{top:-200,opacity:0})
         }
     }
     open(){
@@ -74,7 +80,7 @@ export default class NavMenu extends EventEmitter{
         setTimeout(function(){
             pageTransition.showPage();
             TweenMax.set($main, {height:"auto",y:0});
-            TweenMax.from($main,1, {height:0,y:STAGE.height,ease: Power4.easeIn})
+            TweenMax.from($main,1, {height:0,y:STAGE.height,ease: Power4.easeIn});
             me.resetElements();
         },700);
 

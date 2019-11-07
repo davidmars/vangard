@@ -8,8 +8,6 @@ export default class BurgerIcon{
         let svg=require("./burger.svg.html");
         let $svg=$(svg);
         $el.append($svg);
-
-
         this.h=$el.find(".haut")[0];
         this.m=$el.find(".milieu")[0];
         this.b=$el.find(".bas")[0];
@@ -31,20 +29,31 @@ export default class BurgerIcon{
         TweenMax.to(this.b, 0.1, {rotation:0,ease:Linear.easeNone});
         TweenMax.to(this.m, 0.1, {rotation:0,ease:Linear.easeNone});
     }
-    nothing(){
+    nothing(direct=false){
+        if(this.state==="nothing"){
+            return;
+        }
+        let tme=this.time;
+        if(direct){
+            tme=0;
+        }
         console.log("burger nothing");
         this.kill();
         this.state="nothing";
         let tl=new TimelineMax();
         this.smooth(true);
-        tl.to(this.m, this.time*2, {attr:{x1:-30,y1:50,  x2:0,y2:50},                     ease:Back.easeIn});
-        tl.to(this.h, this.time, {attr:{x1:66,y1:33,  x2:66,y2:33},                     ease:Power4.easeOut});
-        tl.to(this.b, this.time, {attr:{x1:66,y1:66,  x2:66,y2:66},                     ease:Power4.easeOut});
+        tl.to(this.m, tme*2, {attr:{x1:-30,y1:50,  x2:0,y2:50},                     ease:Back.easeIn});
+        tl.to(this.h, tme, {attr:{x1:66,y1:33,  x2:66,y2:33},                     ease:Power4.easeOut});
+        tl.to(this.b, tme, {attr:{x1:66,y1:66,  x2:66,y2:66},                     ease:Power4.easeOut});
     }
     close(){
+        if(this.state==="close"){
+            return;
+        }
         console.log("burger close");
         this.kill();
         this.state="close";
+
         let tl=new TimelineMax();
         this.smooth(true);
         if(this.mouseIn){
@@ -59,6 +68,9 @@ export default class BurgerIcon{
         tl.to(this.b, this.time, {attr:{x1:33,y1:33,  x2:66,y2:66},                     ease:Power4.easeOut});
     }
     menu(){
+        if(this.state==="menu"){
+            return;
+        }
         console.log("burger menu");
         this.kill();
         let tl=new TimelineMax();
