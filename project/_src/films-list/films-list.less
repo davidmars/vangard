@@ -15,14 +15,17 @@
 
   */
 
+  position: absolute;
+  width: 100%;
+  top: 0;
+  outline: 1px solid red;
+  outline-offset: -5px;
+
   height: 100vh;
   &[input-mode="touch"]{
     height: auto;
   }
-  width: 100%;
-  overflow: hidden;
 
-  position: relative;
   user-select: none;
   &[input-mode="wheel"]{
     //cursor: none !important;

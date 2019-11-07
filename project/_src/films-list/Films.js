@@ -243,6 +243,7 @@ export default class Films extends EventEmitter{
      * @private
      */
     _setInputMode(m){
+        m=this.MODE_TOUCH; //todo remove
         //force touch
         if(!machine.hasHover){
             if(machine.isTouch){
