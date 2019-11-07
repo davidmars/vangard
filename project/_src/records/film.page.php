@@ -8,7 +8,7 @@ $view->inside("layout/layout",$vv);
 
         <div class="top container-page full">
             <div class="js-video-wrap">
-                <iframe class="js-video"
+                <iframe class="js-video" style="outline: 1px solid yellow"
                         src="<?=$vv->getVideoEmbed()?>"
                         frameborder="0"
                         allow="autoplay; fullscreen" allowfullscreen>

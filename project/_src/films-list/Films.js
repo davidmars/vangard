@@ -4,10 +4,11 @@ var EventEmitter = require('event-emitter-es6');
 export default class Films extends EventEmitter{
 
     constructor($main){
-
         super();
-
         let me = this;
+        this.options={
+            doubleClick:true
+        }
         this.$main=$main;
         this.$$main=$main[0];
 
@@ -57,13 +58,76 @@ export default class Films extends EventEmitter{
          */
         this.activeOne=null;
 
+
         this.$main.find(".film").each(function(){
             let fp=new FilmPreview($(this));
             me.previews.push(fp);
-            $(this).on("mouseenter",function(){
-                //me.setActiveOne(fp);
-            });
         });
+
+        if(this.options.doubleClick){
+            //change on click
+            this.$main.find(".film").on("click",function(e){
+                if(!$(this).is("[the-one]")){
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if($(this)[0].getBoundingClientRect().top<STAGE.height/2){
+                        me.goNext();
+                    }else{
+                        me.goPrev();
+                    }
+                }
+            });
+            this.$$main.addEventListener("wheel", e => {
+                if(me.y<-10){
+                    //empeche de scroller dans le body si on est pas en haut de la liste
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                me._setInputMode(me.MODE_WHEEL);
+
+                if(!me.isWeeling){
+                    if(e.deltaY<0){
+                        me.goNext();
+                    }else{
+                        me.goPrev();
+                    }
+                    me.isWeeling=true;
+                }
+                if(mouseWheelTimeOut){
+                    clearTimeout(mouseWheelTimeOut);
+                }
+                mouseWheelTimeOut=setTimeout(function(){
+                    me.isWeeling=false;
+                },500)
+            });
+
+        }else{
+            //mousemove
+            window.addEventListener("mousemove", event => {
+                me._setInputMode(me.MODE_MOUSE);
+            });
+            this.$main.find(".film").each(function(){
+                $(this).on("mouseenter",function(){
+                    me.setActiveOne(fp);
+                });
+            });
+            this.$$main.addEventListener("wheel", e => {
+                if(me.y<-10){
+                    //empeche de scroller dans le body si on est pas en haut de la liste
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                me._setInputMode(me.MODE_WHEEL);
+                me.wheelDelta=e.deltaY;
+                if(mouseWheelTimeOut){
+                    clearTimeout(mouseWheelTimeOut);
+                }
+                mouseWheelTimeOut=setTimeout(function(){
+                    me.wheelDelta=0;
+                },500)
+            });
+        }
+
         /**
          * Si false rien ne se passe
          * @type {boolean}
@@ -76,26 +140,9 @@ export default class Films extends EventEmitter{
 
         //wheel
         let mouseWheelTimeOut=null;
-        this.$$main.addEventListener("wheel", e => {
-            if(me.y<-10){
-                //empeche de scroller dans le body si on est pas en haut de la liste
-                e.preventDefault();
-                e.stopPropagation();
-            }
-            me._setInputMode(me.MODE_WHEEL);
-            me.wheelDelta=e.deltaY;
-            if(mouseWheelTimeOut){
-                clearTimeout(mouseWheelTimeOut);
-            }
-            mouseWheelTimeOut=setTimeout(function(){
-                me.wheelDelta=0;
-            },500)
-        });
 
-        //mousemove
-        window.addEventListener("mousemove", event => {
-            me._setInputMode(me.MODE_MOUSE);
-        });
+
+
 
         //-------------touch-----------------------
         let manageTouchEvent=function(e){
@@ -114,10 +161,11 @@ export default class Films extends EventEmitter{
 
         setInterval(function(){
             if(me.enabled){
-                me.loop();
+                if(!me.options.doubleClick){
+                    me.loop();
+                }
                 me._loopTestTheOne();
             }
-
         },33);
 
         this.on(this.EVENT_INPUT_MODE_CHANGE,function(){
@@ -129,6 +177,59 @@ export default class Films extends EventEmitter{
 
 
     }
+
+
+
+    tw(y,up=false){
+        let me=this;
+        let filmHeight=me.$main.find(".film").height();
+        //console.log("y",y);
+        //console.log("filmHeight",filmHeight);
+        let roundY=Math.round(y/filmHeight)*filmHeight;
+        roundY=this.limitY(roundY);
+        //console.log("roundY",roundY);
+        //TweenMax.to(me.$$list,0.25,{y:y,roundProps:"y",ease:Power4.easeOut});
+        //TweenMax.to(me.$$list,0.75,{y:y,roundProps:"y",ease:Back.easeIn.config(1.7)});
+        //TweenMax.to(me.$$list,0.5,{y:y,roundProps:"y",ease:Power4.easeIn});
+        //TweenMax.to(me.$$list,0.5,{y:y,roundProps:"y",ease:Power2.easeInOut});
+        TweenMax.to(me.$$list,0.5,{y:roundY,roundProps:"y",ease:Power3.easeIn});
+        let tl=new TimelineMax();
+        let tl2=new TimelineMax();
+        let tl3=new TimelineMax();
+
+        let $span=me.$list.find("span");
+        let $i=me.$list.find("i");
+        let $v=me.$list.find("video");
+        let $inside=$span;
+        let $inside2=$i;
+        let factor=up?1:-1;
+
+
+
+
+        tl.to($inside,      0.2,{y:30*factor,ease:Power0.easeOut});
+        tl2.to($inside2,    0.2,{y:30*factor,ease:Power0.easeOut});
+        //tl3.to($v,0.1,{scale:2,ease:Power3.easeOut});
+        tl.to($inside,      0.7,{y:0,ease:Power1.easeInOut});
+        tl2.to($inside2,    0.8,{y:0,ease:Power1.easeInOut});
+        //tl3.to($v,1.3,{scale:1,ease:Power3.easeOut});
+
+    }
+
+    goPrev(){
+        console.log("prev")
+        let me=this;
+        this.y-=this.$main.find(".film").height();
+        this.tw(this.y,true);
+    }
+    goNext(){
+        console.log("next")
+        let me=this;
+        this.y+=this.$main.find(".film").height();
+        //TweenMax.to(me.$$list,0.5,{y:me.y,roundProps:"y",ease:Power1.easeOut});
+        this.tw(this.y);
+    }
+
     modeNav(isNav){
         let me=this;
         if(isNav){
@@ -166,6 +267,13 @@ export default class Films extends EventEmitter{
         TweenMax.killTweensOf(this.$$list);
     }
 
+    limitY(y){
+        let min=0;
+        let max=-this.$list.outerHeight()+STAGE.height;
+        y=Math.min(y,min);
+        y=Math.max(y,max);
+        return y;
+    }
     /**
      * Boucle qui se charge de faire scroller le bazard
      */
@@ -197,24 +305,24 @@ export default class Films extends EventEmitter{
         let speed=ratio(
             my,
             h,
-            20,
+            30,
             0
-            ,-20
+            ,-30
         );
-        let min=0;
-        let max=-me.$list.outerHeight()+h;
+
+
 
         y-=speed;
-        y=Math.min(y,min);
-        y=Math.max(y,max);
+        y=me.limitY(y);
+
         let changed= y!==me.y;
 
         if(changed){
             //uniquement si la propriété y a changé
-            let duration=1.5;
+            let duration=0.5;
             let ease= Power1.easeOut;
             if(me.inputMode===me.MODE_WHEEL){
-                duration=0.6;
+                duration=0.1;
                 let ease= SlowMo.ease.config(0.7, 0.7, false);
             }
             me.y=y;

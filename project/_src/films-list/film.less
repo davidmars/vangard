@@ -3,10 +3,10 @@
   //border: 10px solid yellow;
   //the one ou pas?
   color:#fff;
-  filter: brightness(0.5);
+  filter: brightness(0.2);
   &[the-one]{
     filter: none;
-    animation-name: film-selected;
+    //animation-name: film-selected;
     animation-iteration-count: 1;
     animation-duration: 0.75s;
   }
@@ -41,6 +41,7 @@
   border: 2px solid #000; //pour éviter de voir la video (bug affichage)
   a{
     border: 2px solid #000;
+    //background-color: rgba(255, 0, 0,1);
     background-color: rgba(0, 0, 0,1);
     overflow: hidden;
     z-index: 1;
@@ -89,6 +90,7 @@
       font-size: var(--film-font-size-small);
       line-height: 1;
       font-family: var(--font-paragraphe-titre);
+      margin-bottom: 10px;
       //margin-top: -1.5vw;
     }
   }

@@ -6,8 +6,16 @@ var EventEmitter = require('event-emitter-es6');
 export default class NavMenu extends EventEmitter{
     constructor(){
         super();
-        this.burgerBtn=new BurgerIcon($("[burger-icon]"));
         let me=this;
+        /**
+         *
+         * @type {BurgerIcon}
+         * @private
+         */
+        this._burgerBtn=new BurgerIcon($("[burger-icon]"));
+        this._burgerBtn.nothing();
+        this.displayRight(false);
+
         this.$nav=$("#nav");
         $body.on("click","[data-nav-menu-toggle]",function(e){
             e.preventDefault();
@@ -28,11 +36,12 @@ export default class NavMenu extends EventEmitter{
         this.$right=this.$nav.find(".right");
     }
     displayRight(show=true){
-        this.$right.css("display",show?"block":"none");
         if(show){
-            this.burgerBtn.close();
+            this._burgerBtn.close();
+            TweenMax.to(this.$right,0.5,{top:0,opacity:1})
         }else{
-            this.burgerBtn.nothing();
+            this._burgerBtn.nothing();
+            TweenMax.to(this.$right,0.5,{top:-200,opacity:0})
         }
     }
     open(){
@@ -56,7 +65,6 @@ export default class NavMenu extends EventEmitter{
         films.goTop();
     }
     close(){
-        this.displayRight(false);
         if(!this.isOpen()){
             return;
         }

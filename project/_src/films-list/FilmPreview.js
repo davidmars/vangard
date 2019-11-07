@@ -58,6 +58,7 @@ export default class FilmPreview {
      * Change de vidéo
      */
     change(){
+        return;
         //console.log("change");
         this.$videos().each(function(){
             //console.log($(this).attr("src"), $(this)[0].readyState)

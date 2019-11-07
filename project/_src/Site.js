@@ -20,6 +20,12 @@ export default class Site{
         me.resizeStage();
         me.onDomChange();
         window.navMenu=new NavMenu();
+        navMenu.on("OPEN",function(){
+            navMenu.displayRight(true);
+        });
+        navMenu.on("CLOSE",function(){
+            me.displayNavAccordingPage();
+        });
         window.textMotion=new TextMotion();
         window.films=new Films($("#films"));
         window.pageTransition=new PageTransition();
@@ -161,7 +167,6 @@ export default class Site{
     onPageQuit(){
         $body.attr("data-page-transition-state","start");
         PovHistory.readyToinject=false;
-        navMenu.close();
         //dit qu'on est prêt à afficher la page (s'assure qu'on reste au moins une seconde sur l'écran de transition)
         pageTransition.hide(function(){
             $(window).scrollTop(0);
@@ -175,7 +180,7 @@ export default class Site{
         //scroll top
         $(window).scrollTop(0);
         pageTransition.show(function(){});
-        navMenu.displayRight(! PovHistory.currentPageInfo.isHome);
+        me.displayNavAccordingPage();
         //Site.navActive();
         $body.attr("is-home",PovHistory.currentPageInfo.isHome);
         if(typeof gtag !== 'undefined' && LayoutVars.googleAnalyticsId){
@@ -184,4 +189,9 @@ export default class Site{
         }
         PrevNext.initFromDom();
     }
+
+    displayNavAccordingPage(){
+        navMenu.displayRight(! PovHistory.currentPageInfo.isHome);
+    }
+
 }
