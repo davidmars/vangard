@@ -4,11 +4,11 @@ the()->project->languages=[
     "en"
 ];
 the()->project->languagesUrls=[
-    "fr"=>"http://pp-fr.vangard.paris",
-    "en"=>"http://pp.vangard.paris"
+    "fr"=>"https://pp-fr.vangard.paris",
+    "en"=>"https://pp.vangard.paris"
 ];
 //force https?
-the()->configProjectUrl->forceHttps=false;
+the()->configProjectUrl->forceHttps=true;
 // TODO Traductions ui.
 // https://docs.google.com/spreadsheets/d/1kefhXt0Z7g0P2cGItQK4k_hqhSoFTMaJyvzNYjKeqw8
 // Copiez-collez ce google Sheet pour pouvoir le modifier puis modifiez l'url. Vous pouvez bien entendu utiliser un csv en local mais c'est moins pratique :)
