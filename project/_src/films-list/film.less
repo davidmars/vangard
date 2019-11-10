@@ -1,32 +1,27 @@
 //actif & hover
 .film{
-  //border: 10px solid yellow;
+  //outline: 1px dotted yellow;
+  //outline-offset: -10px;
+
   //the one ou pas?
   color:#fff;
-  filter: brightness(0.2);
+  //filter: brightness(0.2);
+  background-color: #400;
+  &.paused{
+    //background-color: #000;
+  }
   &[the-one]{
-    filter: none;
-    //animation-name: film-selected;
-    animation-iteration-count: 1;
-    animation-duration: 0.75s;
+    background-color: #FFFC00;
+    &.paused{
+      background-color: #ff9f0d;
+    }
+    //filter: none;
   }
 
   transition: height 0.5s ease-in-out;
   a{
     >span{
       transition: font-size 0.45s ease-in-out, margin-bottom 0.45s ease-in-out;
-    }
-  }
-
-  @keyframes film-selected{
-    0%{
-      transform: scale(1);
-    }
-    50%{
-      transform: scale(1.05);
-    }
-    100%{
-      transform: scale(1);
     }
   }
 

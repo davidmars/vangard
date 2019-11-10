@@ -59,16 +59,16 @@ export default class NavMenu extends EventEmitter{
         this.displayRight(true);
         this.emit("OPEN");
         pageTransition.hidePage();
-
         setTimeout(function(){
             me.showElements();
             TweenMax.to($main,1,{height:0,ease: Power4.easeOut});
             $body.addClass("nav-open");
+            setTimeout(function(){
+                films.recentre()
+            },500)
+
         },2000);
 
-
-
-        films.goTop();
     }
     close(){
         if(!this.isOpen()){
@@ -81,10 +81,10 @@ export default class NavMenu extends EventEmitter{
             pageTransition.showPage();
             TweenMax.set($main, {height:"auto",y:0});
             TweenMax.from($main,1, {height:0,y:STAGE.height,ease: Power4.easeIn});
+            films.recentre()
             me.resetElements();
         },700);
 
-        films.goTop();
         //films.modeNav(false);
         $body.removeClass("nav-open");
         this.emit("CLOSE");

@@ -10,4 +10,10 @@ $list=\Classiq\Models\Nav::getByName("liste de films",true);
         ->onlyRecords("film")
     ->htmlTag()
     ->addClass("list content")?>
+
+    <div class="mask">
+        <i class="a"></i>
+        <i class="b"></i>
+    </div>
+
 </div>

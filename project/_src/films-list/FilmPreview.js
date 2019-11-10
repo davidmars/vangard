@@ -82,18 +82,19 @@ export default class FilmPreview {
     }
 
     /**
-     * Joue la video courrante
+     * Joue la video courrante (si elle n'est pas déja en lecture)
      */
     playFirst(){
-        this.yetPlayed=true;
-
-        this.pauseAll();
-        this.$film.removeClass("paused");
-        let $v=this.$videos().first();
-        let $preview=$v.closest(".preview");
-        let $$v=$v.get(0);
-        $$v.currentTime=0;
-        $$v.play();
-        this.debug();
+        if(this.$film.is(".paused")){
+            this.yetPlayed=true;
+            this.pauseAll();
+            this.$film.removeClass("paused");
+            let $v=this.$videos().first();
+            let $preview=$v.closest(".preview");
+            let $$v=$v.get(0);
+            $$v.currentTime=0;
+            $$v.play();
+            this.debug();
+        }
     }
 }

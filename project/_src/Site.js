@@ -4,7 +4,8 @@ import FilmPreview from "./films-list/FilmPreview";
 import NavMenu from "./layout/NavMenu";
 import PrevNext from "./components/prev-next/PrevNext";
 import TextMotion from "./motion/TextMotion";
-import Films from "./films-list/Films";
+//import Films from "./films-list/Films";
+import Films from "./films-list/Films2";
 import PageTransition from "./motion/PageTransition";
 require("./utils");
 
