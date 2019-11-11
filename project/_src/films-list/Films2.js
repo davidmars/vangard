@@ -32,6 +32,7 @@ export default class Films extends EventEmitter{
 
         this.EVENT_START_MOVING="EVENT_START_MOVING";
         this.EVENT_STOP_MOVING="EVENT_STOP_MOVING";
+        this.EVENT_STOP_MOVING_AND_GOOD_POSITION="EVENT_STOP_MOVING_AND_GOOD_POSITION";
 
         /**
          *
@@ -104,6 +105,9 @@ export default class Films extends EventEmitter{
         };
 
         setInterval(function(){
+            //let y=Math.round(window.scrollY);
+            //let yy=Math.round(me.roundY(y));
+            //me.debug(y+" "+yy+" "+STAGE.height+" "+$main.find(".mask>i").css("bottom"));
             if(me.enabled){
                 let newY=window.scrollY;
                 me.speed= me.yy - newY;
@@ -130,16 +134,21 @@ export default class Films extends EventEmitter{
                 //me._selectTheOne();
             }
         },20);
-
-        me.on(me.EVENT_STOP_MOVING,function(){
-            console.log("STOP MOVING");
-            me._selectTheOne();
-            me.playTheOne();
-        });
         me.on(me.EVENT_START_MOVING,function(){
-            console.log("START MOVING");
             me.setActiveOne(null);
             me.pauseAllVideos();
+        });
+        me.on(me.EVENT_STOP_MOVING,function(){
+            me._selectTheOne();
+            let y=Math.round(window.scrollY);
+            let yy=Math.round(me.roundY(y));
+            if(y===yy){
+                me.emit(me.EVENT_STOP_MOVING_AND_GOOD_POSITION);
+            }
+        });
+        me.on(me.EVENT_STOP_MOVING_AND_GOOD_POSITION,function(){
+            me.playTheOne();
+            me._changePreviews();
         });
 
         me.recentre();
@@ -148,11 +157,18 @@ export default class Films extends EventEmitter{
 
     }
 
+    debug(str){
+        let $d=this.$main.find(".debug");
+        $d.css("display","block");
+        $d.text(str);
+    }
+
+    /**
+     * Recentre la liste vers l'élement le plus proche du scroll actuel
+     */
     recentre(){
         this.tw(window.scrollY);
     }
-
-
     tw(y,up=false,isFast=true){
         let me=this;
         y=this.limitY(y);
@@ -160,10 +176,6 @@ export default class Films extends EventEmitter{
         let t=isFast?0.2:0.5;
         TweenMax.to(window, t, {scrollTo:y,ease:Power3.easeIn});
     }
-
-
-
-
 
     disable(){
         this.enabled=false;
@@ -196,13 +208,9 @@ export default class Films extends EventEmitter{
     roundY(y){
         let filmHeight=this.$firstFilm.height()+4;
         let roundY=Math.round(y/filmHeight)*filmHeight;
-        //roundY=this.limitY(roundY);
         return roundY;
     }
 
-    _unselectTheOne(){
-
-    }
     /**
      * Se charge de déterminer quel film est actif
      * @private
@@ -239,7 +247,7 @@ export default class Films extends EventEmitter{
 
 
     /**
-     * Définit le film qui est actif
+     * Définit le film qui est actif (qui est au centre)
      * @param preview
      */
     setActiveOne(preview){
@@ -259,6 +267,7 @@ export default class Films extends EventEmitter{
      * @private
      */
     _changePreviews(){
+        let me=this;
         for(let p of me.previews){
             let $f=p.$film;
             if(p.yetPlayed){ //on va pas changer uen video qu'on a pas encore lu
@@ -280,6 +289,10 @@ export default class Films extends EventEmitter{
             p.pauseAll();
         }
     }
+
+    /**
+     * Joue la vidéo qui est au centre
+     */
     playTheOne(){
         if(this.activeOne){
             this.activeOne.playFirst();

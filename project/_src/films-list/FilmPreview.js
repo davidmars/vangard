@@ -58,11 +58,11 @@ export default class FilmPreview {
      * Change de vidéo
      */
     change(){
-        return;
+        //return;
         //console.log("change");
-        this.$videos().each(function(){
+        //this.$videos().each(function(){
             //console.log($(this).attr("src"), $(this)[0].readyState)
-        });
+        //});
         this.yetPlayed=false;
         this.pauseAll();
         let $last=this.$film.find(".preview").last();
