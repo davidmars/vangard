@@ -15,7 +15,10 @@
   align-items: center;
   color: var(--color-white);
   background-color: rgba(0, 0, 0, 0.91);
-
+  pointer-events: none;
+  a,button{
+    pointer-events: auto;
+  }
   [is-home='true']:not(.nav-open) & {
     background-color: transparent;
   }
