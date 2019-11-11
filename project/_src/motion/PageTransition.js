@@ -3,8 +3,6 @@ export default class PageTransition{
         this.$rect=$("#transition-rect");
         this.rectColor="#222222";
         this.transparent="rgba(0,0,0,0)";
-        this.$films=$("#films");
-        this.$page=$("#main-content");
         /*
         $body.on("mousedown","[page-transition-click]",function(){
             pageTransition.rectToElement($(this));
@@ -125,7 +123,6 @@ export default class PageTransition{
     }
 
     hide(cb){
-        films.disable();
         let $elements=this.$elements();
         let $invisibles=[];
         $elements.each(function(){
@@ -148,13 +145,13 @@ export default class PageTransition{
 
     }
     show(cb){
+        //alert("show");
         let me=this;
         me.restoreAll();
         me.showPage();
         me.showFilms();
         setTimeout(function(){
             if(cb) {cb();}
-            films.enable();
             me.restoreAll();
         },2000)
 

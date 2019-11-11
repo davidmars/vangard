@@ -26,6 +26,50 @@
   }
 }
 
+body{
+  --film-display:none;
+  --film-pointer:none;
+  --film-opacity:0.0;
+  --film-max-h:100vh;
+
+  --page-display:block;
+  --page-pointer:auto;
+  --page-opacity:1;
+  --page-max-h:auto;
+
+  &[is-home="true"],&.nav-open{
+    --film-display:block;
+    --film-opacity:1;
+    --film-pointer:auto;
+    --film-max-h:auto;
+
+    --page-display:none;
+    --page-pointer:none;
+    --page-opacity:0.0;
+    --page-max-h:100vh;
+  }
+
+  #films{
+    //display: var(--film-display);
+    pointer-events: var(--film-pointer);
+    opacity: var(--film-opacity);
+    max-height: var(--film-max-h);
+  }
+  #main-content{
+    //display: var(--page-display);
+    pointer-events: var(--page-pointer);
+    opacity: var(--page-opacity);
+    max-height: var(--page-max-h);
+  }
+
+  #films,#main-content{
+    transition: opacity 1s;
+    position: absolute;
+    width: 100%;
+    top: 0;
+  }
+}
+
 
 #films{
   //background-color: #FFFC00;

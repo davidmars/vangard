@@ -1,12 +1,24 @@
+
 #films{
 
+
+  overflow: hidden;
   //outline: 1px solid red;
   //outline-offset: -5px;
 
   .mask{
     top: 0;
     left: 0;
-    position: fixed;
+
+    //&.fixed{
+      position: fixed;
+    //}
+    @media(max-width: @nav-breakpoint){
+      .nav-open & {
+        position: absolute;
+        display: none;
+      }
+    }
     z-index: 5;
     pointer-events: none;
     height: 100vh;

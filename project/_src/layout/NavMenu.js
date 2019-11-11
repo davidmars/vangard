@@ -1,5 +1,6 @@
 import BurgerIcon from "../molecules/burger-icon/BurgerIcon";
 import {TweenMax} from "gsap";
+import PageTransition from "../motion/PageTransition";
 
 var EventEmitter = require('event-emitter-es6');
 
@@ -37,6 +38,12 @@ export default class NavMenu extends EventEmitter{
         });
 
     }
+
+    /**
+     * Affiche ou non la croix
+     * @param show
+     * @param direct
+     */
     displayRight(show=true,direct=false){
         let t=0.5;
         if(direct){
@@ -55,34 +62,39 @@ export default class NavMenu extends EventEmitter{
             return;
         }
         let me=this;
-        let $main=$("#main-content");
-        this.displayRight(true);
-        this.emit("OPEN");
-        pageTransition.hidePage();
+        console.log("open");
+        $body.addClass("nav-open");
+        if($body.attr("is-home")==="false"){
+            films.disable();
+            TweenMax.to(window, 0.5, {scrollTo:0,ease:Power3.easeIn});
+            pageTransition.showFilms();
+        }
         setTimeout(function(){
+            films.enable();
+            films.recentre();
+            me.displayRight(true); //la croix
             me.showElements();
-            TweenMax.to($main,1,{height:0,ease: Power4.easeOut});
-            $body.addClass("nav-open");
-            setTimeout(function(){
-                films.recentre()
-            },500)
 
-        },2000);
+        },500);
+        //TweenMax.to(window, 1, {scrollTo:0,ease:Power3.easeIn,onComplete:function(){
+                //
 
+        //}});
     }
     close(){
         if(!this.isOpen()){
             return;
         }
         let me=this;
-        let $main=$("#main-content");
         this.hideElements();
         setTimeout(function(){
-            pageTransition.showPage();
-            TweenMax.set($main, {height:"auto",y:0});
-            TweenMax.from($main,1, {height:0,y:STAGE.height,ease: Power4.easeIn});
-            films.recentre()
-            me.resetElements();
+            //pageTransition.showPage();
+            //TweenMax.set($main, {height:"auto",y:0});
+            //TweenMax.from($main,1, {height:0,y:STAGE.height,ease: Power4.easeIn});
+            //films.recentre();
+            if($body.attr("is-home")==="false"){
+                TweenMax.to(window, 0.5, {scrollTo:0,ease:Power3.easeIn});
+            }
         },700);
 
         //films.modeNav(false);
@@ -104,10 +116,66 @@ export default class NavMenu extends EventEmitter{
         return $("#nav-content .text-rich").find("h2,p,h5");
     }
     showElements(){
-        TweenMax.from(this._$els(),0.5,{y:50,opacity:0,ease: Power1.easeInOut});
+        let me=this;
+        $("#nav-content").addClass("visible");
+        me.resetElements();
+        this._$els().each(function(){
+            let $el=$(this);
+            let t=0.5;
+            let y=50;
+            switch (true) {
+                case $el.is("h2"):
+                t=0.5;
+                y=50;
+                break;
+
+                case $el.is("p"):
+                case $el.is("h5"):
+                t=1.5;
+                y=10;
+                break;
+
+            }
+            TweenMax.fromTo($(this),t,
+                {y:y,opacity:0},
+                {y:0,opacity:1,ease: Power1.easeInOut}
+            );
+        })
+
     }
     hideElements(){
-        TweenMax.to(this._$els(),0.5,{y:-50,opacity:0,ease: Power1.easeInOut});
+        let me=this;
+        this._$els().each(function(){
+            let $el=$(this);
+            let t=0.5;
+            let x=50;
+            switch (true) {
+                case $el.is("h2"):
+                    t=0.5;
+                    x=50;
+                    break;
+
+                case $el.is("p"):
+                case $el.is("h5"):
+                    t=0.75;
+                    x=60;
+                    break;
+
+            }
+
+            if($el.closest(".left").length){
+                x=-x;
+            }
+
+            TweenMax.fromTo($(this),t,
+                {x:0,opacity:1},
+                {x:x,opacity:0,ease: Power1.easeInOut}
+            );
+        });
+        setTimeout(function(){
+            $("#nav-content").removeClass("visible");
+            me.resetElements();
+        },1000);
     }
     resetElements(){
         TweenMax.set(this._$els(), {clearProps: 'all'});

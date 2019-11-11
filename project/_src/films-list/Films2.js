@@ -55,14 +55,15 @@ export default class Films extends EventEmitter{
 
         //change on click
         this.$main.find(".film").on("click",function(e){
-            e.preventDefault();
-            e.stopPropagation();
-            //if(!$(this).is("[the-one]")){ //remettre pour activer le click
+            if(me.isMobileNavOpen()){
+                return;
+            }
+            if(!$(this).is("[the-one]")){ //remettre pour activer le click
                 e.preventDefault();
                 e.stopPropagation();
                 let y=$(this).offset().top - parseInt( $(this).parent().css("padding-top") );
                 me.tw(y,false,false);
-            //}
+            }
         });
 
         let scrollTimer=null;
@@ -92,6 +93,8 @@ export default class Films extends EventEmitter{
         this.speed2=0;
         this.speed3=0;
 
+
+
         let makeSpeed=function(varr,mult){
             let ral=me[varr] * mult + me.speed;
             if(Math.abs(ral) > 0){
@@ -104,7 +107,14 @@ export default class Films extends EventEmitter{
             }
         };
 
+
+
         setInterval(function(){
+            if($body.attr("is-home")==="true" || $body.is(".nav-open")){
+                me.enable();
+            }else{
+                me.disable();
+            }
             //let y=Math.round(window.scrollY);
             //let yy=Math.round(me.roundY(y));
             //me.debug(y+" "+yy+" "+STAGE.height+" "+$main.find(".mask>i").css("bottom"));
@@ -114,12 +124,6 @@ export default class Films extends EventEmitter{
                 me.yy=newY;
                 makeSpeed("speed2",3);
                 makeSpeed("speed3",15);
-                TweenMax.set(me.$filmTypos,{y:me.speed2*-2});
-
-                let sk=me.speed2/10;
-                sk=Math.max(sk,-60);
-                sk=Math.min(sk,60);
-                TweenMax.set(me.$skew,{skewY:-sk});
 
                 let wasMoving=me.isMoving;
                 me.isMoving=Math.abs(me.speed3)>0;
@@ -130,8 +134,18 @@ export default class Films extends EventEmitter{
                         me.emit(me.EVENT_STOP_MOVING);
                     }
                 }
-                console.log("speed",me.speed,me.speed2,me.speed3);
-                //me._selectTheOne();
+                if(me.isMobileNavOpen()){
+                    return;
+                }
+                TweenMax.set(me.$filmTypos,{y:me.speed2*-2});
+
+                let sk=me.speed2/10;
+                sk=Math.max(sk,-60);
+                sk=Math.min(sk,60);
+                TweenMax.set(me.$skew,{skewY:-sk});
+
+
+                //console.log("speed",me.speed,me.speed2,me.speed3);
             }
         },20);
         me.on(me.EVENT_START_MOVING,function(){
@@ -157,6 +171,10 @@ export default class Films extends EventEmitter{
 
     }
 
+    isMobileNavOpen(){
+        return STAGE.width < 1000 && $body.is(".nav-open");
+    }
+
     debug(str){
         let $d=this.$main.find(".debug");
         $d.css("display","block");
@@ -174,16 +192,20 @@ export default class Films extends EventEmitter{
         y=this.limitY(y);
         y=this.roundY(y);
         let t=isFast?0.2:0.5;
-        TweenMax.to(window, t, {scrollTo:y,ease:Power3.easeIn});
+        me.scrollTo(y,t)
+    }
+
+    scrollTo(y,time){
+        if(this.enabled){
+            TweenMax.to(window, time, {scrollTo:y,ease:Power3.easeIn});
+        }
     }
 
     disable(){
         this.enabled=false;
-        TweenMax.killTweensOf(this.$list);
     }
     enable(){
         this.enabled=true;
-        TweenMax.killTweensOf(this.$$list);
     }
 
     /**
@@ -193,7 +215,6 @@ export default class Films extends EventEmitter{
      */
     limitY(y){
         let minn=0;
-        //let max=-this.$list.outerHeight()+STAGE.height;
         let maxx=$(document).height() - $(window).height();
         y=Math.max(y,minn);
         y=Math.min(y,maxx);

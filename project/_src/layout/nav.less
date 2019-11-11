@@ -22,7 +22,6 @@
   [is-home='true']:not(.nav-open) & {
     background-color: transparent;
   }
-
   @media(min-width: @nav-breakpoint){
     background-color: transparent;
   }
@@ -116,27 +115,44 @@
 #nav-content{
   position: fixed;
   height: 0;
-  z-index:var(--z-nav);
+  z-index:calcl( var(--z-nav) - 1 );
   //background-color: #FFFC00;
 
 }
 body.nav-open{
+  //border: 1px solid red;
   #nav-content{
     position: relative;
     height: auto;
   }
   #films{
+    position: relative;
     @media(max-width: @nav-breakpoint){
+      //position: relative;
       .list{
         padding-top: 30px;
       }
     }
   }
 }
+
+
+
 //ca se passe dedans
 #nav-content{
+  overflow: hidden;
+  display: none;
+  &.visible{
+    display: block;
+  }
   .left,.right{
-    display: none;
+    //display: none;
+    pointer-events: none;
+    .nav-open & {
+      //display: block;
+      pointer-events: auto;
+
+    }
     &.left{
       @media(min-width: @nav-breakpoint){
         margin-top: var(--nav-bar-height);
