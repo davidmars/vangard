@@ -48,28 +48,16 @@
   }
 
   >.close{
-    right: 0;
     top: 0;
-    @media(min-width: @screen-lg) {
-      right: var(--spacing-small);
-      top: var(--spacing-small);
-    }
   }
   >.prev,.next{
     top: calc(50% - var(--spacing-big) /2 );
   }
   >.prev{
     left: 0;
-    @media(min-width: @screen-lg){
-      left: var(--spacing-small);
-    }
-
   }
-  >.next{
+  >.next,>.close{
     right: 0;
-    @media(min-width: @screen-lg){
-      right: var(--spacing-small);
-    }
   }
 
 
