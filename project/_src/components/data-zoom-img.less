@@ -1,7 +1,12 @@
 [data-zoom-img]{
   cursor: pointer;
+
 }
 #data-zoom-layer{
+  >*{
+    //outline: 1px solid yellow !important;
+  }
+  overflow: hidden;
   z-index: var(--z-zoom-layer);
   position: fixed;
   top: 0;
@@ -50,29 +55,31 @@
       top: var(--spacing-small);
     }
   }
+  >.prev,.next{
+    top: calc(50% - var(--spacing-big) /2 );
+  }
   >.prev{
     left: 0;
     @media(min-width: @screen-lg){
       left: var(--spacing-small);
     }
-    top: 50%;
+
   }
   >.next{
     right: 0;
     @media(min-width: @screen-lg){
       right: var(--spacing-small);
     }
-    top: 50%;
   }
 
 
   .legende{
-    margin-left: calc( var(--spacing-big) * 2);;
-    margin-right:calc( var(--spacing-big) * 2);
-    width: calc( 100% - var(--spacing-big) * 4);
-    min-height: calc( var(--spacing-big) * 2);
+    margin-left: calc( var(--spacing-big) * 1);;
+    margin-right:calc( var(--spacing-big) * 1);
+    width: calc( 100% - var(--spacing-big) * 2);
+    min-height: calc( var(--spacing-big) );
     position: absolute;
-    top: calc( 100% - var(--spacing-big) * 2);;
+    top: calc( 100% - var(--spacing-big) );
     text-align: center;
     display: flex;
     align-items: center;
@@ -82,10 +89,10 @@
 
   .img-container{
     background-size: contain;
-    margin: calc( var(--spacing-big) * 2);;
-    width: calc(100% - var(--spacing-big) * 4);
+    margin: calc( var(--spacing-big) );
+    width: calc(100% - var(--spacing-big) * 2);
     //width: calc(100% - 300px );
-    height: calc(100% - var(--spacing-big) * 4);
+    height: calc(100% - var(--spacing-big) * 2);
     background-position: center;
     background-repeat: no-repeat;
     >video{
@@ -125,14 +132,14 @@
 
 @keyframes dz-fade-in-right {
   from{
-    filter: contrast(2) brightness(4);
+    filter: brightness(0);
     transform: translateX(100px);
     opacity: 0;
   }
 }
 @keyframes dz-fade-in-left {
   from{
-    filter: contrast(2) brightness(4);
+    filter: brightness(0);
     transform: translateX(-100px);
     opacity: 0;
   }

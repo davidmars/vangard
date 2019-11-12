@@ -4,7 +4,6 @@ use Classiq\Models\JsonModels\ListItem;
 
 /** @var \Classiq\Models\Filerecord $img */
 $img=$vv->targetUid(true);
-$sizeCss=$vv->getData("size","col-6 col-md-3");
 
 $imgSrc=pov()
     ->img("")
@@ -20,6 +19,9 @@ if($img && $img->isImage()){
         ->href();
 }
 ?>
-<div <?=$vv->wysiwyg()->attr()?> data-zoom-img="<?=$imgSrc?>" class="photo-item <?=$sizeCss?>">
-    <div class="img" style="background-image: url('<?=$imgSrc?>')"></div>
+<div <?=$vv->wysiwyg()->attr()?> data-zoom-img="<?=$imgSrc?>" class="photo-item col-6 col-md-3">
+    <div>
+        <img src="<?=$imgSrc?>" alt="">
+    </div>
+
 </div>
