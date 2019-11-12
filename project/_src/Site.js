@@ -67,7 +67,7 @@ export default class Site{
     }
 
     goHome(){
-        PovHistory.goToHomePage();
+        PovHistory.goUrl(LayoutVars.homeUrl);
     }
 
     /**

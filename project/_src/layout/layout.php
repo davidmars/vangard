@@ -33,6 +33,7 @@ if(!the()->requestUrl->isAjax){
     if(site()->googleApiKey){
         the()->htmlLayout()->install()->googleMap(site()->googleApiKey,"places");
     }
+    the()->htmlLayout()->layoutVars->homeUrl=site()->homePage()->href()->relative();
     the()->htmlLayout()->layoutVars->googleAnalyticsId=site()->googleAnalyticsId;
     the()->htmlLayout()->hreflang=the()->project->langCode;
     the()->htmlLayout()->favicon->favicon=the()->fileSystem->filesystemToHttp("project/logo.png");
