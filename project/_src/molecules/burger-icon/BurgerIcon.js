@@ -37,7 +37,7 @@ export default class BurgerIcon{
         if(direct){
             tme=0;
         }
-        console.log("burger nothing");
+        //console.log("burger nothing");
         this.kill();
         this.state="nothing";
         let tl=new TimelineMax();
@@ -50,7 +50,7 @@ export default class BurgerIcon{
         if(this.state==="close"){
             return;
         }
-        console.log("burger close");
+        //console.log("burger close");
         this.kill();
         this.state="close";
 
@@ -71,7 +71,7 @@ export default class BurgerIcon{
         if(this.state==="menu"){
             return;
         }
-        console.log("burger menu");
+        //console.log("burger menu");
         this.kill();
         let tl=new TimelineMax();
         this.state="menu";
@@ -94,7 +94,7 @@ export default class BurgerIcon{
     }
     */
     mouseleave(){
-        console.log("burger mouse leave");
+        //console.log("burger mouse leave");
         this.mouseIn=false;
         let me=this;
         me.kill();
@@ -117,7 +117,7 @@ export default class BurgerIcon{
     }
 
     mouseenter(){
-        console.log("burger mouse enter");
+        //console.log("burger mouse enter");
         let me=this;
         this.kill();
         this.mouseIn=true;
