@@ -9,14 +9,18 @@
   &.paused{
     //background-color: #000;
   }
+  //filter: saturate(0.0);
   &[the-one]{
+    span{
+      //text-shadow: 0 0 5px #d2caff;
+    }
+    //filter: saturate(1);
     //background-color: #FFFC00;
     &.paused{
       //background-color: #ff3ef9;
     }
   }
-
-  transition: height 0.5s ease-in-out;
+  transition: height 0.5s ease-in-out, filter 1s;
   a{
     >span{
       transition: font-size 0.45s ease-in-out, margin-bottom 0.45s ease-in-out;

@@ -18,7 +18,8 @@ export default class Films extends EventEmitter{
         this.$allFilms=this.$main.find(".film");
 
         let $masks=this.$main.find(".mask>i");
-        this.$skew=this.$allFilms.add($masks);
+        this.$skew=this.$allFilms;
+        //this.$skew=this.$allFilms.add($masks);
         this.$filmTypos=this.$main.find(".film span,.film i");
         this.$firstFilm=this.$main.find(".film").eq(0);
 
@@ -143,6 +144,18 @@ export default class Films extends EventEmitter{
                 sk=Math.max(sk,-60);
                 sk=Math.min(sk,60);
                 TweenMax.set(me.$skew,{skewY:-sk});
+
+                /*
+                let sc=me.speed2/10;
+                sc=ratio(me.speed2,)
+                console.log(sc);
+                sc=Math.abs(sc);
+                sc=Math.max(sc,1);
+                sc=Math.min(sc,0.9);
+                TweenMax.set(me.$skew,{scaleY:Math.abs(sc)});
+
+                 */
+
 
 
                 //console.log("speed",me.speed,me.speed2,me.speed3);
