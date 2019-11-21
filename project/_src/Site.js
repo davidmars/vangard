@@ -17,6 +17,7 @@ export default class Site{
         //---------------------go------------------------------------------
         me.resizeStage();
         me.onDomChange();
+        window.isWysiwyg=LayoutVars.isWysiwyg;
         window.navMenu=new NavMenu();
         navMenu.on("OPEN",function(){
             navMenu.displayRight(true);
@@ -27,6 +28,7 @@ export default class Site{
 
         window.films=new Films($("#films"));
         window.pageTransition=new PageTransition();
+
         //window.textMotion=new TextMotion();
         //textMotion.apparitions();
 

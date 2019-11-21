@@ -51,10 +51,14 @@ export default class NavMenu extends EventEmitter{
         }
         if(show){
             this._burgerBtn.close();
-            TweenMax.to(this.$right,t,{top:0,opacity:1})
+            if(!isWysiwyg) {
+                TweenMax.to(this.$right, t, {top: 0, opacity: 1})
+            }
         }else{
             this._burgerBtn.nothing();
-            TweenMax.to(this.$right,t,{top:-200,opacity:0})
+            if(!isWysiwyg) {
+                TweenMax.to(this.$right, t, {top: -200, opacity: 0})
+            }
         }
     }
     open(){
@@ -66,7 +70,8 @@ export default class NavMenu extends EventEmitter{
         $body.addClass("nav-open");
         if($body.attr("is-home")==="false"){
             films.disable();
-            TweenMax.to(window, 0.5, {scrollTo:0,ease:Power3.easeIn});
+            TweenMax.to(window, 0.5, {scrollTo: 0, ease: Power3.easeIn});
+
             pageTransition.showFilms();
         }
         setTimeout(function(){
@@ -136,10 +141,12 @@ export default class NavMenu extends EventEmitter{
                 break;
 
             }
-            TweenMax.fromTo($(this),t,
-                {y:y,opacity:0},
-                {y:0,opacity:1,ease: Power1.easeInOut}
-            );
+            if(!isWysiwyg) {
+                TweenMax.fromTo($(this), t,
+                    {y: y, opacity: 0},
+                    {y: 0, opacity: 1, ease: Power1.easeInOut}
+                );
+            }
         })
 
     }
@@ -166,11 +173,13 @@ export default class NavMenu extends EventEmitter{
             if($el.closest(".left").length){
                 x=-x;
             }
+            if(!isWysiwyg){
+                TweenMax.fromTo($(this),t,
+                    {x:0,opacity:1},
+                    {x:x,opacity:0,ease: Power1.easeInOut}
+                );
+            }
 
-            TweenMax.fromTo($(this),t,
-                {x:0,opacity:1},
-                {x:x,opacity:0,ease: Power1.easeInOut}
-            );
         });
         setTimeout(function(){
             $("#nav-content").removeClass("visible");
