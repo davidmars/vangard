@@ -140,10 +140,12 @@ export default class Films extends EventEmitter{
                 }
                 TweenMax.set(me.$filmTypos,{y:me.speed2*-2});
 
-                let sk=me.speed2/10;
+                /*
+                let sk=me.speed2/5;
                 sk=Math.max(sk,-60);
                 sk=Math.min(sk,60);
                 TweenMax.set(me.$skew,{skewY:-sk});
+                 */
 
                 /*
                 let sc=me.speed2/10;
