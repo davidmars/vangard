@@ -18,10 +18,12 @@ if($img && $img->isImage()){
         ->jpg()
         ->href();
 }
+$bgPositionCss=$vv->getData("background-position","center");
 ?>
 <div <?=$vv->wysiwyg()->attr()?> data-zoom-img="<?=$imgSrc?>" class="photo-item col-6 col-md-3">
     <div>
-        <img src="<?=$imgSrc?>" alt="">
+        <img    style="object-position: <?=$bgPositionCss?>;"
+                src="<?=$imgSrc?>" alt="">
     </div>
 
 </div>
