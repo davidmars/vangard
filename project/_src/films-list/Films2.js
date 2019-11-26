@@ -303,6 +303,7 @@ export default class Films extends EventEmitter{
      * @private
      */
     _changePreviews(){
+        return;
         let me=this;
         for(let p of me.previews){
             let $f=p.$film;
@@ -320,10 +321,14 @@ export default class Films extends EventEmitter{
      */
     pauseAllVideos(){
         let me=this;
-        this.activeOne=null;
+
         for(let p of me.previews){
+            if(!p.$film.is(".paused")){ // si la vidéo était en lecture on la change
+                p.change();
+            }
             p.pauseAll();
         }
+        this.activeOne=null;
     }
 
     /**
