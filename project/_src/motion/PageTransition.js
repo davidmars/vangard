@@ -1,8 +1,19 @@
+import {Power3} from "gsap";
+
 export default class PageTransition{
     constructor(){
+        let me=this;
         this.$rect=$("#transition-rect");
         this.rectColor="#222222";
         this.transparent="rgba(0,0,0,0)";
+        //fake film typo
+        this.$transiFilm=$(require("./transi-film.html"));
+        $(".film[poster]").each(function(){
+           let $img=$("<img>");
+           $img.attr("src",$(this).attr("poster"));
+           me.$transiFilm.find(".images").append($img);
+        });
+        $body.find("#root").append(this.$transiFilm);
         /*
         $body.on("mousedown","[page-transition-click]",function(){
             pageTransition.rectToElement($(this));
@@ -120,6 +131,45 @@ export default class PageTransition{
             //TweenMax.to($(this),Math.random()+0.5,{y:-50*Math.random()-50,opacity:0,ease: Back.easeIn})
             TweenMax.from($(this),0.7,{y:500,ease: Power2.easeInOut})
         });
+    }
+
+    clickFilm($film){
+        let me=this;
+        //construit...
+        //le bon texte
+        let $text=me.$transiFilm.find(".titre");
+        let $textContainer=$text.parent();
+        $text.text($film.find(".h0>span").text());
+        let pos=$film.find(".h0>span")[0].getBoundingClientRect();
+        //la bonne photo
+        me.$transiFilm.find("img").removeClass("visible");
+        me.$transiFilm.find(`img[src='${$film.attr("poster")}']`).addClass("visible");
+        //la bonne position
+        TweenMax.set($text,{x:pos.left,y:pos.top});
+        //zoome typo et apparait
+
+        let sc=1.6;
+        let t=0.5;
+        let ea=Power4.easeOut;
+
+        TweenMax.fromTo(me.$transiFilm,t,{opacity:0},
+            {opacity:1,ease:Power0.easeInOut}
+        );
+
+        TweenMax.fromTo($text,t*3,{scale:1},
+            {scale:sc,ease:ea}
+        );
+        TweenMax.fromTo($film,t*3,{scale:1},
+            {scale:sc,ease:ea}
+        );
+
+        setTimeout(function(){
+            TweenMax.set($film,{scale:1,opacity:1});
+            TweenMax.set(me.$transiFilm,{clearProps:"all"});
+            TweenMax.set($text,{clearProps:"all"});
+            TweenMax.set($textContainer,{clearProps:"all"});
+        },t*10*1000);
+
     }
 
     hide(cb){

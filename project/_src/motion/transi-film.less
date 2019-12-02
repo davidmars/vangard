@@ -1,0 +1,44 @@
+#transi-film{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: calc( var(--z-page) + 1 );
+  pointer-events: none;
+  transform-origin: top right;
+  opacity:0;
+  //transform: scale(0.3);
+  //opacity: 0.5;
+  >.f{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 1);
+    .titre{
+      color: #fff !important;
+      position: absolute;
+      height: var(--film-height);
+      font-size: var(--film-font-size);
+      line-height: 1;
+    }
+  }
+  >.images{
+    mix-blend-mode: multiply;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    //background-color: yellow;
+    //opacity: 0.1;
+    img{
+      display: none;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      &.visible{
+        display: block;
+      }
+    }
+  }
+
+
+
+}

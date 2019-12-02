@@ -8,12 +8,13 @@ $film=$vv->targetUid(true);
 
 ?>
 <?if($film):?>
-    <div class="film item paused" <?=$vv->wysiwyg()->attr()?>>
+    <div class="film item paused" <?=$vv->wysiwyg()->attr()?> poster="<?=$film->thumbnail()->href()?>">
         <div class="debug">debug</div>
         <a page-transition-click class="h0" href="<?=$film->href()?>">
             <span tt="<?=$film->name_lang?>" tm style="visibility: hidden"><?=$film->name_lang?></span>
             <i><?=$film->category_lang?></i>
             <div class="previews">
+
                 <?foreach ($film->previews() as $p):?>
                     <?=$view->render("films-list/preview",$p)?>
                 <?endforeach?>
