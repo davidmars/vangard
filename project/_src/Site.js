@@ -15,8 +15,6 @@ export default class Site{
         let me = this;
         me._initListeners();
         //---------------------go------------------------------------------
-        me.resizeStage();
-        me.onDomChange();
         window.isWysiwyg=LayoutVars.isWysiwyg;
         window.navMenu=new NavMenu();
         navMenu.on("OPEN",function(){
@@ -42,6 +40,8 @@ export default class Site{
 
 
 
+
+
     /**
      *
      * @private
@@ -59,18 +59,15 @@ export default class Site{
             me.onPageQuit();
         });
         $body.on(EVENTS.HISTORY_CHANGE_URL_LOADED,function(){
-            console.log("loaded",new Date());
+            //console.log("loaded",new Date());
         });
         //changement d'url et HTML injecté
         $body.on(EVENTS.HISTORY_CHANGE_URL_LOADED_INJECTED,function(){
             me.onPageDone();
         });
 
-        STAGE.on(EVENTS.RESIZE,function(){
-            me.resizeStage();
-        });
+
         $body.on(Pov.events.DOM_CHANGE,function(){
-            me.onDomChange();
         });
     }
 
@@ -86,23 +83,10 @@ export default class Site{
         $("[data-href-uid='"+PovHistory.currentPageInfo.uid+"']").addClass("active");
     }
 
-    /**
-     * Adapte des élements à l'écran
-     */
-    resizeStage(){
-        //ou pas :)
-    }
-
-    /**
-     * Initialisations d'objets dom
-     */
-    onDomChange(){
-        //ou pas :)
-    }
     onPageQuit(hidePage=true){
-        console.log("onPageQuit",new Date());
+        console.log("onPageQuit",hidePage);
         PovHistory.readyToinject=false;
-
+        return;
         let doIt=function(){
             $body.attr("is-home",false);
             navMenu.close();
@@ -122,10 +106,10 @@ export default class Site{
     }
     onPageDone(){
         console.log("onPageDone",new Date());
+        //
         let me=this;
         //navMenu.close();
         pageTransition.show();
-        me.onDomChange();
         me.displayNavAccordingPage();
         //Site.navActive();
         $body.attr("is-home",PovHistory.currentPageInfo.isHome);
@@ -136,6 +120,9 @@ export default class Site{
         PrevNext.initFromDom();
     }
 
+    /**
+     * Affiche ou pas la croix et le menu de langue selon la page ou on est
+     */
     displayNavAccordingPage(){
         navMenu.displayRight(! PovHistory.currentPageInfo.isHome);
     }

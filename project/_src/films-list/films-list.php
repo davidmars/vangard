@@ -12,7 +12,6 @@ $list=\Classiq\Models\Nav::getByName("liste de films",true);
     ->addClass("list content")?>
 
     <div class="mask">
-        <span class="debug">hello</span>
         <i class="a"></i>
         <i class="b"></i>
     </div>

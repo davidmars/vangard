@@ -41,16 +41,6 @@ export default class FilmPreview {
         $d.html(t.join("<br>"));
 
     }
-    glitch(){
-        let me =this;
-        let spl=this.text.split("");
-        let shuffle = (array) => array.sort(() => Math.random() - 0.5);
-        shuffle(spl);
-        me.$text.text(spl.join(""));
-        setTimeout(function(){
-            me.$text.text(me.text);
-        },500);
-    }
     $videos(){
         return this.$film.find("video");
     }
@@ -58,11 +48,6 @@ export default class FilmPreview {
      * Change de vidéo
      */
     change(){
-        //return;
-        //console.log("change");
-        //this.$videos().each(function(){
-            //console.log($(this).attr("src"), $(this)[0].readyState)
-        //});
         this.yetPlayed=false;
         this.pauseAll();
         let $last=this.$film.find(".preview").last();

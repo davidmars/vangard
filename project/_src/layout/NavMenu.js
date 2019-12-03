@@ -33,6 +33,7 @@ export default class NavMenu extends EventEmitter{
                     me.close();
                 }else{
                     Site.goHome();
+                    pageTransition.hidePageAndShowFilms();
                 }
             }
         });

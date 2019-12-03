@@ -15,11 +15,6 @@ export default class Films extends EventEmitter{
         this.$list=$main.find(".list");
         this.$$list=this.$list[0];
 
-        this.$allFilms=this.$main.find(".film");
-
-        let $masks=this.$main.find(".mask>i");
-        this.$skew=this.$allFilms;
-        //this.$skew=this.$allFilms.add($masks);
         this.$filmTypos=this.$main.find(".film span,.film i");
         this.$firstFilm=this.$main.find(".film").eq(0);
 
@@ -214,6 +209,13 @@ export default class Films extends EventEmitter{
         me.scrollTo(y,t)
     }
 
+    scrollToFilmUid(uid,time=0){
+        let $film=this.$main.find(`.film[film-uid='${uid}']`);
+        let pos=$film.position().top - parseInt(this.$list.css("padding-top"));
+        console.log("scrollToFilmId",uid,$film,pos);
+        //this.scrollTo(pos);
+        TweenMax.to(window, 0, {scrollTo:pos,ease:Power3.easeIn});
+    }
     scrollTo(y,time){
         if(this.enabled){
             TweenMax.to(window, time, {scrollTo:y,ease:Power3.easeIn});
@@ -221,6 +223,9 @@ export default class Films extends EventEmitter{
     }
 
     disable(){
+        this.speed=0;
+        this.speed2=0;
+        this.speed3=0;
         this.enabled=false;
     }
     enable(){
