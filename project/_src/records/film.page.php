@@ -6,13 +6,25 @@ $view->inside("layout/layout",$vv);
 ?>
 <div class="film-page">
 
-        <div class="top container-page full">
+        <div class="top zzzcontainer-page full">
             <div class="js-video-wrap">
+                <?/*
                 <iframe class="js-video" style="outline: 1px solid transparent"
                         src="<?=$vv->getVideoEmbed()?>"
                         frameborder="0"
                         allow="autoplay; fullscreen" allowfullscreen>
                 </iframe>
+                */?>
+
+                <div class="transi-film">
+                    <div class="f">
+                        <div class="titre h0"><?=$vv->name_lang?></div>
+                    </div>
+                    <div class="images">
+                        <img src="<?=$vv->thumbnail()->href()?>">
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -61,6 +73,7 @@ $view->inside("layout/layout",$vv);
                         ->string(\Pov\Utils\StringUtils::FORMAT_NO_HTML_SINGLE_LINE)
                         ->setPlaceholder("sous titre")
                         ->htmlTag("h2")
+                    ->addClass("h2mb")
                     ?>
                     <div class="text-rich">
                         <?=$vv->wysiwyg()
@@ -79,7 +92,7 @@ $view->inside("layout/layout",$vv);
 
                 </div>
                 <div class="col-sm-6 col-xl-4">
-                    <h2>Credits</h2>
+                    <h2 class="h2mb">Credits</h2>
                     <div class="text-rich">
                         <?=$vv->wysiwyg()
                             ->field("credits_lang")

@@ -81,10 +81,6 @@ export default class NavMenu extends EventEmitter{
             me.showElements();
 
         },500);
-        //TweenMax.to(window, 1, {scrollTo:0,ease:Power3.easeIn,onComplete:function(){
-                //
-
-        //}});
     }
     close(){
         if(!this.isOpen()){
@@ -98,7 +94,7 @@ export default class NavMenu extends EventEmitter{
             //TweenMax.from($main,1, {height:0,y:STAGE.height,ease: Power4.easeIn});
             //films.recentre();
             if($body.attr("is-home")==="false"){
-                TweenMax.to(window, 0.5, {scrollTo:0,ease:Power3.easeIn});
+                //TweenMax.to(window, 0.5, {scrollTo:0,ease:Power3.easeIn});
             }
         },700);
 

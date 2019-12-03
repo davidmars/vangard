@@ -53,9 +53,13 @@ export default class Site{
         require("./components/data-zoom-img");
         require("./components/data-is-lang");
 
+
         //ferme le menu quand on change d'url
         $body.on(EVENTS.HISTORY_CHANGE_URL,function(){
             me.onPageQuit();
+        });
+        $body.on(EVENTS.HISTORY_CHANGE_URL_LOADED,function(){
+            console.log("loaded",new Date());
         });
         //changement d'url et HTML injecté
         $body.on(EVENTS.HISTORY_CHANGE_URL_LOADED_INJECTED,function(){
@@ -95,25 +99,31 @@ export default class Site{
     onDomChange(){
         //ou pas :)
     }
-    onPageQuit(){
-        $body.attr("data-page-transition-state","start");
+    onPageQuit(hidePage=true){
+        console.log("onPageQuit",new Date());
         PovHistory.readyToinject=false;
+
+        let doIt=function(){
+            $body.attr("is-home",false);
+            navMenu.close();
+            window.scrollTo(0,0);
+            PovHistory.readyToinject=true;
+        }
         //dit qu'on est prêt à afficher la page (s'assure qu'on reste au moins une seconde sur l'écran de transition)
-        $body.attr("is-home",false);
-        pageTransition.hide(function(){
-            setTimeout(function(){
+        //
+        if(!hidePage){
+            doIt();
+        }else{
+            pageTransition.hide(function(){
+                doIt();
+            });
+        }
 
-                navMenu.close();
-                window.scrollTo(0,0);
-                PovHistory.readyToinject=true;
-            },0)
-
-        });
     }
     onPageDone(){
+        console.log("onPageDone",new Date());
         let me=this;
-        $body.attr("data-page-transition-state","end");
-        navMenu.close();
+        //navMenu.close();
         pageTransition.show();
         me.onDomChange();
         me.displayNavAccordingPage();

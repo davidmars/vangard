@@ -4,15 +4,19 @@
   >.body{}
   >.footer{}
 
+
+
   .top{
     position: relative;
-    >div{
+    z-index: 1;
+    >.js-video-wrap{
+      overflow: hidden;
       position: relative;
-      height: calc( 100vw / 16 * 9);
+      //height: calc( 100vw / 16 * 9);
       @media(min-width: @nav-breakpoint){
-        margin-top: 10px;
-        margin-bottom: 10px;
-        height: calc(100vh - var(--typo-size-h1) - 40px );
+        //margin-top: 10px;
+        //margin-bottom: 10px;
+        height: calc(100vh - var(--typo-size-h1) - 20px);
       }
       width: 100%;
       iframe{
@@ -23,9 +27,21 @@
       }
     }
   }
+  .body{
+    z-index: calc( var(--z-page) + 1 );
+  }
 
   .row,.container-page{
     overflow: visible;
+  }
+
+
+
+
+  .body{
+    .h2mb{
+      margin-bottom: 1em;
+    }
   }
 
 }

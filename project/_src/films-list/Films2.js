@@ -65,8 +65,8 @@ export default class Films extends EventEmitter{
                 let y=$(this).offset().top - parseInt( $(this).parent().css("padding-top") );
                 me.tw(y,false,false);
             }else{
-                e.preventDefault();
-                e.stopPropagation();
+                //e.preventDefault();
+                //e.stopPropagation();
                 pageTransition.clickFilm($(this));
             }
         });
