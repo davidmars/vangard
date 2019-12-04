@@ -39,10 +39,10 @@ $view->inside("layout/layout",$vv);
                     ?>
                     <hr>
                 </div>
-                <div class="d-none d-lg-block col-lg-2">
+                <div class="d-none d-xl-block col-xl-2">
                     <hr>
                 </div>
-                <div class="col-sm-6 col-lg-4">
+                <div class="col-sm-6 col-xl-4">
                     <h2 class="h1">
                         <span class="h2">
                           <?=$vv->wysiwyg()
@@ -67,7 +67,7 @@ $view->inside("layout/layout",$vv);
             </div>
 
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-md-6">
                     <?=$vv->wysiwyg()
                         ->field("subtitle_lang")
                         ->string(\Pov\Utils\StringUtils::FORMAT_NO_HTML_SINGLE_LINE)
@@ -89,9 +89,8 @@ $view->inside("layout/layout",$vv);
 
                 </div>
                 <div class="d-none d-xl-block col-xl-2">
-
                 </div>
-                <div class="col-sm-6 col-xl-4">
+                <div class="col-md-6 col-xl-4">
                     <h2 class="h2mb">Credits</h2>
                     <div class="text-rich">
                         <?=$vv->wysiwyg()
