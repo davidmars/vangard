@@ -4,8 +4,11 @@
   -webkit-tap-highlight-color: transparent;
   --grid-padding:10px;
   --nav-bar-height:70px;
-  --film-font-size:25vw;
+
+
+  --film-font-size-zoom:25vw;
   --film-font-size-small:12px;
+  --film-font-size:var(--film-font-size-zoom);
   --film-height:32vw;
 
   @media(min-width: @screen-md){
@@ -55,7 +58,7 @@ body{
     opacity: var(--film-opacity);
     max-height: var(--film-max-h);
   }
-  #main-content{
+  #main{
     //display: var(--page-display);
     pointer-events: var(--page-pointer);
     opacity: var(--page-opacity);
@@ -92,45 +95,8 @@ html{
     margin-top: 0;
   }
 }
-#nav-content{
-  /*
-  .left{
-    transition: all 0.5s;
-    transform: translateX(-100%);
-  }
-  .right{
-    transition: all 0.5s;
-    transform: translateX(100%);
-  }
-  */
-}
 body{
-  &.nav-open{
-    /*
-    #main-content{
-      position: absolute;
-      max-height: 0;
-      overflow: hidden;
-      pointer-events: none;
-      opacity: 0.2;
-    }
-    */
-    #nav-content{
-      /*
-      .left{
-        transform: translateX(0);
-      }
-      .right{
-        transform: translateX(0);
-      }
-      */
-    }
-  }
   #main-content{
     z-index: var(--z-page);
   }
-
-  &[is-home='true']{
-  }
-
 }

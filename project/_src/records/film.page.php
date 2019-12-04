@@ -15,15 +15,18 @@ $view->inside("layout/layout",$vv);
                         allow="autoplay; fullscreen" allowfullscreen>
                 </iframe>
                 */?>
-
+                <?/*
                 <div class="transi-film">
                     <div class="f">
-                        <div class="titre h0"><?=$vv->name_lang?></div>
+                        <div class="titre h0">
+                            <span><?=$vv->name_lang?></span>
+                        </div>
                     </div>
                     <div class="images">
                         <img src="<?=$vv->thumbnail()->href()?>">
                     </div>
                 </div>
+                */?>
 
             </div>
         </div>

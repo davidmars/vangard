@@ -6,5 +6,5 @@ $view->inside("layout/layout", $vv);
 ?>
 
 <div class="">
-
+    Home
 </div>

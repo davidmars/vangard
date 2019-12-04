@@ -32,7 +32,7 @@ export default class NavMenu extends EventEmitter{
                     me.close();
                 }else{
                     Site.goHome();
-                    pageTransition.hidePageAndShowFilms();
+                    pageTransition.hide_FILM_HOME();
                 }
             }
         });
@@ -67,11 +67,28 @@ export default class NavMenu extends EventEmitter{
         }
         let me=this;
         console.log("open");
-        $body.addClass("nav-open");
+        this.saveScroll=window.scrollY;
+        if(PovHistory.currentPageInfo.isHome){
+            $body.addClass("nav-open");
+            films.scrollKeepActiveOneLoop();
+        }else{
+            pageTransition.hidePageZoom(function(){
+                $body.addClass("nav-open");
+                pageTransition._resetTransiZoom(true,false);
+                TweenMax.to(window, 0, {scrollTo:0});
+                pageTransition.showFilmsZoom(function(){
+                    pageTransition._resetTransiZoom(true,true);
+                });
+            })
+
+        }
+
+
         if($body.attr("is-home")==="false"){
             films.disable();
-            TweenMax.to(window, 0.5, {scrollTo: 0, ease: Power3.easeIn});
+            //TweenMax.to(window, 0.5, {scrollTo: 0, ease: Power3.easeIn});
         }
+
         setTimeout(function(){
             films.enable();
             films.recentre();
@@ -86,7 +103,21 @@ export default class NavMenu extends EventEmitter{
         }
         let me=this;
         this.hideElements();
-        $body.removeClass("nav-open");
+        if(PovHistory.currentPageInfo.isHome){
+            films.scrollKeepActiveOneLoop();
+            $body.removeClass("nav-open");
+        }else{
+            pageTransition.hideFilmsZoom(function(){
+                $body.removeClass("nav-open");
+                pageTransition._resetTransiZoom(false,true);
+                TweenMax.to(window, 0, {scrollTo:me.saveScroll,ease:Power3.easeOut});
+                pageTransition.showPageZoom(function(){
+                    pageTransition._resetTransiZoom(true,true);
+                });
+            })
+
+        }
+
         this.emit("CLOSE");
     }
     toggle(){

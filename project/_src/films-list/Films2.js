@@ -58,7 +58,7 @@ export default class Films extends EventEmitter{
                 e.preventDefault();
                 e.stopPropagation();
                 let y=$(this).offset().top - parseInt( $(this).parent().css("padding-top") );
-                me.tw(y,false,false);
+                me.tw(y,false);
             }else{
                 //e.preventDefault();
                 //e.stopPropagation();
@@ -115,9 +115,9 @@ export default class Films extends EventEmitter{
             }else{
                 me.disable();
             }
-            //let y=Math.round(window.scrollY);
-            //let yy=Math.round(me.roundY(y));
-            //me.debug(y+" "+yy+" "+STAGE.height+" "+$main.find(".mask>i").css("bottom"));
+            if(me.keepCenterId){
+                me.scrollToFilmUid(me.keepCenterId,0.1);
+            }
             if(me.enabled){
                 let newY=window.scrollY;
                 me.speed= me.yy - newY;
@@ -137,29 +137,9 @@ export default class Films extends EventEmitter{
                 if(me.isMobileNavOpen()){
                     return;
                 }
-                TweenMax.set(me.$filmTypos,{y:me.speed2*-2});
-
-                /*
-                let sk=me.speed2/5;
-                sk=Math.max(sk,-60);
-                sk=Math.min(sk,60);
-                TweenMax.set(me.$skew,{skewY:-sk});
-                 */
-
-                /*
-                let sc=me.speed2/10;
-                sc=ratio(me.speed2,)
-                console.log(sc);
-                sc=Math.abs(sc);
-                sc=Math.max(sc,1);
-                sc=Math.min(sc,0.9);
-                TweenMax.set(me.$skew,{scaleY:Math.abs(sc)});
-
-                 */
-
-
-
-                //console.log("speed",me.speed,me.speed2,me.speed3);
+                let factor=ratio(me.$firstFilm.height(),400,2,50,1);
+                let target=me.speed2 * factor * -1;
+                TweenMax.set(me.$filmTypos,{y:target});
             }
         },20);
         me.on(me.EVENT_START_MOVING,function(){
@@ -201,7 +181,7 @@ export default class Films extends EventEmitter{
     recentre(){
         this.tw(window.scrollY);
     }
-    tw(y,up=false,isFast=true){
+    tw(y,isFast=true){
         let me=this;
         y=this.limitY(y);
         y=this.roundY(y);
@@ -209,12 +189,39 @@ export default class Films extends EventEmitter{
         me.scrollTo(y,t)
     }
 
+    /**
+     * Conserve le scroll en position de sorte que le activeOne reste centré et activeOne
+     */
+    scrollKeepActiveOneLoop(durationMs=700){
+        let me=this;
+        let selectedUid=null;
+        if(me.activeOne){
+            selectedUid=me.activeOne.$film.attr("film-uid");
+            console.log("keep scroll "+selectedUid)
+        }
+        if(selectedUid){
+            this.keepCenterId=selectedUid;
+            /*
+            this.scrollKeepActiveOneLoop_loop=setInterval(function(){
+                me.scrollToFilmUid(selectedUid);
+            },20);
+             */
+            //arrête la boucle à un moment
+            setTimeout(function(){
+                console.log("stop scroll "+selectedUid)
+                //clearTimeout(me.scrollKeepActiveOneLoop_loop);
+                me.keepCenterId=null;
+            },durationMs);
+        }else{
+            console.warn("pas de film selectionné")
+        }
+
+    }
+
     scrollToFilmUid(uid,time=0){
         let $film=this.$main.find(`.film[film-uid='${uid}']`);
         let pos=$film.position().top - parseInt(this.$list.css("padding-top"));
-        console.log("scrollToFilmId",uid,$film,pos);
-        //this.scrollTo(pos);
-        TweenMax.to(window, 0, {scrollTo:pos,ease:Power3.easeIn});
+        TweenMax.to(window, time, {scrollTo:pos,ease:Power3.easeOut});
     }
     scrollTo(y,time){
         if(this.enabled){
@@ -226,6 +233,7 @@ export default class Films extends EventEmitter{
         this.speed=0;
         this.speed2=0;
         this.speed3=0;
+        this.setActiveOne(null);
         this.enabled=false;
     }
     enable(){

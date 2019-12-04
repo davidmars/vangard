@@ -1,6 +1,5 @@
 import NavMenu from "./layout/NavMenu";
 import PrevNext from "./components/prev-next/PrevNext";
-import TextMotion from "./motion/TextMotion";
 //import Films from "./films-list/Films";
 import Films from "./films-list/Films2";
 import PageTransition from "./motion/PageTransition";
@@ -23,18 +22,9 @@ export default class Site{
         navMenu.on("CLOSE",function(){
             me.displayNavAccordingPage();
         });
-
         window.films=new Films($("#films"));
         window.pageTransition=new PageTransition();
-
-        //window.textMotion=new TextMotion();
-        //textMotion.apparitions();
-
-        this.$mainContent=$("#main-content");
-        Site.navActive();
         me.onPageDone();
-
-
 
     }
 
@@ -49,70 +39,34 @@ export default class Site{
     _initListeners() {
 
         let me=this;
-
         require("./components/data-zoom-img");
         require("./components/data-is-lang");
-
-
         //ferme le menu quand on change d'url
         $body.on(EVENTS.HISTORY_CHANGE_URL,function(){
-            me.onPageQuit();
+            console.log("change url");
+            PovHistory.readyToinject=false;
         });
         $body.on(EVENTS.HISTORY_CHANGE_URL_LOADED,function(){
-            //console.log("loaded",new Date());
+            console.log("loaded");
         });
         //changement d'url et HTML injecté
         $body.on(EVENTS.HISTORY_CHANGE_URL_LOADED_INJECTED,function(){
+            console.log("will call onPageDone");
+
             me.onPageDone();
         });
-
-
-        $body.on(Pov.events.DOM_CHANGE,function(){
-        });
     }
 
-    goHome(){
-        PovHistory.goUrl(LayoutVars.homeUrl);
-    }
-
-    /**
-     * Selectionne / déselectionne l'item de nav de la page en cours
-     */
-    static navActive(){
-        $("[data-href-uid]").removeClass("active");
-        $("[data-href-uid='"+PovHistory.currentPageInfo.uid+"']").addClass("active");
-    }
-
-    onPageQuit(hidePage=true){
-        console.log("onPageQuit",hidePage);
-        PovHistory.readyToinject=false;
-        return;
-        let doIt=function(){
-            $body.attr("is-home",false);
-            navMenu.close();
-            window.scrollTo(0,0);
-            PovHistory.readyToinject=true;
-        }
-        //dit qu'on est prêt à afficher la page (s'assure qu'on reste au moins une seconde sur l'écran de transition)
-        //
-        if(!hidePage){
-            doIt();
-        }else{
-            pageTransition.hide(function(){
-                doIt();
-            });
-        }
-
-    }
     onPageDone(){
         console.log("onPageDone",new Date());
+        PovHistory.readyToinject=false;
         //
         let me=this;
         //navMenu.close();
         pageTransition.show();
         me.displayNavAccordingPage();
         //Site.navActive();
-        $body.attr("is-home",PovHistory.currentPageInfo.isHome);
+        pageTransition.setIsHome(PovHistory.currentPageInfo.isHome);
         if(typeof gtag !== 'undefined' && LayoutVars.googleAnalyticsId){
             //hit google analytics
             gtag('config', LayoutVars.googleAnalyticsId, {'page_path': location.pathname});
@@ -125,6 +79,10 @@ export default class Site{
      */
     displayNavAccordingPage(){
         navMenu.displayRight(! PovHistory.currentPageInfo.isHome);
+    }
+
+    goHome(){
+        PovHistory.goUrl(LayoutVars.homeUrl);
     }
 
 }
