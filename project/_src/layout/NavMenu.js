@@ -1,6 +1,5 @@
 import BurgerIcon from "../molecules/burger-icon/BurgerIcon";
 import {TweenMax} from "gsap";
-import PageTransition from "../motion/PageTransition";
 
 var EventEmitter = require('event-emitter-es6');
 
@@ -72,8 +71,6 @@ export default class NavMenu extends EventEmitter{
         if($body.attr("is-home")==="false"){
             films.disable();
             TweenMax.to(window, 0.5, {scrollTo: 0, ease: Power3.easeIn});
-
-            pageTransition.showFilms();
         }
         setTimeout(function(){
             films.enable();
@@ -89,17 +86,6 @@ export default class NavMenu extends EventEmitter{
         }
         let me=this;
         this.hideElements();
-        setTimeout(function(){
-            //pageTransition.showPage();
-            //TweenMax.set($main, {height:"auto",y:0});
-            //TweenMax.from($main,1, {height:0,y:STAGE.height,ease: Power4.easeIn});
-            //films.recentre();
-            if($body.attr("is-home")==="false"){
-                //TweenMax.to(window, 0.5, {scrollTo:0,ease:Power3.easeIn});
-            }
-        },700);
-
-        //films.modeNav(false);
         $body.removeClass("nav-open");
         this.emit("CLOSE");
     }
