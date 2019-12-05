@@ -1,4 +1,5 @@
 import {Power3} from "gsap";
+import TransiFilm from "./TransiFilm";
 
 export default class PageTransition {
     constructor() {
@@ -14,14 +15,7 @@ export default class PageTransition {
         this.TRANSI_FILM_FILM="TRANSI_FILM_FILM";
         this.TRANSI_HOME_FILM="TRANSI_HOME_FILM";
         //fake film typo
-        this.$transiFilm = $(require("./transi-film.html"));
-        $(".film[poster]").each(function () {
-            let $img = $("<img>");
-            $img.attr("src", $(this).attr("poster"));
-            me.$transiFilm.find(".images").append($img);
-        });
-        $body.find("#main").append(this.$transiFilm);
-
+        this.transiFilm=new TransiFilm();
         //out only
         $body.on("mousedown",`[page-transition-click]`,function(){
             let transi=$(this).attr("page-transition-click");
@@ -58,7 +52,11 @@ export default class PageTransition {
     }
     show_FILM_FILM(){
         let me=this;
-        me._displayFilmPosterCurrentPage();
+        me.transiFilm
+            .setContentByUid(PovHistory.currentPageInfo.uid)
+            .setAsPoster(true)
+            .setAutoSize(true);
+
         me.showPageZoom(
             function(){
                 me.runningTransition=null;
@@ -92,9 +90,10 @@ export default class PageTransition {
     }
     show_HOME_FILM(){
         let me=this;
-        me.$transiFilm.addClass("as-poster");
+        this.transiFilm.setAsPoster(true)
         //fait disparaitre le typo de transition
         me.showPageNormal(
+
             function(){
                 me.runningTransition=null;
             }
@@ -130,7 +129,10 @@ export default class PageTransition {
                     case 'film':
                         console.log("show...film")
                         me.show_FILM_FILM();
-                        me._displayFilmPosterCurrentPage();
+                        me.transiFilm
+                            .setContentByUid(PovHistory.currentPageInfo.uid)
+                            .setAutoSize(true)
+                            .setAsPoster(true);
                         return;
                         break;
                     default:
@@ -154,11 +156,6 @@ export default class PageTransition {
 
     //--------------------------------------------------------------------
 
-    _displayFilmPosterCurrentPage(){
-        this._defineTransifilmByUid(PovHistory.currentPageInfo.uid)
-        this.$transiFilm.addClass("as-poster");
-        this.$transiFilm.addClass("auto-size");
-    }
 
     showPageNormal(cb) {
         console.log("show page normal");
@@ -204,7 +201,6 @@ export default class PageTransition {
     }
     showPageZoom(cb) {
         console.log("show page zoom");
-        this._displayFilmPosterCurrentPage();
         this._transiZoom(this.$page,"in",cb);
     }
     hidePageZoom(cb) {
@@ -224,47 +220,15 @@ export default class PageTransition {
 
     //------------------------------------------------------------------------
 
-    /**
-     * affiche les éléments dans la page
-     */
-    showPage(){
-        console.log("show page");
-        let me=this;
-        me.restorePage();
-        setTimeout(function(){
-            me._resetFilmTransition();
-        },100);
 
-        TweenMax.set($("#main"),{scale:1,ease: Power2.easeInOut});
-        TweenMax.from(me.$textes(),1.5,{y:50*0,opacity:0,ease: Power1.easeInOut});
-        TweenMax.from(me.$prevNext(),1.5,{y:80*0,opacity:0,ease: Power2.easeInOut});
-        TweenMax.from(me.$titres(),1.5,{y:60*0,opacity:0,ease: Power3.easeInOut});
-        TweenMax.from(me.$embeds(),1.5,{y:200*0,opacity:0,ease: Back.easeOut});
-        if(this.isTransi(this.TRANSI_HOME_FILM)){
-            TweenMax.from(me.$posterTypo(),1.5,{y:50*0,opacity:0,ease: Back.easeIn})
-        }
-        TweenMax.from(me.$traits(),1.5,{width:0,ease: Expo.easeOut});
-        me.$photos().each(function(){
-            TweenMax.from($(this),1.5,{y:50*Math.random()-50*0,opacity:0,ease: Power4.easeInOut})
-        });
-    }
     _defineTransifilmByUid(uid){
-        let $film=$(`.film[film-uid='${uid}']`);
-        this._defineTransifilm($film);
+        this.transiFilm.setContentByUid(uid)
     }
     _defineTransifilm($film){
-        this._resetFilmTransition();
-        this.$transiFilm.removeClass("as-poster auto-size");
-        let $text=this.$transiFilm.find(".titre span");
-        $text.text($film.find(".h0>span").text());
-        //la bonne photo
-        this.$transiFilm.find("img").removeClass("visible");
-        this.$transiFilm.find(`img[src='${$film.attr("poster")}']`).addClass("visible");
+        this.transiFilm.setContentBy$Film($film);
     }
     _positionneTransiFilm($element,duration){
-        let $text=this.$transiFilm.find(".titre");
-        let pos=$element.find(".h0>span")[0].getBoundingClientRect();
-        TweenMax.to($text,duration,{x:pos.left,y:pos.top});
+        this.transiFilm.setPositionAndSize($element,duration);
     }
 
     /**
@@ -279,173 +243,36 @@ export default class PageTransition {
             //ça doit se passer autrement...
             navMenu.saveScroll=0;
             navMenu.close();
+            this.transiFilm.set$Film($film);
             pageTransition.hideFilmsZoom(function(){
                 window.scrollTo(0,0);
                 PovHistory.readyToinject=true;
             });
             return;
         }
-
-        //construit...
-        me._defineTransifilm($film);
-        //la bonne position
-        this._positionneTransiFilm($film,0);
         //zoome typo et apparait
-        let sc=1.2;
-        let t=0.25;
-        let ea=Power4.easeOut;
-        TweenMax.fromTo(me.$transiFilm,t,{opacity:0},
-            {
-                opacity:1,ease:Power0.easeInOut,onComplete:function(){
+        let baseDuration=0.25;
+        me.transiFilm
+            .set$Film($film)
+            .clone$FilmPosition()
+            .setAutoSize(false)
+            .setAsPoster(false)
+            .fadeIn(baseDuration,
+                function(){
                     //remet en place les films
-                    me.setIsHome(false)
+                    me.setIsHome(false);
                     TweenMax.set($film,{scale:1,opacity:1});
                     me.$films.css("visibility","hidden");
                     setTimeout(function(){
                         me.$films.css("visibility","visible");
-                    },4000)
+                    },4000);
                 }
-            }
-        );
-        let $text=this.$transiFilm.find(".titre");
-        TweenMax.fromTo($text,t*3,{scale:1},
-            {scale:sc,ease:ea}
-        );
-        TweenMax.fromTo($film,t*3,
-            {scale:1},
-            {scale:sc,ease:ea}
-        );
-        setTimeout(function(){
-            PovHistory.readyToinject=true;
-            window.scrollTo(0,0);
-        },t*3*1000+100)
-
+            )
+            .zoomTexte(baseDuration*3,function(){
+                window.scrollTo(0,0);
+                PovHistory.readyToinject=true;
+            })
 
     }
 
-    _resetFilmTransition(){
-        let me=this;
-        let $text=me.$transiFilm.find(".titre");
-        let $textContainer=$text.parent();
-        TweenMax.set(me.$transiFilm,{clearProps:"all"});
-        TweenMax.set($text,{clearProps:"all"});
-        TweenMax.set($textContainer,{clearProps:"all"});
-    }
-
-
-
-    hide(cb){
-        return;
-        console.log("hide");
-        let $elements=this.$elements();
-        let $invisibles=[];
-        $elements.each(function(){
-            let $el=$(this);
-                TweenMax.set($el, {overflow: 'hidden'});
-                if(!isVisible($(this)[0])){
-                    $invisibles.push($(this))
-                }
-        });
-        for(let $el of $invisibles){
-            TweenMax.set($el, {visibility: 'hidden'});
-        }
-
-        this.hidePage();
-
-        setTimeout(function(){
-            if(cb) {cb();}
-        },1000)
-
-    }
-
-    restorePage(){
-        TweenMax.set(this.$page,{clearProps:"all"});
-        TweenMax.set(this.$elementsPage(), {clearProps: 'all'});
-    }
-    restoreAll(){
-        this.restorePage();
-    }
-
-
-
-    $elements() {
-        let me = this;
-        return me.$elementsFilms()
-            .add(me.$filmItemsSmall());
-    }
-
-    $elementsPage() {
-        let me = this;
-        return me.$prevNext()
-            .add(me.$traits())
-            .add(me.$embeds())
-            .add(me.$photos())
-            //.add(me.$top())
-            .add(me.$posterTypo())
-            .add(me.$titres())
-            .add(me.$textes());
-    }
-
-    $elementsFilms() {
-        let me = this;
-        return me.$filmItems()
-            .add(me.$filmItemsSmall());
-    }
-
-    $prevNext() {
-        return $body.find("#main-content [data-js='PrevNext']");
-    }
-
-    $posterTypo() {
-        return $body.find(".transi-film .titre");
-    }
-
-    $traits() {
-        return $body.find("#main-content hr");
-    }
-
-    $embeds() {
-        return $body.find("#main-content .embed-responsive");
-    }
-
-    $photos() {
-        return $body.find("#main-content .photo-item");
-    }
-
-    $top() {
-        return $body.find("#main-content .top");
-    }
-
-    $titres() {
-        return $body.find("#main-content h1")
-            .add("#main-content h2");
-    }
-
-    $textes() {
-        return $body.find("#main-content .text-rich");
-    }
-
-
-
-    /**
-     * Cache les éléments dans la page
-     */
-    hidePage() {
-        console.log("hide page")
-        let me = this;
-        me._setOriginCenter();
-        TweenMax.to(me.$page, 1.5, {scale: 0.9, opacity: 0, ease: Power2.easeInOut});
-        /*
-        TweenMax.to(me.$textes(),1.5,{y:-50*0,opacity:0,ease: Power2.easeInOut})
-        TweenMax.to(me.$prevNext(),1.5,{y:-80*0,opacity:0,ease: Power2.easeInOut})
-        TweenMax.to(me.$titres(),1.5,{y:-60*0,opacity:0,ease: Power3.easeInOut})
-        TweenMax.to(me.$embeds(),1.5,{y:-200*0,opacity:0,ease: Back.easeIn})
-        TweenMax.to(me.$posterTypo(),1.5,{y:-100*0,opacity:0,ease: Power2.easeInOut})
-        //TweenMax.to(me.$top(),1.3,{y:-220,opacity:0,ease: Power3.easeInOut})
-        TweenMax.to(me.$traits(),1.5,{width:0*0,ease: Expo.easeOut})
-        me.$photos().each(function(){
-            TweenMax.to($(this),1.5,{y:-50*Math.random()-50*0,opacity:0,ease: Power4.easeInOut})
-        });
-        */
-    }
 }

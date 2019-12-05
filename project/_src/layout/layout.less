@@ -76,11 +76,17 @@ body{
 
 @import "../motion/transi-film.less";
 
-
-#films{
-  //background-color: #FFFC00;
-  z-index: calc( var(--z-page) + 1 );
+#main-content{
+  z-index: var(--z-page);
 }
+#transi-film{
+  z-index: calc( var(--z-page) - 1 );
+}
+#films{
+  z-index: calc( var(--z-page) - 2 );
+}
+
+
 
 html{
   overflow-y: scroll;
@@ -95,8 +101,4 @@ html{
     margin-top: 0;
   }
 }
-body{
-  #main-content{
-    z-index: var(--z-page);
-  }
-}
+

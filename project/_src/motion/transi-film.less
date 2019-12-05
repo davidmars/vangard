@@ -1,8 +1,9 @@
 #transi-film{
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
-  z-index: calc( var(--z-page) + 3 );
   pointer-events: none;
   transform-origin: top right;
   opacity:0;
@@ -49,7 +50,6 @@
   }
   &.as-poster{
     position: absolute;
-    z-index: calc( var(--z-page) - 1 );
   }
   &.auto-size{
     opacity: 1;
