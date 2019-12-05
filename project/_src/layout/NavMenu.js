@@ -97,7 +97,7 @@ export default class NavMenu extends EventEmitter{
 
         },500);
     }
-    close(){
+    close(cb){
         if(!this.isOpen()){
             return;
         }

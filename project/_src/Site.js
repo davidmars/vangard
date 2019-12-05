@@ -44,6 +44,9 @@ export default class Site{
         //ferme le menu quand on change d'url
         $body.on(EVENTS.HISTORY_CHANGE_URL,function(){
             console.log("change url");
+            if(PovHistory.readyToinject!==false){
+                console.error("PovHistory.readyToinject!==false");
+            }
             PovHistory.readyToinject=false;
         });
         $body.on(EVENTS.HISTORY_CHANGE_URL_LOADED,function(){
@@ -52,7 +55,6 @@ export default class Site{
         //changement d'url et HTML injecté
         $body.on(EVENTS.HISTORY_CHANGE_URL_LOADED_INJECTED,function(){
             console.log("will call onPageDone");
-
             me.onPageDone();
         });
     }

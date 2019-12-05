@@ -265,6 +265,10 @@ export default class PageTransition {
             //ça doit se passer autrement...
             navMenu.saveScroll=0;
             navMenu.close();
+            pageTransition.hideFilmsZoom(function(){
+                window.scrollTo(0,0);
+                PovHistory.readyToinject=true;
+            });
             return;
         }
 

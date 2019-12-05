@@ -50,19 +50,24 @@ export default class Films extends EventEmitter{
 
 
         //change on click
-        this.$main.find(".film").on("click",function(e){
-            if(me.isMobileNavOpen()){
-                return;
-            }
-            if(!$(this).is("[the-one]")){ //remettre pour activer le click
+        this.$main.find(".film a").on("click",function(e){
+            console.log("click event film");
+            let $film=$(this).closest(".film");
+            if(!$film.is("[the-one]")){ //remettre pour activer le click
+                console.log("click event film and move");
                 e.preventDefault();
                 e.stopPropagation();
-                let y=$(this).offset().top - parseInt( $(this).parent().css("padding-top") );
+                if(me.isMobileNavOpen()){
+                    console.log("click event film and move diabled by mobile");
+                    return;
+                }
+                let y=$film.offset().top - parseInt( $film.parent().css("padding-top") );
                 me.tw(y,false);
             }else{
+                console.log("click event film and go page");
                 //e.preventDefault();
                 //e.stopPropagation();
-                pageTransition.clickFilm($(this));
+                pageTransition.clickFilm($film);
             }
         });
 
@@ -111,9 +116,13 @@ export default class Films extends EventEmitter{
 
         setInterval(function(){
             if($body.attr("is-home")==="true" || $body.is(".nav-open")){
-                me.enable();
+                if(!me.enabled){
+                    me.enable();
+                }
             }else{
-                me.disable();
+                if(me.enabled){
+                    me.disable();
+                }
             }
             if(me.keepCenterId){
                 me.scrollToFilmUid(me.keepCenterId,0.1);
@@ -230,13 +239,17 @@ export default class Films extends EventEmitter{
     }
 
     disable(){
+        console.log("disable films")
         this.speed=0;
         this.speed2=0;
         this.speed3=0;
         this.setActiveOne(null);
+        this.pauseAllVideos();
         this.enabled=false;
     }
     enable(){
+        console.log("enable films")
+        this.speed=1;
         this.enabled=true;
     }
 
