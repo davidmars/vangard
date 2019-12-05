@@ -125,9 +125,23 @@ export default class PageTransition {
                 me.show_HOME_FILM();
                 break;
             default:
-                if(PovHistory.currentPageInfo.recordType==="film"){
-                    me._displayFilmPosterCurrentPage();
+                console.log("show...")
+                switch(PovHistory.currentPageInfo.recordType){
+                    case 'film':
+                        console.log("show...film")
+                        me.show_FILM_FILM();
+                        me._displayFilmPosterCurrentPage();
+                        return;
+                        break;
+                    default:
+                        if(PovHistory.currentPageInfo.isHome){
+                            console.log("show...home")
+                            me.show_FILM_HOME();
+                            return;
+                        }
+
                 }
+                console.error("show...???")
         }
     }
 

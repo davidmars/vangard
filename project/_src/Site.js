@@ -41,7 +41,20 @@ export default class Site{
         let me=this;
         require("./components/data-zoom-img");
         require("./components/data-is-lang");
-        //ferme le menu quand on change d'url
+
+        //gestion du back bouton...
+        $body.on(EVENTS.HISTORY_CHANGE_URL_BACK,function(){
+            let fn="hidePageZoom";
+            if(PovHistory.currentPageInfo.isHome){
+                fn="hideFilmsZoom";
+            }
+           pageTransition[fn](
+               function(){
+                   window.scrollTo(0,0);
+                   PovHistory.readyToinject=true;
+               }
+           );
+        });
         $body.on(EVENTS.HISTORY_CHANGE_URL,function(){
             console.log("change url");
             if(PovHistory.readyToinject!==false){
