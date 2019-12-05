@@ -43,6 +43,7 @@ export default class Site{
         require("./components/data-is-lang");
 
         //gestion du back bouton...
+        history.scrollRestoration="manual"; //enpeche de scroller automatiquement
         $body.on(EVENTS.HISTORY_CHANGE_URL_BACK,function(){
             let fn="hidePageZoom";
             if(PovHistory.currentPageInfo.isHome){
