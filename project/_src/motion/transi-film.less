@@ -86,4 +86,20 @@
     }
 
   }
+  &.blink{
+    animation-name:kf-blink ;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+}
+
+@keyframes kf-blink {
+  from{
+    opacity: 1;
+  }
+  to{
+    opacity: 0.5;
+  }
 }

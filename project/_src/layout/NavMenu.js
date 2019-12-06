@@ -1,5 +1,6 @@
 import BurgerIcon from "../molecules/burger-icon/BurgerIcon";
 import {TweenMax} from "gsap";
+import VideoWrap from "../components/VideoWrap";
 
 var EventEmitter = require('event-emitter-es6');
 
@@ -67,6 +68,7 @@ export default class NavMenu extends EventEmitter{
         }
         let me=this;
         console.log("open");
+        VideoWrap.pauseAll();
         this.saveScroll=window.scrollY;
         if(PovHistory.currentPageInfo.isHome){
             $body.addClass("nav-open");

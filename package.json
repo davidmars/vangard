@@ -9,6 +9,7 @@
     "composer-update": "composer update"
   },
   "dependencies": {
+    "@vimeo/player": "^2.10.0",
     "aos": "^2.3.4",
     "event-emitter-es6": "^1.1.5",
     "gsap": "^2.1.3",

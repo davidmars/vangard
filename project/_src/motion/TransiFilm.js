@@ -39,6 +39,19 @@ export default class TransiFilm{
         }
         return this;
     }
+    /**
+     *
+     * @param flag
+     * @returns {TransiFilm}
+     */
+    blink(flag){
+        if(flag){
+            this.$main.addClass("blink");
+        }else{
+            this.$main.removeClass("blink");
+        }
+        return this;
+    }
 
     /**
      * Définit le $film mirroir
@@ -46,12 +59,18 @@ export default class TransiFilm{
      * @returns {TransiFilm}
      */
     set$Film($film){
+        this.blink(false);
         this.$film=$film;
         //le bon texte
-        this.$text.text(this.$film.find(".h0>span").text());
+        this.text(this.$film.find(".h0>span").text());
         //la bonne photo
         this.$main.find("img").removeClass("visible");
         this.$main.find(`img[src='${this.$film.attr("poster")}']`).addClass("visible");
+        return this;
+    }
+
+    text(string){
+        this.$text.text(string);
         return this;
     }
 

@@ -11,13 +11,8 @@ $view->inside("layout/layout",$vv);
                 <button class="play-button">
                     <?=pov()->svg->use("startup-play-thin")?>
                 </button>
-                <?/*
-                <iframe class="js-video" style="outline: 1px solid transparent"
-                        src="<?=$vv->getVideoEmbed()?>"
-                        frameborder="0"
-                        allow="autoplay; fullscreen" allowfullscreen>
-                </iframe>
-                */?>
+
+                <div class="js-video" src="<?=$vv->getVideoEmbed()?>"></div>
                 <?/*
                 <div class="transi-film">
                     <div class="f">

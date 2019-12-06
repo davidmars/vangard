@@ -3,6 +3,7 @@ import PrevNext from "./components/prev-next/PrevNext";
 //import Films from "./films-list/Films";
 import Films from "./films-list/Films2";
 import PageTransition from "./motion/PageTransition";
+import VideoWrap from "./components/VideoWrap";
 require("./utils");
 
 export default class Site{
@@ -41,6 +42,7 @@ export default class Site{
         let me=this;
         require("./components/data-zoom-img");
         require("./components/data-is-lang");
+        VideoWrap.init();
 
         //gestion du back bouton...
         history.scrollRestoration="manual"; //enpeche de scroller automatiquement

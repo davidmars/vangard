@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "141350fa902d9406f644a8aa6ba66d47",
@@ -127,12 +127,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/davidmars/pov-2018.git",
-                "reference": "9de62992622e7261f7d0152c539e6b135fd7b64f"
+                "reference": "f573e353c7d8804738e38f8dd240cfc265eceb9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/davidmars/pov-2018/zipball/9de62992622e7261f7d0152c539e6b135fd7b64f",
-                "reference": "9de62992622e7261f7d0152c539e6b135fd7b64f",
+                "url": "https://api.github.com/repos/davidmars/pov-2018/zipball/f573e353c7d8804738e38f8dd240cfc265eceb9e",
+                "reference": "f573e353c7d8804738e38f8dd240cfc265eceb9e",
                 "shasum": ""
             },
             "require": {
@@ -152,7 +152,7 @@
                 "source": "https://github.com/davidmars/pov-2018/tree/master",
                 "issues": "https://github.com/davidmars/pov-2018/issues"
             },
-            "time": "2019-11-21T11:55:23+00:00"
+            "time": "2019-12-05T08:59:35+00:00"
         },
         {
             "name": "davidmars/redbean",
