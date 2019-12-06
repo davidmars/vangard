@@ -167,6 +167,13 @@ export default class PageTransition {
 
     showPageNormal(cb) {
         console.log("show page normal");
+        //TweenMax.fromTo($(".intro-fade"),0.5,{opacity:0},{opacity:1})
+        TweenMax.staggerFrom(".intro-fade", 0.5,
+            {opacity:0,y:30,onComplete:function(){
+                TweenMax.set(".intro-fade",{clearProps:"all"});
+                }},
+            0.1);
+
         if (cb) {cb();}
     }
 

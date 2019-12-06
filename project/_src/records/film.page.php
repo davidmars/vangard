@@ -8,7 +8,7 @@ $view->inside("layout/layout",$vv);
 
         <div class="top zzzcontainer-page full">
             <div class="js-video-wrap">
-                <button class="play-button">
+                <button class="play-button intro-fade">
                     <?=pov()->svg->use("startup-play-thin")?>
                 </button>
 
@@ -32,25 +32,35 @@ $view->inside("layout/layout",$vv);
         <div class="body container-page">
             <div class="row align-items-end js-after-video">
                 <div class="col-sm-6 col-lg-6 ">
-                    <?=$vv->wysiwyg()
-                        ->field("name_lang")
-                        ->string(\Pov\Utils\StringUtils::FORMAT_NO_HTML_SINGLE_LINE)
-                        ->setDefaultValue($vv->name)
-                        ->htmlTag("h1")
-                    ?>
-                    <hr>
+                    <div class="title-player">
+                        <?=$vv->wysiwyg()
+                            ->field("name_lang")
+                            ->string(\Pov\Utils\StringUtils::FORMAT_NO_HTML_SINGLE_LINE)
+                            ->setDefaultValue($vv->name)
+                            ->htmlTag("h1")
+                            ->addClass("intro-fade")
+                            ->addClass("title")
+                        ?>
+                        <div play class="h1 intro-fade">Play</div>
+                        <div timer class="intro-fade">03:45</div>
+                    </div>
+
+
+                    <hr class="intro-fade">
+
                 </div>
                 <div class="d-none d-xl-block col-xl-2">
-                    <hr>
+                    <hr class="intro-fade">
                 </div>
                 <div class="col-sm-6 col-xl-4">
                     <h2 class="h1">
-                        <span class="h2">
+                        <span class="h2 ">
                           <?=$vv->wysiwyg()
                               ->field("category_lang")
                               ->string(\Pov\Utils\StringUtils::FORMAT_NO_HTML_SINGLE_LINE)
                               ->setPlaceholder("Category")
                               ->htmlTag("span")
+                              ->addClass("intro-fade")
                           ?>
                         -
                         <?=$vv->wysiwyg()
@@ -58,11 +68,13 @@ $view->inside("layout/layout",$vv);
                             ->string(\Pov\Utils\StringUtils::FORMAT_NO_HTML_SINGLE_LINE)
                             ->setPlaceholder("1984")
                             ->htmlTag("span")
+                            ->addClass("intro-fade")
                         ?>
                         </span>
 
                     </h2>
-                    <hr>
+
+                    <hr class="intro-fade">
 
                 </div>
             </div>

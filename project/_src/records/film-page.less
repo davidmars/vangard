@@ -54,7 +54,6 @@
           @media(min-width: @nav-breakpoint){
             margin-top: calc(var(--typo-size-h1) - 30px);;
           }
-
           border-radius: 100%;
           background-color: rgba(0, 0, 0, 0.6);
           width: 7vw;
@@ -79,6 +78,25 @@
 
 }
 
+
+.title-player{
+  display: flex;
+  align-items: baseline;
+  [play]{
+    margin-left: 1vw;
+    cursor: pointer;
+    user-select: none;
+  }
+  [timer]{
+
+    //font-family: var(--font-DrukXCondensed-super);
+    //font-size: 30px;
+    font-size: 10px;
+    font-weight: bold;
+    user-select: none;
+    color: #fff;
+  }
+}
 
 .js-video-wrap{
 

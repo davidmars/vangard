@@ -58,6 +58,7 @@ export default class VideoWrap{
 
     }
     text(string,blink=false){
+        return;
         pageTransition
             .transiFilm
             .setAutoSize(true)
@@ -66,8 +67,9 @@ export default class VideoWrap{
     }
     play(){
         let me=this;
+        me.$main.addClass("playing");
         me.text("loading",true);
-        this.player.play();
+        //this.player.play();
     }
     pause(){
         this.player.pause();
