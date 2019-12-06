@@ -94,11 +94,15 @@ export default class PageTransition {
     }
     show_HOME_FILM(){
         let me=this;
-        this.transiFilm.setAsPoster(true)
+        this.transiFilm.setAsPoster(true);
+
         //fait disparaitre le typo de transition
         me.showPageNormal(
 
             function(){
+                if(Site.isMobileNavBreakPoint()){
+                    me.transiFilm.setAutoSize(true);
+                }
                 me.runningTransition=null;
             }
         );

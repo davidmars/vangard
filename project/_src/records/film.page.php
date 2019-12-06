@@ -8,6 +8,9 @@ $view->inside("layout/layout",$vv);
 
         <div class="top zzzcontainer-page full">
             <div class="js-video-wrap">
+                <button class="play-button">
+                    <?=pov()->svg->use("startup-play-thin")?>
+                </button>
                 <?/*
                 <iframe class="js-video" style="outline: 1px solid transparent"
                         src="<?=$vv->getVideoEmbed()?>"

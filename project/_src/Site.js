@@ -100,5 +100,8 @@ export default class Site{
     goHome(){
         PovHistory.goUrl(LayoutVars.homeUrl);
     }
+    isMobileNavBreakPoint(){
+        return STAGE.width < 1000;
+    }
 
 }

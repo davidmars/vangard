@@ -1,9 +1,18 @@
 #transi-film{
   position: fixed;
-  top: 0;
+
   left: 0;
   width: 100%;
+  @media(max-width: @nav-breakpoint){
+    transition: all 0.5s;
+    >.f{
+      transition: all 0.5s;
+    }
+  }
+
+  top: 0;
   height: 100vh;
+
   overflow: hidden;
   pointer-events: none;
   transform-origin: top right;
@@ -16,7 +25,10 @@
     left: 0;
     top: 0;
     width: 100%;
-    height: 100vh;
+    height: calc( 100vw / 16 * 9);
+    //@media(min-width: @nav-breakpoint) {
+      height: 100vh;
+    //}
     background-color: rgba(0, 0, 0, 1);
     //background-color: red;
     //outline: 1px solid green;
@@ -55,8 +67,18 @@
   &.auto-size{
     opacity: 1;
 
+    @media(max-width: @nav-breakpoint){
+      top: var(--nav-bar-height);
+      height: calc( 100vw / 16 * 9);
+      >.f{
+        height: calc( 100vw / 16 * 9);
+      }
+    }
+
     >.f{
-      transform: scale(1.2);
+      @media(min-width: @nav-breakpoint) {
+        transform: scale(1.2);
+      }
       //transform: rotate(-1deg);
       display: flex;
       justify-content: center;

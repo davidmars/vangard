@@ -180,7 +180,7 @@ export default class Films extends EventEmitter{
     }
 
     isMobileNavOpen(){
-        return STAGE.width < 1000 && $body.is(".nav-open");
+        return Site.isMobileNavBreakPoint() && $body.is(".nav-open");
     }
 
     debug(str){

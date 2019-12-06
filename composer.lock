@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "141350fa902d9406f644a8aa6ba66d47",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/davidmars/Classiq.git",
-                "reference": "441fc8105f92ce05b9daee52c85c995d8f2c25ff"
+                "reference": "0defa22cc05a777089943ea6869b7befef029b03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/davidmars/Classiq/zipball/441fc8105f92ce05b9daee52c85c995d8f2c25ff",
-                "reference": "441fc8105f92ce05b9daee52c85c995d8f2c25ff",
+                "url": "https://api.github.com/repos/davidmars/Classiq/zipball/0defa22cc05a777089943ea6869b7befef029b03",
+                "reference": "0defa22cc05a777089943ea6869b7befef029b03",
                 "shasum": ""
             },
             "require": {
@@ -41,7 +41,7 @@
                 "source": "https://github.com/davidmars/Classiq/tree/master",
                 "issues": "https://github.com/davidmars/Classiq/issues"
             },
-            "time": "2019-10-30T19:30:36+00:00"
+            "time": "2019-11-30T07:41:16+00:00"
         },
         {
             "name": "davidmars/localization",
@@ -127,12 +127,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/davidmars/pov-2018.git",
-                "reference": "f770c062b15e5e761f49d032a8ed9aadcd7fd5cb"
+                "reference": "9de62992622e7261f7d0152c539e6b135fd7b64f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/davidmars/pov-2018/zipball/f770c062b15e5e761f49d032a8ed9aadcd7fd5cb",
-                "reference": "f770c062b15e5e761f49d032a8ed9aadcd7fd5cb",
+                "url": "https://api.github.com/repos/davidmars/pov-2018/zipball/9de62992622e7261f7d0152c539e6b135fd7b64f",
+                "reference": "9de62992622e7261f7d0152c539e6b135fd7b64f",
                 "shasum": ""
             },
             "require": {
@@ -152,7 +152,7 @@
                 "source": "https://github.com/davidmars/pov-2018/tree/master",
                 "issues": "https://github.com/davidmars/pov-2018/issues"
             },
-            "time": "2019-11-05T07:10:51+00:00"
+            "time": "2019-11-21T11:55:23+00:00"
         },
         {
             "name": "davidmars/redbean",
@@ -338,16 +338,16 @@
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.86",
+            "version": "v1.2.89",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "1835311c4f458b2f59bbfec05ebfc64ac382b6ee"
+                "reference": "374d699ce4944107015eee0798eab072e3c47df9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/1835311c4f458b2f59bbfec05ebfc64ac382b6ee",
-                "reference": "1835311c4f458b2f59bbfec05ebfc64ac382b6ee",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/374d699ce4944107015eee0798eab072e3c47df9",
+                "reference": "374d699ce4944107015eee0798eab072e3c47df9",
                 "shasum": ""
             },
             "require": {
@@ -383,7 +383,7 @@
                 "crawlerdetect",
                 "php crawler detect"
             ],
-            "time": "2019-10-15T20:54:57+00:00"
+            "time": "2019-11-16T13:47:52+00:00"
         },
         {
             "name": "jenssegers/agent",
@@ -508,16 +508,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.25.1",
+            "version": "1.25.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "70e65a5470a42cfec1a7da00d30edb6e617e8dcf"
+                "reference": "d5e2fb341cb44f7e2ab639d12a1e5901091ec287"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/70e65a5470a42cfec1a7da00d30edb6e617e8dcf",
-                "reference": "70e65a5470a42cfec1a7da00d30edb6e617e8dcf",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/d5e2fb341cb44f7e2ab639d12a1e5901091ec287",
+                "reference": "d5e2fb341cb44f7e2ab639d12a1e5901091ec287",
                 "shasum": ""
             },
             "require": {
@@ -582,20 +582,20 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2019-09-06T13:49:17+00:00"
+            "time": "2019-11-13T10:00:05+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
-            "version": "v6.1.1",
+            "version": "v6.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "26bd96350b0b2fcbf0ef4e6f0f9cf3528302a9d8"
+                "reference": "a25ae38e03de4ee4031725498a600012364787c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/26bd96350b0b2fcbf0ef4e6f0f9cf3528302a9d8",
-                "reference": "26bd96350b0b2fcbf0ef4e6f0f9cf3528302a9d8",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/a25ae38e03de4ee4031725498a600012364787c7",
+                "reference": "a25ae38e03de4ee4031725498a600012364787c7",
                 "shasum": ""
             },
             "require": {
@@ -604,13 +604,9 @@
                 "php": ">=5.5.0"
             },
             "require-dev": {
-                "doctrine/annotations": "1.2.*",
+                "doctrine/annotations": "^1.2",
                 "friendsofphp/php-cs-fixer": "^2.2",
-                "phpdocumentor/phpdocumentor": "2.*",
-                "phpunit/phpunit": "^4.8 || ^5.7",
-                "zendframework/zend-eventmanager": "3.0.*",
-                "zendframework/zend-i18n": "2.7.3",
-                "zendframework/zend-serializer": "2.7.*"
+                "phpunit/phpunit": "^4.8 || ^5.7"
             },
             "suggest": {
                 "ext-mbstring": "Needed to send email in multibyte encoding charset",
@@ -648,7 +644,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2019-09-27T21:33:43+00:00"
+            "time": "2019-11-21T09:37:46+00:00"
         },
         {
             "name": "psr/http-message",
