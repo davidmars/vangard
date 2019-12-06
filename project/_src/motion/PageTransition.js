@@ -30,6 +30,10 @@ export default class PageTransition {
             }
         });
 
+        window.addEventListener('resize', function () {
+            me.transiFilm.setAutoSize(true);
+        });
+
     }
 
     /**
@@ -170,6 +174,7 @@ export default class PageTransition {
         let o = ` ${Math.floor(STAGE.width / 2)}px ${Math.floor(STAGE.height / 2 + STAGE.scrollY)}px `;
         this.$page.css("transform-origin", o);
         this.$films.css("transform-origin", o);
+        console.log(o);
     }
 
     /**
@@ -201,6 +206,7 @@ export default class PageTransition {
     }
     showPageZoom(cb) {
         console.log("show page zoom");
+        this.setPageVisible(true);
         this._transiZoom(this.$page,"in",cb);
     }
     hidePageZoom(cb) {
@@ -238,19 +244,22 @@ export default class PageTransition {
     clickFilm($film){
         console.log("click film");
         let me=this;
-        this.runningTransition=this.TRANSI_HOME_FILM;
+
         if(navMenu.isOpen()){
             //ça doit se passer autrement...
-            navMenu.saveScroll=0;
-            navMenu.close();
-            this.transiFilm.set$Film($film);
+            //navMenu.saveScroll=0;
+            //navMenu.close();
+            navMenu.hideElements();
+            //this.transiFilm.set$Film($film);
             pageTransition.hideFilmsZoom(function(){
                 window.scrollTo(0,0);
+                $body.removeClass("nav-open");
                 PovHistory.readyToinject=true;
             });
             return;
         }
         //zoome typo et apparait
+        this.runningTransition=this.TRANSI_HOME_FILM;
         let baseDuration=0.25;
         me.transiFilm
             .set$Film($film)
@@ -273,6 +282,15 @@ export default class PageTransition {
                 PovHistory.readyToinject=true;
             })
 
+    }
+
+
+    setPageVisible(flag){
+        if(flag){
+            this.$page.css("display","block");
+        }else{
+            this.$page.css("display","none");
+        }
     }
 
 }

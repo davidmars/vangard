@@ -76,6 +76,7 @@ export default class NavMenu extends EventEmitter{
                 $body.addClass("nav-open");
                 pageTransition._resetTransiZoom(true,false);
                 TweenMax.to(window, 0, {scrollTo:0});
+                pageTransition.setPageVisible(false);
                 pageTransition.showFilmsZoom(function(){
                     pageTransition._resetTransiZoom(true,true);
                 });
@@ -110,6 +111,7 @@ export default class NavMenu extends EventEmitter{
             pageTransition.hideFilmsZoom(function(){
                 $body.removeClass("nav-open");
                 pageTransition._resetTransiZoom(false,true);
+                pageTransition.setPageVisible(true);
                 TweenMax.to(window, 0, {scrollTo:me.saveScroll,ease:Power3.easeOut});
                 pageTransition.showPageZoom(function(){
                     pageTransition._resetTransiZoom(true,true);
