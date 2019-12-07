@@ -25,7 +25,11 @@ export default class Site{
         });
         window.films=new Films($("#films"));
         window.pageTransition=new PageTransition();
+        window.pageViewCount=0;
         me.onPageDone();
+
+
+
 
     }
 
@@ -42,7 +46,7 @@ export default class Site{
         let me=this;
         require("./components/data-zoom-img");
         require("./components/data-is-lang");
-        VideoWrap.init();
+
 
         //gestion du back bouton...
         history.scrollRestoration="manual"; //enpeche de scroller automatiquement
@@ -77,6 +81,7 @@ export default class Site{
 
     onPageDone(){
         console.log("onPageDone",new Date());
+        window.pageViewCount++;
         PovHistory.readyToinject=false;
         //
         let me=this;
@@ -90,6 +95,7 @@ export default class Site{
             gtag('config', LayoutVars.googleAnalyticsId, {'page_path': location.pathname});
         }
         PrevNext.initFromDom();
+        VideoWrap.initFromDom();
     }
 
     /**

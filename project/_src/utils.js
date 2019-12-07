@@ -32,3 +32,20 @@ machine.isInApp=window.matchMedia('(display-mode: standalone)').matches;
 machine.isAndroid=/(android)/i.test(ua);
 machine.isTouch=!!('ontouchstart' in window) || !!('msmaxtouchpoints' in window.navigator);
 machine.hasHover=window.matchMedia("(hover: hover)").matches ? true : false;
+
+
+window.secondsToMMSS=function(seconds){
+    let m = Math.floor(seconds / 60);
+    let s = seconds % 60;
+    m=String(m).padStart(2, '0');
+    s=String(s).padStart(2, '0');
+    return `${m}:${s}`;
+}
+
+window.mouseIsDown=false;
+window.addEventListener("mousedown", function(){
+    window.mouseIsDown=true;
+})
+window.addEventListener("mouseup", function(){
+    window.mouseIsDown=false;
+})

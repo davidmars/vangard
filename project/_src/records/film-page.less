@@ -4,8 +4,6 @@
   >.body{}
   >.footer{}
 
-
-
   .top{
     //outline: 1px solid red;
     position: relative;
@@ -25,8 +23,13 @@
       width: 100%;
       .js-video{
         position: absolute;
-        width: calc( 100% - var(--typo-size-h1)  * 3 + 10px * 2);
-        height: 90%;
+        width: 99%;
+        height: 100%;
+        @media(min-width: @nav-breakpoint){
+          width: calc( 100% - var(--typo-size-h1)  * 3 + 10px * 2);
+          height: 90%;
+        }
+
         background-color: #000;
         //border: 1px solid red;
         iframe{
@@ -82,49 +85,90 @@
 .title-player{
   display: flex;
   align-items: baseline;
-  [play]{
-    margin-left: 1vw;
-    cursor: pointer;
+
+  >*{
+    margin-right: 15px;
+  }
+  &>*:last-child{
+    margin-right: 0;
+  }
+
+  [timer]{
+    margin-left: auto;
+  }
+
+  [play],[timer]{
     user-select: none;
+  }
+
+  [play]{
+    background-color: #fff;
+    border-radius: 3px;
+    color: #000;
+    width: 36px;
+    //outline: 1px solid #fff;
+    cursor: pointer;
+    @media(hover: hover){
+      &:hover{
+        background-color: #333;
+        color: #fff;
+        transform: scale(1);
+      }
+    }
+    .play,.pause{
+      display: none;
+    }
+    &[state='play']{
+      .play{
+        display: block;
+      }
+    }
+    &[state='pause']{
+      .pause{
+        display: block;
+        *{
+          shape-rendering: crispEdges;
+        }
+      }
+    }
   }
   [timer]{
-
     //font-family: var(--font-DrukXCondensed-super);
     //font-size: 30px;
+    //.h1;
     font-size: 10px;
     font-weight: bold;
-    user-select: none;
     color: #fff;
   }
-}
-
-.js-video-wrap{
-
-  .js-video-wrap,.js-video{
-    transition: all 1s;
-  }
-
-  .js-video{
-    opacity: 0;
-    //transform: scale(0.9);
-  }
-  .play-button{
-    opacity: 1;
-    //transform: scale(1);
-  }
-
-  &.playing{
-    .js-video{
-      opacity: 1;
-      //transform: scale(1);
-    }
-    .play-button{
-      opacity: 0;
-      //transform: scale(0.9);
-      pointer-events: none;
+  [fs]{
+    svg{
+      *{
+        shape-rendering: crispEdges;
+      }
     }
   }
 
-
-
+  >button{
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    padding: 0;
+    border: 0;
+    width: 20px;
+    height: 20px;
+    svg{
+      *{
+        //shape-rendering: crispEdges;
+      }
+      width: 100%;
+      height: 100%;
+    }
+    &:hover{
+      transform: scale(1.2);
+    }
+  }
 }
+
+
+

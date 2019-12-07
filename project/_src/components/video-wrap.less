@@ -1,0 +1,91 @@
+.fs-wrap{
+  &:fullscreen{
+    .container-page,.js-video{
+      max-width: calc(100vw - 20px);
+      width: calc(100vw - 20px) !important;
+    }
+  }
+}
+
+.js-video-wrap{
+
+
+
+
+  .js-video-wrap,.js-video{
+    transition: all 1s;
+  }
+
+  .js-video{
+    opacity: 0;
+    :fullscreen & {
+      opacity: 1;
+    }
+    //transform: scale(0.9);
+  }
+  .play-button{
+    opacity: 1;
+    //transform: scale(1);
+  }
+
+  &.playing{
+    .js-video{
+      opacity: 1;
+      //transform: scale(1);
+    }
+    .play-button{
+      opacity: 0;
+      //transform: scale(0.9);
+      pointer-events: none;
+    }
+  }
+  svg{
+    display: none !important;
+  }
+
+}
+
+[progress-container]{
+  //background-color: #222;
+  position: relative;
+  cursor: pointer;
+  height: calc( var(--typo-size-normal) *2);
+  transform: translateY(-10px);
+  hr{
+    background-color: #fff;
+  }
+  [progress],[progress-buffer]{
+    z-index: 2;
+    transition: width 0.05s;
+    position: absolute;
+    top: 20px;
+    height: 1px;
+    background-color: var(--color-grey);
+    &.seeking{
+      animation-name: kf-blink;
+      animation-iteration-count: infinite;
+      animation-duration: 0.3s;
+      //background-color: red;
+    }
+    //background-color: red;
+  }
+  [progress]{
+    z-index: 3;
+    background-color: #fff;
+    height: 3px;
+    top: 19px;
+  }
+  hr{
+    position: absolute;
+    margin-top: 20px;
+    width: 100%;
+  }
+}
+
+[play]{
+  &.seeking{
+    animation-name: kf-blink;
+    animation-iteration-count: infinite;
+    animation-duration: 0.3s;
+  }
+}

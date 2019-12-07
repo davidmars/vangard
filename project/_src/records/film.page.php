@@ -5,79 +5,83 @@ the()->htmlLayout()->pageInfo->isHome=false;
 $view->inside("layout/layout",$vv);
 ?>
 <div class="film-page">
+        <div class="fs-wrap">
+            <div class="top zzzcontainer-page full">
+                <div class="js-video-wrap">
+                    <button class="play-button intro-fade">
+                        <?=pov()->svg->use("startup-play-thin")?>
+                    </button>
 
-        <div class="top zzzcontainer-page full">
-            <div class="js-video-wrap">
-                <button class="play-button intro-fade">
-                    <?=pov()->svg->use("startup-play-thin")?>
-                </button>
+                    <div class="js-video" src="<?=$vv->getVideoEmbed()?>"></div>
 
-                <div class="js-video" src="<?=$vv->getVideoEmbed()?>"></div>
-                <?/*
-                <div class="transi-film">
-                    <div class="f">
-                        <div class="titre h0">
-                            <span><?=$vv->name_lang?></span>
+                </div>
+            </div>
+
+            <div class="body container-page">
+                <div class="row align-items-end js-after-video">
+                    <div class="col-sm-6 col-lg-6 ">
+                        <div class="title-player">
+                            <?=$vv->wysiwyg()
+                                ->field("name_lang")
+                                ->string(\Pov\Utils\StringUtils::FORMAT_NO_HTML_SINGLE_LINE)
+                                ->setDefaultValue($vv->name)
+                                ->htmlTag("h1")
+                                ->addClass("intro-fade")
+                                ->addClass("title")
+                            ?>
+                            <div timer class="intro-fade"></div>
+
+                            <button play class="intro-fade">
+                                <?=pov()->svg->use("startup-play-thin")->addClass("play")?>
+                                <?=pov()->svg->use("startup-pause-thin")->addClass("pause")?>
+                            </button>
+                            <button fs class="intro-fade" title="Full Screen">
+                                <?=pov()->svg->use("startup-full-screen-thin")?>
+                            </button>
                         </div>
+
+                        <div progress-container>
+                            <div progress></div>
+                            <div progress-buffer></div>
+                            <hr class="intro-fade">
+                        </div>
+
+
                     </div>
-                    <div class="images">
-                        <img src="<?=$vv->thumbnail()->href()?>">
+                    <div class="d-none d-xl-block col-xl-2">
+                        <hr class="intro-fade">
+                    </div>
+                    <div class="col-sm-6 col-xl-4">
+                        <h2 class="h1">
+                            <span class="h2 ">
+                              <?=$vv->wysiwyg()
+                                  ->field("category_lang")
+                                  ->string(\Pov\Utils\StringUtils::FORMAT_NO_HTML_SINGLE_LINE)
+                                  ->setPlaceholder("Category")
+                                  ->htmlTag("span")
+                                  ->addClass("intro-fade")
+                              ?>
+                            -
+                            <?=$vv->wysiwyg()
+                                ->field("year")
+                                ->string(\Pov\Utils\StringUtils::FORMAT_NO_HTML_SINGLE_LINE)
+                                ->setPlaceholder("1984")
+                                ->htmlTag("span")
+                                ->addClass("intro-fade")
+                            ?>
+                            </span>
+
+                        </h2>
+
+                        <hr class="intro-fade">
+
                     </div>
                 </div>
-                */?>
-
             </div>
         </div>
 
         <div class="body container-page">
-            <div class="row align-items-end js-after-video">
-                <div class="col-sm-6 col-lg-6 ">
-                    <div class="title-player">
-                        <?=$vv->wysiwyg()
-                            ->field("name_lang")
-                            ->string(\Pov\Utils\StringUtils::FORMAT_NO_HTML_SINGLE_LINE)
-                            ->setDefaultValue($vv->name)
-                            ->htmlTag("h1")
-                            ->addClass("intro-fade")
-                            ->addClass("title")
-                        ?>
-                        <div play class="h1 intro-fade">Play</div>
-                        <div timer class="intro-fade">03:45</div>
-                    </div>
 
-
-                    <hr class="intro-fade">
-
-                </div>
-                <div class="d-none d-xl-block col-xl-2">
-                    <hr class="intro-fade">
-                </div>
-                <div class="col-sm-6 col-xl-4">
-                    <h2 class="h1">
-                        <span class="h2 ">
-                          <?=$vv->wysiwyg()
-                              ->field("category_lang")
-                              ->string(\Pov\Utils\StringUtils::FORMAT_NO_HTML_SINGLE_LINE)
-                              ->setPlaceholder("Category")
-                              ->htmlTag("span")
-                              ->addClass("intro-fade")
-                          ?>
-                        -
-                        <?=$vv->wysiwyg()
-                            ->field("year")
-                            ->string(\Pov\Utils\StringUtils::FORMAT_NO_HTML_SINGLE_LINE)
-                            ->setPlaceholder("1984")
-                            ->htmlTag("span")
-                            ->addClass("intro-fade")
-                        ?>
-                        </span>
-
-                    </h2>
-
-                    <hr class="intro-fade">
-
-                </div>
-            </div>
 
             <div class="row">
                 <div class="col-md-6">
