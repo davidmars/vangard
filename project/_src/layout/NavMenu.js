@@ -26,7 +26,7 @@ export default class NavMenu extends EventEmitter{
             renderer: 'svg',
             loop: false,
             autoplay: false,
-            path: LayoutVars.fmkHttpRoot+"/project/_src/layout/hello_en.lottie.json" // the path to the animation json
+            path: LayoutVars.helloLogoUrl // the path to the animation json
         });
 
 

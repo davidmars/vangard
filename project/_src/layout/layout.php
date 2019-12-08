@@ -33,6 +33,7 @@ if(!the()->requestUrl->isAjax){
         the()->htmlLayout()->install()->googleMap(site()->googleApiKey,"places");
     }
     the()->htmlLayout()->layoutVars->homeUrl=site()->homePage()->href()->relative();
+    the()->htmlLayout()->layoutVars->helloLogoUrl=the()->fileSystem->filesystemToHttp("project/_src/layout/hello_".the()->project->langCode.".lottie.json");
     the()->htmlLayout()->layoutVars->googleAnalyticsId=site()->googleAnalyticsId;
     the()->htmlLayout()->layoutVars->isWysiwyg=\Classiq\Wysiwyg\Wysiwyg::$enabled;
     the()->htmlLayout()->hreflang=the()->project->langCode;
