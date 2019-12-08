@@ -216,9 +216,12 @@ export default class PageTransition {
 
     }
     showPageZoom(cb) {
+        let me=this;
         console.log("show page zoom");
         this.setPageVisible(true);
-        this._transiZoom(this.$page,"in",cb);
+        this._transiZoom(this.$page,"in",function(){
+            me._resetTransiZoom(true,true);
+        });
     }
     hidePageZoom(cb) {
         console.log("hide page zoom");
