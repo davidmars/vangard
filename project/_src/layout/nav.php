@@ -8,7 +8,7 @@ use Pov\Utils\StringUtils; ?>
     <div id="nav-bar" >
 
         <a href="#" data-nav-menu-toggle  class="unstyled logo">
-            <?=$view->render("layout/hello-logo")?>
+            <div hello-logo></div>
         </a>
         <div class="right">
             <a href="#"  burger-icon class="unstyled"></a>

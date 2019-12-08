@@ -1,6 +1,8 @@
 import BurgerIcon from "../molecules/burger-icon/BurgerIcon";
 import {TweenMax} from "gsap";
 import VideoWrap from "../components/VideoWrap";
+window.lottie=require("lottie-web");
+
 
 var EventEmitter = require('event-emitter-es6');
 
@@ -18,6 +20,14 @@ export default class NavMenu extends EventEmitter{
         this._burgerBtn=new BurgerIcon($("[burger-icon]"));
         //this._burgerBtn.nothing(true);
         this.displayRight(false,true);
+
+        this.logo=lottie.loadAnimation({
+            container: $("[hello-logo]")[0], // the dom element that will contain the animation
+            renderer: 'svg',
+            loop: false,
+            autoplay: false,
+            path: LayoutVars.fmkHttpRoot+"/project/_src/layout/hello_en.lottie.json" // the path to the animation json
+        });
 
 
         $body.on("click","[data-nav-menu-toggle]",function(e){
@@ -62,6 +72,28 @@ export default class NavMenu extends EventEmitter{
             }
         }
     }
+
+    showLogo(show,cb){
+        if(show){
+            console.error("show logo")
+            this.logo.setSpeed(2);
+            this.logo.setDirection(1);
+            this.logo.play();
+        }else{
+            console.error("hide logo")
+            this.logo.setSpeed(4);
+            this.logo.setDirection(-1);
+            this.logo.play();
+        }
+        this.logo.removeEventListener("complete");
+        this.logo.addEventListener('complete', () => {
+            console.error('complete');
+            if(cb){
+                cb();
+            }
+        });
+    }
+
     open(){
         if(this.isOpen()){
             return;
@@ -140,69 +172,75 @@ export default class NavMenu extends EventEmitter{
     }
     showElements(){
         let me=this;
-        $("#nav-content").addClass("visible");
-        me.resetElements();
-        this._$els().each(function(){
-            let $el=$(this);
-            let t=0.5;
-            let y=50;
-            switch (true) {
-                case $el.is("h2"):
-                t=0.5;
-                y=50;
-                break;
+        me.showLogo(true,function(){
+            $("#nav-content").addClass("visible");
+            me.resetElements();
+            me._$els().each(function(){
+                let $el=$(this);
+                let t=0.5;
+                let y=50;
+                switch (true) {
+                    case $el.is("h2"):
+                        t=0.5;
+                        y=50;
+                        break;
 
-                case $el.is("p"):
-                case $el.is("h5"):
-                t=1.5;
-                y=10;
-                break;
+                    case $el.is("p"):
+                    case $el.is("h5"):
+                        t=1.5;
+                        y=10;
+                        break;
 
-            }
-            if(!isWysiwyg) {
-                TweenMax.fromTo($(this), t,
-                    {y: y, opacity: 0},
-                    {y: 0, opacity: 1, ease: Power1.easeInOut}
-                );
-            }
-        })
+                }
+                if(!isWysiwyg) {
+                    TweenMax.fromTo($(this), t,
+                        {y: y, opacity: 0},
+                        {y: 0, opacity: 1, ease: Power1.easeInOut}
+                    );
+                }
+            })
+        });
+
 
     }
     hideElements(){
         let me=this;
-        this._$els().each(function(){
-            let $el=$(this);
-            let t=0.5;
-            let x=50;
-            switch (true) {
-                case $el.is("h2"):
-                    t=0.5;
-                    x=50;
-                    break;
+        me.showLogo(false,function(){
+            me._$els().each(function(){
+                let $el=$(this);
+                let t=0.5;
+                let x=50;
+                switch (true) {
+                    case $el.is("h2"):
+                        t=0.5;
+                        x=50;
+                        break;
 
-                case $el.is("p"):
-                case $el.is("h5"):
-                    t=0.75;
-                    x=60;
-                    break;
+                    case $el.is("p"):
+                    case $el.is("h5"):
+                        t=0.75;
+                        x=60;
+                        break;
 
-            }
+                }
 
-            if($el.closest(".left").length){
-                x=-x;
-            }
-            if(!isWysiwyg){
-                TweenMax.fromTo($(this),t,
-                    {x:0,opacity:1},
-                    {x:x,opacity:0,ease: Power1.easeInOut}
-                );
-            }
+                if($el.closest(".left").length){
+                    x=-x;
+                }
+                if(!isWysiwyg){
+                    TweenMax.fromTo($(this),t,
+                        {x:0,opacity:1},
+                        {x:x,opacity:0,ease: Power1.easeInOut}
+                    );
+                }
 
+            });
+            setTimeout(function(){
+                $("#nav-content").removeClass("visible");
+                me.resetElements();
+            },1000);
         });
-        setTimeout(function(){
-            $("#nav-content").removeClass("visible");
-            me.resetElements();
-        },1000);
+
     }
     resetElements(){
         TweenMax.set(this._$els(), {clearProps: 'all'});
