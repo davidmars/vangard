@@ -1,7 +1,12 @@
 [hello-logo]{
   //margin-top: 10px;
-  height: var(--nav-bar-height);
-  width: calc(var(--nav-bar-height) * 4 );
+  height: calc( var(--typo-size-h1)  );
+  width: calc(var(--typo-size-h1) * 4 );
+  @media(min-width: @screen-md){
+    height: calc( var(--typo-size-h1) * 1.25 );
+    width: calc(var(--typo-size-h1)* 1.25 * 4 );
+  }
+
   //outline: 1px solid red;
   svg{
     width: 100%;
