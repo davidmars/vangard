@@ -338,16 +338,16 @@ export default class Films extends EventEmitter{
      * @private
      */
     _changePreviews(){
-        //return;
+        return;
         let me=this;
         for(let p of me.previews){
             let $f=p.$film;
             if(p.yetPlayed){ //on va pas changer une video qu'on a pas encore lu
-                if(!isVisible($f[0])){ //on ne change la video que si on l'a pas vue avant
+                //if(!isVisible($f[0])){ //on ne change la video que si on l'a pas vue avant
                     //console.log("change video ",p.$text.text())
                     p.change();
                     break; //on ne change qu'une seule vidéo à la fois
-                }
+                //}
             }
         }
     }
@@ -359,11 +359,9 @@ export default class Films extends EventEmitter{
         let me=this;
 
         for(let p of me.previews){
-            /*
             if(!p.$film.is(".paused")){ // si la vidéo était en lecture on la change
                 p.change();
             }
-            */
             p.pauseAll();
         }
         this.activeOne=null;

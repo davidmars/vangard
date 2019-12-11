@@ -17,6 +17,10 @@ export default class FilmPreview {
             e.preventDefault();
             e.stopPropagation();
         })
+        setTimeout(function(){
+            me.preloadNext();
+        },1000);
+
     }
     debug(){
         let $d=this.$film.find(".debug");
@@ -52,8 +56,18 @@ export default class FilmPreview {
         this.pauseAll();
         let $last=this.$film.find(".preview").last();
         this.$previews.prepend($last);
+        this.preloadNext();
         this.debug();
     }
+
+    preloadNext(){
+        let $lastnext=this.$film.find(".preview").last().find(".lazyload");
+        if($lastnext.length){
+            lazySizes.loader.unveil($lastnext[0]);
+        }
+
+    }
+
 
     /**
      * Met tout en pause
