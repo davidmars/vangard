@@ -202,7 +202,7 @@ export default class PageTransition {
         setTimeout(function () {
                 //$el.attr("transi", "");
                 if (cb) {cb();}},
-            1 * 1000
+            1 * 600
         );
     }
     _resetTransiZoom(films=true,page=true){
