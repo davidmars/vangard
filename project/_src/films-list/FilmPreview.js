@@ -62,6 +62,7 @@ export default class FilmPreview {
         this.$film.addClass("paused");
         this.$videos().each(function(){
             $(this).get(0).pause();
+            $(this).get(0).currentTime=0;
         });
         this.debug();
     }
