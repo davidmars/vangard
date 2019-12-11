@@ -5,10 +5,9 @@
 ?>
 <?if($vv->video()):?>
 <div class="preview paused">
-    <img src="<?=$vv->thumbnail()->href()?>">
+    <img data-src="<?=$vv->thumbnail()->href()?>" class="lazyload">
     <video size="<?=$vv->video(false)->humanFileSize()?>"
            preload="none"
-           class=""
            loop="loop" muted="muted"
            src="<?=$vv->video()?>"
     ></video>

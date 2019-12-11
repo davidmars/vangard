@@ -4,6 +4,7 @@ import PrevNext from "./components/prev-next/PrevNext";
 import Films from "./films-list/Films2";
 import PageTransition from "./motion/PageTransition";
 import VideoWrap from "./components/VideoWrap";
+import 'lazysizes';
 require("./utils");
 
 export default class Site{
