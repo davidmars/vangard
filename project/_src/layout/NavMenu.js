@@ -75,19 +75,26 @@ export default class NavMenu extends EventEmitter{
 
     showLogo(show,cb){
         if(show){
-            console.error("show logo")
+            if(NavMenu.logLevel>0){
+                console.error("show logo")
+            }
+
             this.logo.setSpeed(2);
             this.logo.setDirection(1);
             this.logo.play();
         }else{
-            console.error("hide logo")
+            if(NavMenu.logLevel>0) {
+                console.error("hide logo")
+            }
             this.logo.setSpeed(4);
             this.logo.setDirection(-1);
             this.logo.play();
         }
         this.logo.removeEventListener("complete");
         this.logo.addEventListener('complete', () => {
-            console.error('complete');
+            if(NavMenu.logLevel>0) {
+                console.error('complete');
+            }
             if(cb){
                 cb();
             }
@@ -99,7 +106,9 @@ export default class NavMenu extends EventEmitter{
             return;
         }
         let me=this;
-        console.log("open");
+        if(NavMenu.logLevel>0) {
+            console.log("open");
+        }
         VideoWrap.pauseAll();
         this.saveScroll=window.scrollY;
         if(PovHistory.currentPageInfo.isHome){
@@ -113,17 +122,15 @@ export default class NavMenu extends EventEmitter{
                 pageTransition.setPageVisible(false);
                 pageTransition.showFilmsZoom(function(){
                     pageTransition._resetTransiZoom(true,true);
+                    pageTransition.resetBlockScroll();
                 });
             })
 
         }
-
-
         if($body.attr("is-home")==="false"){
             films.disable();
             //TweenMax.to(window, 0.5, {scrollTo: 0, ease: Power3.easeIn});
         }
-
         setTimeout(function(){
             films.enable();
             films.recentre();
@@ -247,3 +254,5 @@ export default class NavMenu extends EventEmitter{
     }
 
 }
+
+NavMenu.logLevel=0;

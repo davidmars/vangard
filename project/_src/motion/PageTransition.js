@@ -14,6 +14,16 @@ export default class PageTransition {
         this.TRANSI_FILM_HOME="TRANSI_FILM_HOME";
         this.TRANSI_FILM_FILM="TRANSI_FILM_FILM";
         this.TRANSI_HOME_FILM="TRANSI_HOME_FILM";
+
+        this.$blockScroll=$("<div id='block-scroll'>block scroll</div>");
+        this.$blockScroll.css("position","absolute");
+        this.$blockScroll.css("background-color","red");
+        this.$blockScroll.css("z-index","100000");
+        //this.$blockScroll.css("visibility","hidden");
+        this.$blockScroll.css("opacity","0");
+        $body.append(this.$blockScroll);
+
+
         //fake film typo
         this.transiFilm=new TransiFilm();
         //out only
@@ -37,6 +47,21 @@ export default class PageTransition {
     }
 
     /**
+     * Remet le bloqueur de scroll en haut
+     */
+    resetBlockScroll(){
+        this.$blockScroll.css("top",""+Math.floor(STAGE.height/2)+"px");
+    }
+
+    /**
+     * Scrolle à 0 direct
+     */
+    scrollTop(){
+        this.resetBlockScroll();
+        window.scrollTo(0,0);
+    }
+
+    /**
      * Dit au body si on est sur la home ou pas
      * @param is
      */
@@ -50,7 +75,7 @@ export default class PageTransition {
         me._resetTransiZoom();
         me.runningTransition=me.TRANSI_FILM_FILM;
         me.hidePageZoom(function(){
-            window.scrollTo(0,0);
+            me.scrollTop();
             PovHistory.readyToinject=true; //puis appellera show()
         });
     }
@@ -178,13 +203,30 @@ export default class PageTransition {
     }
 
     /**
-     * Calle le transform origin de films et page par rapport au viewport pour avoir des zooms élégants
+     * Calle le transform origin de films et page par rapport au viewport pour avoir des zooms centrés
      * @private
      */
     _setOriginCenter() {
-        let o = ` ${Math.floor(STAGE.width / 2)}px ${Math.floor(STAGE.height / 2 + STAGE.scrollY)}px `;
+
+        let x, y;
+        x=STAGE.width / 2;
+
+        y=ratio(
+            STAGE.scrollY,
+            document.documentElement.scrollHeight-STAGE.height,
+            STAGE.scrollY+STAGE.height/2,
+            0,
+            STAGE.height/2
+        );
+        //y=STAGE.scrollY+STAGE.height/2; //logiquement ça devrait être ça tout le temps, mais....
+        x=Math.floor(x);
+        y=Math.floor(y);
+        this.$blockScroll.css("top",""+(STAGE.scrollY+STAGE.height/2)+"px");
+        this.$blockScroll.css("left",""+x+"px");
+        let o = ` ${x}px ${y}px `;
         this.$page.css("transform-origin", o);
         this.$films.css("transform-origin", o);
+
         console.log(o);
     }
 
@@ -198,6 +240,7 @@ export default class PageTransition {
     _transiZoom($el,inOrOut,cb){
         let me = this;
         me._setOriginCenter();
+        $el.removeAttr("transi");
         $el.attr("transi", inOrOut);
         setTimeout(function () {
                 //$el.attr("transi", "");
@@ -266,7 +309,7 @@ export default class PageTransition {
             navMenu.hideElements();
             //this.transiFilm.set$Film($film);
             pageTransition.hideFilmsZoom(function(){
-                window.scrollTo(0,0);
+                me.scrollTop();
                 $body.removeClass("nav-open");
                 PovHistory.readyToinject=true;
             });
@@ -292,7 +335,7 @@ export default class PageTransition {
                 }
             )
             .zoomTexte(baseDuration*3,function(){
-                window.scrollTo(0,0);
+                me.scrollTop();
                 PovHistory.readyToinject=true;
             })
 
