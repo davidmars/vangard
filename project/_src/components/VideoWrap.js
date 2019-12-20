@@ -7,7 +7,6 @@ export default class VideoWrap{
 
 
     constructor($main){
-        console.error("new player");
         VideoWrap.all.push(this);
         let me=this;
         this.$main=$main;
