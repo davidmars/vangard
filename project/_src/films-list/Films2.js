@@ -151,10 +151,6 @@ export default class Films extends EventEmitter{
                 }
                 TweenMax.set(me.$filmTypos,{y:target});
             }
-            if(me.keepCenterId){
-
-                    me.scrollToFilmUid(me.keepCenterId,0.5);
-            }
         },20);
         me.on(me.EVENT_START_MOVING,function(){
             me.setActiveOne(null);
@@ -206,25 +202,25 @@ export default class Films extends EventEmitter{
     /**
      * Conserve le scroll en position de sorte que le activeOne reste centré et activeOne
      */
-    scrollKeepActiveOneLoop(durationMs=700){
+    scrollKeepActiveOneLoop(durationMs=1000){
         let me=this;
         let selectedUid=null;
         if(me.activeOne){
             selectedUid=me.activeOne.$film.attr("film-uid");
             console.log("keep scroll "+selectedUid)
         }
+        pageTransition.fatBlockScroll(); // pour que le scroll ne se bloque pas en bas
         if(selectedUid){
             this.keepCenterId=selectedUid;
-            /*
             this.scrollKeepActiveOneLoop_loop=setInterval(function(){
                 me.scrollToFilmUid(selectedUid);
-            },20);
-             */
+            },10);
             //arrête la boucle à un moment
             setTimeout(function(){
                 console.log("stop scroll "+selectedUid)
-                //clearTimeout(me.scrollKeepActiveOneLoop_loop);
+                clearTimeout(me.scrollKeepActiveOneLoop_loop);
                 me.keepCenterId=null;
+                pageTransition.resetBlockScroll();
             },durationMs);
         }else{
             console.warn("pas de film selectionné")

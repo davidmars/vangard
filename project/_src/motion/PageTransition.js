@@ -54,6 +54,13 @@ export default class PageTransition {
     }
 
     /**
+     * Positionne le bloqueur de scroll très bas de manière à laisser de l'amplitude aux animations
+     */
+    fatBlockScroll(){
+        this.$blockScroll.css("top",""+Math.floor(STAGE.height*30)+"px");
+    }
+
+    /**
      * Scrolle à 0 direct
      */
     scrollTop(){
