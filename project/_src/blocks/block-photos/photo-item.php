@@ -22,7 +22,7 @@ $bgPositionCss=$vv->getData("background-position","center");
 <div <?=$vv->wysiwyg()->attr()?> data-zoom-img="<?=$imgSrc?>" class="photo-item col-6 col-md-3">
     <div>
         <img    style="object-position: <?=$bgPositionCss?>;"
-                src="<?=$small?>" alt="">
+                class="lazyload" data-src="<?=$imgSrc?>" alt="Vangard Paris">
     </div>
 
 </div>
