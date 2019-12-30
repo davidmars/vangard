@@ -78,6 +78,7 @@ export default class Films extends EventEmitter{
                 clearTimeout(scrollTimer);
             }
             scrollTimer=setTimeout(function(){
+                console.log("recentre 1");
                 me.recentre();
             },300);
 
@@ -168,7 +169,7 @@ export default class Films extends EventEmitter{
             me.playTheOne();
             me._changePreviews();
         });
-
+        console.log("recentre 0");
         me.recentre();
         me._selectTheOne();
         me.playTheOne();
@@ -189,14 +190,21 @@ export default class Films extends EventEmitter{
      * Recentre la liste vers l'élement le plus proche du scroll actuel
      */
     recentre(){
+
         this.tw(window.scrollY);
     }
     tw(y,isFast=true){
         let me=this;
-        y=this.limitY(y);
-        y=this.roundY(y);
+        let y2;
+        y2=this.limitY(y);
+        y2=this.roundY(y2);
         let t=isFast?0.2:0.5;
-        me.scrollTo(y,t)
+        if(y!==y2){
+            console.log("tw",y===y2,y,y2);
+            playSound(SOUNDS.beepGlitch,0.5,false);
+            me.scrollTo(y2,t)
+        }
+
     }
 
     /**

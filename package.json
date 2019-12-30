@@ -16,6 +16,7 @@
     "lazysizes": "^5.2.0-beta1",
     "lottie-web": "^5.5.10",
     "smooth-scrollbar": "^8.5.0",
+    "soundjs": "^1.0.1",
     "typeit": "^6.1.1"
   },
   "devDependencies": {

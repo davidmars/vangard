@@ -32,10 +32,12 @@ export default class NavMenu extends EventEmitter{
 
         $body.on("click","[data-nav-menu-toggle]",function(e){
             e.preventDefault();
+            playSound(SOUNDS.tap);
             me.toggle()
         });
         $body.on("click","[burger-icon]",function(e){
             e.preventDefault();
+            playSound(SOUNDS.tap);
             if(PovHistory.currentPageInfo.isHome){
                 me.close();
             }else{

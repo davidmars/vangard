@@ -272,9 +272,11 @@ export default class PageTransition {
         this._transiZoom(this.$page,"in",function(){
             me._resetTransiZoom(true,true);
         });
+        playSound(SOUNDS.subbass)
     }
     hidePageZoom(cb) {
         console.log("hide page zoom");
+        playSound(SOUNDS.tap)
         this._transiZoom(this.$page,"out",cb);
     }
     showFilmsZoom(cb) {
@@ -307,6 +309,7 @@ export default class PageTransition {
      */
     clickFilm($film){
         console.log("click film");
+        playSound(SOUNDS.subbass)
         let me=this;
 
         if(navMenu.isOpen()){

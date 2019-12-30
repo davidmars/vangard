@@ -105,6 +105,7 @@ var DataZoomImg={
          * Affiche le slide précédent
          */
         function prev(){
+            playSound(SOUNDS.swing,0.1)
             if($prev && $prev.length){
                 $transiEls.attr("transi","fade-out-right");
                 setTimeout(function(){
@@ -117,6 +118,7 @@ var DataZoomImg={
          * Affiche le slide suivant
          */
         function next(){
+            playSound(SOUNDS.swing,0.1)
             if($next && $next.length){
                 $transiEls.attr("transi","fade-out-left");
                 setTimeout(function(){
@@ -131,6 +133,7 @@ var DataZoomImg={
          * Ferme le layer
          */
         function close(){
+            playSound(SOUNDS.tap,1)
             $zoomLayer.remove();
             $body.off('keydown',"#data-zoom-layer");
         }
@@ -170,5 +173,6 @@ $body.on("mousedown","[data-zoom-img]",function(e){
     e.preventDefault();
     e.stopPropagation();
     DataZoomImg.display($(this));
+    playSound(SOUNDS.tap,1,true)
 
 });

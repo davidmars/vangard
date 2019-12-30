@@ -47,6 +47,7 @@ export default class Site{
         let me=this;
         require("./components/data-zoom-img");
         require("./components/data-is-lang");
+        require("./sound/data-sound.js");
 
 
         //gestion du back bouton...
