@@ -17,10 +17,13 @@
     cursor: pointer;
     position: relative;
     z-index: 2;
-    color: #fff;
+    color: #1d1d1d;
     font-size: 15vw;
     animation-name: fade-in;
     animation-duration: 3s;
+    &:hover{
+      color: #fff;
+    }
     @keyframes fade-in{
       from{
         opacity: 0;
@@ -31,7 +34,7 @@
     }
   }
   >.video{
-    cursor: pointer;
+
     background-color: #000000;
     position: absolute;
     top: 0;
@@ -50,6 +53,9 @@
   &.playing{
     .start{
       display: none;
+    }
+    .video{
+      cursor: pointer;
     }
   }
 
