@@ -5,6 +5,7 @@ import Films from "./films-list/Films2";
 import PageTransition from "./motion/PageTransition";
 import VideoWrap from "./components/VideoWrap";
 import 'lazysizes';
+import Intro from "./intro/Intro";
 require("./utils");
 
 export default class Site{
@@ -28,6 +29,10 @@ export default class Site{
         window.pageTransition=new PageTransition();
         window.pageViewCount=0;
         me.onPageDone();
+
+        if(PovHistory.currentPageInfo.introVimeo && PovHistory.currentPageInfo.isHome){
+            new Intro();
+        }
 
 
 

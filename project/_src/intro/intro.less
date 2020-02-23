@@ -1,0 +1,42 @@
+#intro{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: var(--z-zoom-layer);
+  >.start{
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    font-size: 15vw;
+  }
+  >.video{
+    cursor: pointer;
+
+    background-color: #000000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    >iframe{
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+    }
+
+  }
+
+  &.playing{
+    .start{
+      display: none;
+    }
+  }
+
+}
