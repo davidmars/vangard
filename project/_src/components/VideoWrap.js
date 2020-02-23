@@ -65,8 +65,6 @@ export default class VideoWrap{
         this.positionSeek=0;
         this.percent=0;
         this.percentBuffer=0;
-
-        this.player.setColor("#ffffff");
         this.player.setVolume(1);
 
         this.player.getDuration().then(function(duration) {
