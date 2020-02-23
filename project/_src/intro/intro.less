@@ -8,16 +8,30 @@
   justify-content: center;
   align-items: center;
   z-index: var(--z-zoom-layer);
+
+
+
+
+
   >.start{
     cursor: pointer;
     position: relative;
     z-index: 2;
     color: #fff;
     font-size: 15vw;
+    animation-name: fade-in;
+    animation-duration: 3s;
+    @keyframes fade-in{
+      from{
+        opacity: 0;
+      }
+      to{
+        opacity: 1;
+      }
+    }
   }
   >.video{
     cursor: pointer;
-
     background-color: #000000;
     position: absolute;
     top: 0;
