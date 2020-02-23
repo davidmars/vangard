@@ -9,6 +9,7 @@ window.SOUNDS={
     "subbass":"subbass"
 };
 function loadSound () {
+    return;
     createjs.Sound.registerSound(`${LayoutVars.fmkHttpRoot}/project/_src/sound/tap.mp3`, window.SOUNDS.tap);
     createjs.Sound.registerSound(`${LayoutVars.fmkHttpRoot}/project/_src/sound/beep-glitchy.mp3`, window.SOUNDS.beepGlitch);
     createjs.Sound.registerSound(`${LayoutVars.fmkHttpRoot}/project/_src/sound/subbass.wav`, window.SOUNDS.subbass);
@@ -19,6 +20,7 @@ loadSound();
 let lastTime=new Date().getTime();
 
 window.playSound=function (soundId,volume=1,forcePlay=true) {
+    return;
     let t=new Date().getTime();
     let timeDiff=t - lastTime;
     console.log("timeDiff",timeDiff);
