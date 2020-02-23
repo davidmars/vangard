@@ -16,7 +16,7 @@ export default class FilmPreview {
             $(".film .debug").css("display","none");
             e.preventDefault();
             e.stopPropagation();
-        })
+        });
         setTimeout(function(){
             me.preloadNext();
         },1000);
