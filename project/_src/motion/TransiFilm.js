@@ -108,7 +108,8 @@ export default class TransiFilm{
      * @returns {TransiFilm}
      */
     fadeIn(duration,cb){
-        $("#main").css("opacity","1");
+        console.log('page transition FADE IN')
+        $("#main").css("opacity","0.5");
         TweenMax.fromTo(
             this.$main,
             duration,
@@ -117,6 +118,7 @@ export default class TransiFilm{
                 opacity:1,
                 ease:Power0.easeInOut,
                 onComplete:function(){
+                    console.log('page transition FADE IN COMPLETE')
                     $("#main").css("opacity","");
                     cb();
 

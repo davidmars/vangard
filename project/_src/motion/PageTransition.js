@@ -15,12 +15,7 @@ export default class PageTransition {
         this.TRANSI_FILM_FILM="TRANSI_FILM_FILM";
         this.TRANSI_HOME_FILM="TRANSI_HOME_FILM";
 
-        this.$blockScroll=$("<div id='block-scroll'>block scroll</div>");
-        this.$blockScroll.css("position","absolute");
-        this.$blockScroll.css("background-color","red");
-        this.$blockScroll.css("z-index","100000");
-        //this.$blockScroll.css("visibility","hidden");
-        this.$blockScroll.css("opacity","0");
+        this.$blockScroll=$("<div id='block-scroll'></div>");
         $body.append(this.$blockScroll);
 
 
