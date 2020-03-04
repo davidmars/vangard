@@ -5,7 +5,7 @@ use Classiq\Models\JsonModels\ListItem;
 /** @var \Classiq\Models\Filerecord $img */
 $img=$vv->targetUid(true);
 
-$imgSrc=$small=pov()
+$imgSrc=pov()
     ->img("")
     ->bgColor("EEEEEE")
     ->displayIfEmpty(true)
@@ -22,7 +22,7 @@ $bgPositionCss=$vv->getData("background-position","center");
 <div <?=$vv->wysiwyg()->attr()?> data-zoom-img="<?=$imgSrc?>" class="photo-item col-6 col-md-3">
     <div>
         <img    style="object-position: <?=$bgPositionCss?>;"
-                class="lazyload" data-src="<?=$imgSrc?>" alt="Vangard Paris">
+                class="lazyload" data-src="<?=$small?>" alt="Vangard Paris">
     </div>
 
 </div>
