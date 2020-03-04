@@ -72,7 +72,14 @@ export default class Films extends EventEmitter{
         });
 
         let scrollTimer=null;
+
+        window.addEventListener("wheel",function(){
+            //TweenMax.killTweensOf(window);
+            //me.isScrollingByTween=false;
+        });
+
         window.addEventListener('scroll', function(e) {
+            //if(me.isScrollingByTween){return;}
             //console.log("scroll",window.scrollY);
             if(scrollTimer) {
                 clearTimeout(scrollTimer);
@@ -81,7 +88,7 @@ export default class Films extends EventEmitter{
                 scrollTimer=setTimeout(function(){
                     console.log("recentre 1");
                     me.recentre();
-                },300);
+                },700);
             }
 
 
@@ -153,6 +160,7 @@ export default class Films extends EventEmitter{
                 if(me.keepCenterId){
                     target=0;
                 }
+                console.log(target)
                 TweenMax.set(me.$filmTypos,{y:target});
             }
         },20);
@@ -193,11 +201,11 @@ export default class Films extends EventEmitter{
      * Recentre la liste vers l'élement le plus proche du scroll actuel
      */
     recentre(){
-
         this.tw(window.scrollY,false);
     }
     tw(y,isFast=true){
         let me=this;
+
         let y2;
         y2=this.limitY(y);
         y2=this.roundY(y2);
@@ -244,14 +252,19 @@ export default class Films extends EventEmitter{
             let $film=this.$main.find(`.film[film-uid='${uid}']`);
             let pos=$film.position().top - parseInt(this.$list.css("padding-top"));
             TweenMax.to(window, time, {scrollTo:pos,ease:Power1.easeOut});
+
         }else{
             console.error("scrollToFilmUid nulll")
         }
 
     }
     scrollTo(y,time){
+        let me=this;
         if(this.enabled){
-            TweenMax.to(window, time, {scrollTo:y,ease:Power2.easeIn});
+            //this.isScrollingByTween=true;
+            TweenMax.to(window, time, {scrollTo:y,ease:Power2.easeIn,onComplete:function(){
+                //me.isScrollingByTween=false;
+            }});
         }
     }
 
