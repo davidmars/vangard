@@ -45,6 +45,7 @@ export default class PageTransition {
      * Remet le bloqueur de scroll en haut
      */
     resetBlockScroll(){
+        console.warn("resetBlockScroll");
         this.$blockScroll.css("top",""+Math.floor(STAGE.height/2)+"px");
     }
 
@@ -52,6 +53,7 @@ export default class PageTransition {
      * Positionne le bloqueur de scroll très bas de manière à laisser de l'amplitude aux animations
      */
     fatBlockScroll(){
+        console.warn("fatBlockScroll")
         this.$blockScroll.css("top",""+Math.floor(STAGE.height*30)+"px");
     }
 
@@ -223,6 +225,7 @@ export default class PageTransition {
         //y=STAGE.scrollY+STAGE.height/2; //logiquement ça devrait être ça tout le temps, mais....
         x=Math.floor(x);
         y=Math.floor(y);
+        console.warn("_setOriginCenter")
         this.$blockScroll.css("top",""+(STAGE.scrollY+STAGE.height/2)+"px");
         this.$blockScroll.css("left",""+x+"px");
         let o = ` ${x}px ${y}px `;

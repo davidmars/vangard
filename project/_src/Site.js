@@ -10,6 +10,9 @@ require("./utils");
 
 export default class Site{
     constructor() {
+
+        //$body.addClass("dev-test"); //décommenter pour voir certains tests
+
         /**
          *
          * @type {Site}

@@ -77,10 +77,13 @@ export default class Films extends EventEmitter{
             if(scrollTimer) {
                 clearTimeout(scrollTimer);
             }
-            scrollTimer=setTimeout(function(){
-                console.log("recentre 1");
-                me.recentre();
-            },300);
+            if(me.enabled){
+                scrollTimer=setTimeout(function(){
+                    console.log("recentre 1");
+                    me.recentre();
+                },300);
+            }
+
 
         });
         /**
@@ -191,18 +194,18 @@ export default class Films extends EventEmitter{
      */
     recentre(){
 
-        this.tw(window.scrollY);
+        this.tw(window.scrollY,false);
     }
     tw(y,isFast=true){
         let me=this;
         let y2;
         y2=this.limitY(y);
         y2=this.roundY(y2);
-        let t=isFast?0.2:0.5;
+        let duration=isFast?0.2:0.5;
         if(y!==y2){
             console.log("tw",y===y2,y,y2);
-            playSound(SOUNDS.beepGlitch,0.5,false);
-            me.scrollTo(y2,t)
+            //playSound(SOUNDS.beepGlitch,0.5,false);
+            me.scrollTo(y2,duration)
         }
 
     }
@@ -243,7 +246,7 @@ export default class Films extends EventEmitter{
     }
     scrollTo(y,time){
         if(this.enabled){
-            TweenMax.to(window, time, {scrollTo:y,ease:Power3.easeIn});
+            TweenMax.to(window, time, {scrollTo:y,ease:Power2.easeIn});
         }
     }
 
