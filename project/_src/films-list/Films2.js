@@ -161,6 +161,12 @@ export default class Films extends EventEmitter{
                     target=0;
                 }
                 console.log(target)
+                if(target<-50){
+                    target=-50;
+                }
+                if(target>50){
+                    target=50;
+                }
                 TweenMax.set(me.$filmTypos,{y:target});
             }
         },20);
