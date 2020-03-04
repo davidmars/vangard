@@ -11,6 +11,7 @@
   z-index: var(--z-zoom-layer);
 
   >.start{
+    //outline: 1px solid red;
     cursor: pointer;
     position: relative;
     z-index: 2;
@@ -18,8 +19,12 @@
     font-size: 15vw;
     animation-name: fade-in;
     animation-duration: 3s;
+    opacity:0.3;
+    >img{
+      max-width: 100%;
+    }
     &:hover{
-      color: #fff;
+      opacity:1;
     }
     @keyframes fade-in{
       from{

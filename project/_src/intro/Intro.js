@@ -10,6 +10,7 @@ export default class Intro {
         this.$video=this.$main.find(".video");
         this.vimeoUrl=PovHistory.currentPageInfo.introVimeo;
         $body.append(this.$main);
+        this.$start.find("img").attr("src",LayoutVars.fmkHttpRoot+"/project/_src/intro/logo-vangard-1000.png")
 
 
         /*
