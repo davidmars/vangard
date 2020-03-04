@@ -90,7 +90,7 @@ export default class FilmPreview {
             this.pauseAll();
             this.$film.removeClass("paused");
             let $v=this.$videos().first();
-            let $preview=$v.closest(".preview");
+            //let $preview=$v.closest(".preview");
             let $$v=$v.get(0);
             $$v.currentTime=0;
             $$v.play();
