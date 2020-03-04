@@ -4,23 +4,24 @@ use Classiq\Models\Page;
 the()->htmlLayout()->pageInfo->isHome=false;
 $view->inside("layout/layout",$vv);
 ?>
-<div class="py-big">
+<div class="page-page">
 
-        <div class="container">
+        <div class="container-page">
             <?=$vv->wysiwyg()
                 ->field("name_lang")
                 ->string(\Pov\Utils\StringUtils::FORMAT_NO_HTML_SINGLE_LINE)
                 ->setDefaultValue($vv->name)
                 ->htmlTag("h1")
-                ->addClass("mb-big")
+                ->addClass("mb-big titre")
             ?>
         </div>
-
+        <div class="container-page">
         <?=$vv->wysiwyg()->field("blocks")
             ->listJson(site()->blocksList)
             ->htmlTag()
             ->addClass("blocks");
         ?>
+        </div>
 
 
 

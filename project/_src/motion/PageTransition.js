@@ -172,15 +172,29 @@ export default class PageTransition {
                             .setAsPoster(true);
                         return;
                         break;
-                    default:
+
+                    case 'page':
                         if(PovHistory.currentPageInfo.isHome){
                             console.log("show...home")
                             me.show_FILM_HOME();
                             return;
+                        }else{
+                            console.log("show...page")
+                            me.showPageNormal();
+                            me.transiFilm
+                                .setContentByUid(PovHistory.currentPageInfo.uid)
+                                .setAutoSize(true)
+                                .setAsPoster(true);
+                            return;
+                            break;
                         }
 
+
+                    default:
+                        console.error("show...???")
+
                 }
-                console.error("show...???")
+
         }
     }
 

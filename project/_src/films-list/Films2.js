@@ -240,9 +240,14 @@ export default class Films extends EventEmitter{
     }
 
     scrollToFilmUid(uid,time=0){
-        let $film=this.$main.find(`.film[film-uid='${uid}']`);
-        let pos=$film.position().top - parseInt(this.$list.css("padding-top"));
-        TweenMax.to(window, time, {scrollTo:pos,ease:Power1.easeOut});
+        if(uid){
+            let $film=this.$main.find(`.film[film-uid='${uid}']`);
+            let pos=$film.position().top - parseInt(this.$list.css("padding-top"));
+            TweenMax.to(window, time, {scrollTo:pos,ease:Power1.easeOut});
+        }else{
+            console.error("scrollToFilmUid nulll")
+        }
+
     }
     scrollTo(y,time){
         if(this.enabled){
