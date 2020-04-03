@@ -31,7 +31,8 @@ export default class Intro {
             transparent:false,
             autoplay:false,
             color:"#ffffff",
-            loop:false
+            loop:false,
+            muted:false,
         });
         this.player.pause();
         this.duration=0;
