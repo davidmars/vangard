@@ -40,6 +40,10 @@ if(!the()->requestUrl->isAjax){
     the()->htmlLayout()->favicon->favicon=the()->fileSystem->filesystemToHttp("project/logo.png");
     the()->htmlLayout()->addJavascriptTranslations();
 
+    if(the()->request("i")==="0"){
+        the()->htmlLayout()->layoutVars->showIntro=false;
+    }
+
     //manifest
     the()->htmlLayout()->webAppManifest=the()->fileSystem->filesystemToHttp("manifest.json")."?r=".date("Y-m-d-H-i-s");
     the()->htmlLayout()->webAppManifest=\Pov\Defaults\C_default::quickView_url("manifest");

@@ -3,5 +3,5 @@ $body.on("mousedown","[data-is-lang]:not(.active)",function(e){
     e.stopPropagation();
     let lang=$(this).attr("data-is-lang");
     let url=PovHistory.currentPageInfo.languagesUrls[lang];
-    document.location=url;
+    document.location=url+"?i=0"; //cache l'intro
 });

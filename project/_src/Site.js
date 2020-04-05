@@ -34,7 +34,10 @@ export default class Site{
         me.onPageDone();
 
         if(PovHistory.currentPageInfo.introVimeo && PovHistory.currentPageInfo.isHome){
-            new Intro();
+            if(LayoutVars.showIntro!==false){
+                new Intro();
+            }
+
         }
 
 
