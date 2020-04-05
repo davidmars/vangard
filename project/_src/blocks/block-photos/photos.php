@@ -4,7 +4,7 @@
 ?>
 
 <div <?= $vv->wysiwyg()->attr() ?> class="block block-photos">
-    <div class="container-page">
+    <div class="">
         <?=$vv->wysiwyg()->field("photos")
             ->listJson("blocks/block-photos/photo-item")
             ->horizontal()

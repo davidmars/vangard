@@ -9,7 +9,7 @@ $cols=$vv->getData("cols","1");
 <div <?=$vv->wysiwyg()->attr()?> class="block block-texte py-medium">
 
 
-        <div class="container-page">
+        <div class="">
             <?if($cols==="1"):?>
                 <?=$vv->wysiwyg()
                     ->field("texte_lang")

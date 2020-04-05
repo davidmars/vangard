@@ -10,7 +10,7 @@ $img = $vv->targetUid(true);
 $invert=$vv->getData("invert")?"invert":"";
 ?>
 <div <?= $vv->wysiwyg()->openConfigOnCreate()->attr() ?> class="block block-img-text <?=$invert?>">
-    <div class="container-page">
+    <div class="">
     <div class="row">
 
         <div class="col-lg-6">

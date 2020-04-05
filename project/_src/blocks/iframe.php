@@ -24,7 +24,7 @@ if($iframe){
 <?if(cq()->wysiwyg() || $iframeTag):?>
 
     <div <?=$vv->wysiwyg()->openConfigOnCreate()->attr()?> class="block block-iframe py-medium">
-        <div class="container-page">
+        <div class="">
 
                 <?if(!$iframeTag):?>
                     <div id="cq-style" class="gr">
