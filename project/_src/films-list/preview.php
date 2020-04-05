@@ -2,6 +2,7 @@
 /**
  * @var \Classiq\Models\Preview $vv
  */
+
 ?>
 <?if($vv->video()):?>
 <div class="preview paused">
@@ -10,7 +11,13 @@
     <video size="<?=$vv->video(false)->humanFileSize()?>"
            preload="none"
            loop="loop" muted="muted"
-           src="<?=$vv->video()?>"
-    ></video>
+           >
+        <source src="<?=$vv->video(true,false,false)?>" type="<?=$vv->video(true,false,true)?>">
+        <?if($vv->video(true,true)):?>
+            <source src="<?=$vv->video(true,true,false)?>" type="<?=$vv->video(true,true,true)?>">
+    <?endif;?>
+
+
+    </video>
 </div>
 <?endif?>

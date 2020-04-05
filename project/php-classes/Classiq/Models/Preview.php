@@ -11,6 +11,7 @@ use GUMP;
  *
  * @property $thumbnail
  * @property $video
+ * @property $videoios
  */
 class Preview extends Classiqmodel
 {
@@ -30,6 +31,7 @@ class Preview extends Classiqmodel
         if($this->id){
             $v["thumbnail"]="required";
             $v["video"]="required";
+            $v["videoios"]="required";
         }
         return $v;
     }
@@ -37,12 +39,22 @@ class Preview extends Classiqmodel
     /**
      * @return Filerecord|null[string
      */
-    public function video($asString=true){
+    public function video($asString=true,$ios=false,$mime=false){
         /** @var Filerecord $r */
-        $r= Filerecord::getByUid($this->video);
+        if($ios){
+            $r= Filerecord::getByUid($this->videoios);
+        }else{
+            $r= Filerecord::getByUid($this->video);
+        }
+
         if($r){
             if($asString){
-                return  $r->httpPath();
+
+                if($mime){
+                    return $r->mime;
+                }else{
+                    return  $r->httpPath();
+                }
             }
             return $r;
         }
