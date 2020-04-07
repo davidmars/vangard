@@ -88,7 +88,7 @@ export default class Films extends EventEmitter{
                 scrollTimer=setTimeout(function(){
                     console.log("recentre 1");
                     me.recentre();
-                },700);
+                },200);
             }
 
 
@@ -160,7 +160,7 @@ export default class Films extends EventEmitter{
                 if(me.keepCenterId){
                     target=0;
                 }
-                console.log(target)
+                //console.log(target)
                 if(target<-50){
                     target=-50;
                 }
