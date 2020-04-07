@@ -1,4 +1,5 @@
 import Player from '@vimeo/player';
+import screenfull from "screenfull";
 require ("./video-wrap.less");
 
 export default class VideoWrap{
@@ -13,7 +14,7 @@ export default class VideoWrap{
         this.$main.find("button").on("click",function(){
             me.play();
         });
-
+        let videoBgMode=true;
         this.$play=$("[play]");
         this.$timer=$("[timer]");
         this.$progress=$("[progress]");
@@ -21,17 +22,23 @@ export default class VideoWrap{
         this.$progressWrap=$("[progress-container]");
         this.$fs=$("[fs]");
 
-        if($(".fs-wrap")[0].requestFullscreen){
-            me.$fs.on("click",function(){
-                if(!STAGE.isFullScreen){
-                    $(".fs-wrap")[0].requestFullscreen();
-                }else{
-                    document.exitFullscreen();
+        if (screenfull.isEnabled) {
+            me.$fs.on('click', event => {
+                screenfull.toggle($(".fs-wrap")[0]);
+                me.play();
+            });
+            screenfull.on('change', () => {
+                if(screenfull.isFullscreen){
+                    me.play();
                 }
             });
         }else{
-            this.$fs.remove();
+            videoBgMode=false;
+            this.$fs.css("color","#FF0000");
+            this.$fs.css("display","none");
         }
+
+
 
         me.$play.attr("state","play");
         me.$play.on("click",function(){
@@ -49,23 +56,24 @@ export default class VideoWrap{
         let $player=$main.find(".js-video");
         this.player=new Player($player[0],{
             url:$player.attr("src"),
-            background:true,
+            background:videoBgMode,
             byline:false,
             portrait:false,
             title:false,
             transparent:false,
             autoplay:false,
             color:"#ffffff",
-            loop:false
+            loop:false,
+            playsinline:false
         });
         this.player.pause();
-
         this.duration=0;
         this.position=0;
         this.positionSeek=0;
         this.percent=0;
         this.percentBuffer=0;
         this.player.setVolume(1);
+
 
         this.player.getDuration().then(function(duration) {
             me.duration=duration;
@@ -174,19 +182,6 @@ export default class VideoWrap{
         }
     }
 
-    /**
-     * @deprecated
-     * @param string
-     * @param blink
-     */
-    text(string,blink=false){
-        return;
-        pageTransition
-            .transiFilm
-            .setAutoSize(true)
-            .text(string)
-            .blink(blink);
-    }
     tooglePlayPause(){
         let me =this;
         me.player.getPaused().then(function(paused) {
