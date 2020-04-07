@@ -9,6 +9,7 @@ export default class Intro {
         this.$start=this.$main.find(".start");
         this.$video=this.$main.find(".video");
         this.vimeoUrl=PovHistory.currentPageInfo.introVimeo;
+        this.muted=PovHistory.currentPageInfo.introMuted;
         $body.append(this.$main);
         this.$start.find("img").attr("src",LayoutVars.fmkHttpRoot+"/project/_src/intro/logo-vangard-1000.png")
 
@@ -32,7 +33,7 @@ export default class Intro {
             autoplay:false,
             color:"#ffffff",
             loop:false,
-            muted:false,
+            muted:this.muted,
         });
         this.player.pause();
         this.duration=0;
@@ -41,6 +42,11 @@ export default class Intro {
         this.percent=0;
         this.percentBuffer=0;
         this.player.setVolume(1);
+
+        if(this.muted){
+            console.log("play")
+            this.play();
+        }
 
 
         me.$start.on("click",function(e){
@@ -54,8 +60,6 @@ export default class Intro {
         me.player.on("ended",function(){
             me.destroy();
         });
-
-
     }
 
     play(){
