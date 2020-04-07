@@ -168,4 +168,28 @@
 }
 
 
+//telephone lansscape -> que la video
+
+@media(orientation: landscape) and (max-height: 500px) and (max-width: 900px){
+  .film-page{
+    >*{
+      display: none;
+    }
+    >.fs-wrap{
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      .js-video-wrap,.js-video{
+        height: 100vh !important;
+        width: 100vw !important;
+      }
+      >.body{
+        display: none;
+      }
+    }
+  }
+
+}
+
+
 
