@@ -30,18 +30,19 @@ export default class Intro {
             portrait:false,
             title:false,
             transparent:false,
-            autoplay:false,
+            autoplay:this.muted,
             color:"#ffffff",
             loop:false,
             muted:this.muted,
         });
-        this.player.pause();
+        //this.player.pause();
         this.duration=0;
         this.position=0;
-        this.positionSeek=0;
         this.percent=0;
-        this.percentBuffer=0;
-        this.player.setVolume(1);
+        if(!this.muted){
+            this.player.setVolume(1);
+        }
+
 
         if(this.muted){
             console.log("play")

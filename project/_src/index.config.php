@@ -17,5 +17,15 @@ $view->inside("layout/layout", $vv);
             ->string()
             ->textarea("url vimeo")
         ?>
+        <?/*
+        <label>Vidéo d'intro</label>
+        <?=$vv->wysiwyg()->field("vars.introVideo")
+            ->file()
+            ->setMimeAcceptVideoOnly()
+            ->button()->render()
+        ?>
+        */?>
     </fieldset>
+
+
 </div>
