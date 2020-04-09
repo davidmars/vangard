@@ -16,9 +16,9 @@ if(is_a($vv,"\Classiq\Models\Page")){
     the()->htmlLayout()->meta->title=$vv->urlpage->box()->meta_title_lang;
     the()->htmlLayout()->meta->description=$vv->urlpage->box()->meta_description_lang;
     if($vv->thumbnail){
-        the()->htmlLayout()->ogImage=$vv->thumbnail()->sizeCover(500,400)->bgColor("ffffff")->jpg()->href(true);
-        the()->htmlLayout()->ogImageWidth=500;
-        the()->htmlLayout()->ogImageHeight=400;
+        the()->htmlLayout()->ogImage=$vv->thumbnail()->width(1200)->bgColor("ffffff")->jpg(100)->href(true);
+        //the()->htmlLayout()->ogImageWidth=500;
+        //the()->htmlLayout()->ogImageHeight=400;
     }
 }
 
