@@ -18,6 +18,9 @@ export default class Site{
          * @type {Site}
          */
         let me = this;
+        window.isMobile=function(){
+            return screen.width<992;
+        }
         me._initListeners();
         //---------------------go------------------------------------------
         window.isWysiwyg=LayoutVars.isWysiwyg;
@@ -39,6 +42,8 @@ export default class Site{
             }
 
         }
+
+
 
 
 

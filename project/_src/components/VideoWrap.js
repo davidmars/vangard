@@ -4,9 +4,6 @@ require ("./video-wrap.less");
 
 export default class VideoWrap{
 
-
-
-
     constructor($main){
         VideoWrap.all.push(this);
         let me=this;
@@ -24,12 +21,16 @@ export default class VideoWrap{
 
         if (screenfull.isEnabled) {
             me.$fs.on('click', event => {
-                screenfull.toggle($(".fs-wrap")[0]);
-                me.play();
+                me.toggleFullScreen();
             });
             screenfull.on('change', () => {
                 if(screenfull.isFullscreen){
                     me.play();
+                    if(isMobile()){
+                        //screen.orientation.lock("landscape-primary");
+                    }
+                }else{
+                    //screen.orientation.unlock();
                 }
             });
         }else{
@@ -149,6 +150,28 @@ export default class VideoWrap{
 
     }
 
+    goFullScreen(){
+        let $zoom=$("#data-zoom-layer");
+        if($zoom.closest("body").length){
+            screenfull.request($zoom[0]);
+        }else{
+            screenfull.request($(".fs-wrap")[0]);
+        }
+        this.play();
+    }
+    exitFullScren(){
+        screenfull.exit();
+    }
+    toggleFullScreen(){
+        let $zoom=$("#data-zoom-layer");
+        if($zoom.closest("body").length){
+            screenfull.toggle($zoom[0]);
+        }else{
+            screenfull.toggle($(".fs-wrap")[0]);
+        }
+
+    }
+
     displayTime(){
         let remain=Math.floor(this.duration-this.position);
         this.$timer.text(secondsToMMSS(remain));
@@ -169,7 +192,6 @@ export default class VideoWrap{
      * @param {boolean|null} play Si false forcera la pause, si true forcera le play, si null gardera létat actuel
      */
     seek(percent,play=false){
-        let me=this;
         this.seeking=true;
         this.positionSeek=percent;
         this.player.setCurrentTime(ratio(percent,1,this.duration,0,0));
@@ -238,7 +260,46 @@ export default class VideoWrap{
 
     }
 
+    static currentOne(){
+        for(let v of VideoWrap.all){
+            if(v.$main.closest("body").length===1){
+                return v;
+            }
+        }
+        return null;
+    }
+
 }
 VideoWrap.logLevel=0;
+/**
+ *
+ * @type {VideoWrap[]}
+ */
 VideoWrap.all=[];
+
+
+window.addEventListener("orientationchange", function() {
+    if(isMobile() && screenfull.isEnabled && VideoWrap.currentOne() ){
+        let orientation = (screen.orientation || {}).type || screen.mozOrientation || screen.msOrientation;
+        let v=VideoWrap.currentOne();
+        if(v){
+            switch (orientation) {
+                case "landscape-secondary":
+                case "landscape-primary":
+                    if(v){
+                        v.goFullScreen();
+                    }
+                    break;
+
+                default:
+                    if(isMobile()){
+                        v.exitFullScren()
+                    }
+            }
+        }
+
+    }
+
+
+});
 

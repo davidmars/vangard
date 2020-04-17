@@ -80,10 +80,12 @@ export default class NavMenu extends EventEmitter{
             if(NavMenu.logLevel>0){
                 console.error("show logo")
             }
-
             this.logo.setSpeed(2);
             this.logo.setDirection(1);
             this.logo.play();
+            if(isMobile()){
+                if(cb){cb();}
+            }
         }else{
             if(NavMenu.logLevel>0) {
                 console.error("hide logo")
@@ -115,7 +117,15 @@ export default class NavMenu extends EventEmitter{
         this.saveScroll=window.scrollY;
         if(PovHistory.currentPageInfo.isHome){
             $body.addClass("nav-open");
-            films.scrollKeepActiveOneLoop();
+            if(isMobile()){
+                TweenMax.to(window, 0, {scrollTo:0});
+                films.enable();
+                films.recentre();
+                me.displayRight(true); //la croix
+                me.showElements();
+            }else{
+                films.scrollKeepActiveOneLoop();
+            }
         }else{
             pageTransition.hidePageZoom(function(){
                 $body.addClass("nav-open");
@@ -180,6 +190,10 @@ export default class NavMenu extends EventEmitter{
         return $("#nav-content .text-rich").find("h2,p,h5");
     }
     showElements(){
+        let timed=1;
+        if(isMobile()){
+            timed=0;
+        }
         let me=this;
         me.showLogo(true,function(){
             $("#nav-content").addClass("visible");
@@ -202,7 +216,7 @@ export default class NavMenu extends EventEmitter{
 
                 }
                 if(!isWysiwyg) {
-                    TweenMax.fromTo($(this), t,
+                    TweenMax.fromTo($(this), t*timed,
                         {y: y, opacity: 0},
                         {y: 0, opacity: 1, ease: Power1.easeInOut}
                     );

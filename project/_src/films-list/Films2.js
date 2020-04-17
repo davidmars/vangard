@@ -45,14 +45,20 @@ export default class Films extends EventEmitter{
 
         this.$main.find(".film").each(function(){
             let fp=new FilmPreview($(this));
+            $(this).data("preview",fp);
             me.previews.push(fp);
         });
 
 
-        //change on click
+        //on click
         this.$main.find(".film a").on("click",function(e){
             console.log("click event film");
             let $film=$(this).closest(".film");
+            if(isMobile()){
+                pageTransition.clickFilm($film);
+                return;
+            }
+
             if(!$film.is("[the-one]")){ //remettre pour activer le click
                 console.log("click event film and move");
                 e.preventDefault();
@@ -79,8 +85,6 @@ export default class Films extends EventEmitter{
         });
 
         window.addEventListener('scroll', function(e) {
-            //if(me.isScrollingByTween){return;}
-            //console.log("scroll",window.scrollY);
             if(scrollTimer) {
                 clearTimeout(scrollTimer);
             }
@@ -126,6 +130,10 @@ export default class Films extends EventEmitter{
 
 
         setInterval(function(){
+            if(isMobile()){
+                me._selectTheOneMobile();
+                return;
+            }
             if($body.attr("is-home")==="true" || $body.is(".nav-open")){
                 if(!me.enabled){
                     me.enable();
@@ -152,9 +160,11 @@ export default class Films extends EventEmitter{
                         me.emit(me.EVENT_STOP_MOVING);
                     }
                 }
+                /*
                 if(me.isMobileNavOpen()){
                     return;
                 }
+                */
                 let factor=ratio(me.$firstFilm.height(),400,2,50,1);
                 let target=me.speed2 * factor * -1;
                 if(me.keepCenterId){
@@ -170,10 +180,14 @@ export default class Films extends EventEmitter{
                 TweenMax.set(me.$filmTypos,{y:target});
             }
         },20);
+
+
+
         me.on(me.EVENT_START_MOVING,function(){
             me.setActiveOne(null);
             me.pauseAllVideos();
         });
+
         me.on(me.EVENT_STOP_MOVING,function(){
             me._selectTheOne();
             let y=Math.round(window.scrollY);
@@ -182,14 +196,18 @@ export default class Films extends EventEmitter{
                 me.emit(me.EVENT_STOP_MOVING_AND_GOOD_POSITION);
             }
         });
+
         me.on(me.EVENT_STOP_MOVING_AND_GOOD_POSITION,function(){
             me.playTheOne();
             me._changePreviews();
         });
-        console.log("recentre 0");
-        me.recentre();
-        me._selectTheOne();
-        me.playTheOne();
+
+        if(!isMobile()){
+            me.recentre();
+            me._selectTheOne();
+            me.playTheOne();
+        }
+
 
     }
 
@@ -207,20 +225,23 @@ export default class Films extends EventEmitter{
      * Recentre la liste vers l'élement le plus proche du scroll actuel
      */
     recentre(){
-        this.tw(window.scrollY,false);
+        if(!isMobile()){
+            this.tw(window.scrollY,false);
+        }
+
     }
     tw(y,isFast=true){
-        let me=this;
-
-        let y2;
-        y2=this.limitY(y);
-        y2=this.roundY(y2);
-        let duration=isFast?0.2:0.5;
-        if(y!==y2){
-            console.log("tw",y===y2,y,y2);
-            //playSound(SOUNDS.beepGlitch,0.5,false);
-            me.scrollTo(y2,duration)
+        if(!isMobile()){
+            let me=this;
+            let y2;
+            y2=this.limitY(y);
+            y2=this.roundY(y2);
+            let duration=isFast?0.2:0.5;
+            if(y!==y2){
+                me.scrollTo(y2,duration)
+            }
         }
+
 
     }
 
@@ -228,29 +249,30 @@ export default class Films extends EventEmitter{
      * Conserve le scroll en position de sorte que le activeOne reste centré et activeOne
      */
     scrollKeepActiveOneLoop(durationMs=1000){
-        let me=this;
-        let selectedUid=null;
-        if(me.activeOne){
-            selectedUid=me.activeOne.$film.attr("film-uid");
-            console.log("keep scroll "+selectedUid)
+        if(!isMobile()){
+            let me=this;
+            let selectedUid=null;
+            if(me.activeOne){
+                selectedUid=me.activeOne.$film.attr("film-uid");
+                console.log("keep scroll "+selectedUid)
+            }
+            pageTransition.fatBlockScroll(); // pour que le scroll ne se bloque pas en bas
+            if(selectedUid){
+                this.keepCenterId=selectedUid;
+                this.scrollKeepActiveOneLoop_loop=setInterval(function(){
+                    me.scrollToFilmUid(selectedUid);
+                },10);
+                //arrête la boucle à un moment
+                setTimeout(function(){
+                    console.log("stop scroll "+selectedUid)
+                    clearTimeout(me.scrollKeepActiveOneLoop_loop);
+                    me.keepCenterId=null;
+                    pageTransition.resetBlockScroll();
+                },durationMs);
+            }else{
+                console.warn("pas de film selectionné")
+            }
         }
-        pageTransition.fatBlockScroll(); // pour que le scroll ne se bloque pas en bas
-        if(selectedUid){
-            this.keepCenterId=selectedUid;
-            this.scrollKeepActiveOneLoop_loop=setInterval(function(){
-                me.scrollToFilmUid(selectedUid);
-            },10);
-            //arrête la boucle à un moment
-            setTimeout(function(){
-                console.log("stop scroll "+selectedUid)
-                clearTimeout(me.scrollKeepActiveOneLoop_loop);
-                me.keepCenterId=null;
-                pageTransition.resetBlockScroll();
-            },durationMs);
-        }else{
-            console.warn("pas de film selectionné")
-        }
-
     }
 
     scrollToFilmUid(uid,time=0){
@@ -265,12 +287,8 @@ export default class Films extends EventEmitter{
 
     }
     scrollTo(y,time){
-        let me=this;
         if(this.enabled){
-            //this.isScrollingByTween=true;
-            TweenMax.to(window, time, {scrollTo:y,ease:Power2.easeIn,onComplete:function(){
-                //me.isScrollingByTween=false;
-            }});
+            TweenMax.to(window, time, {scrollTo:y,ease:Power2.easeIn});
         }
     }
 
@@ -319,9 +337,17 @@ export default class Films extends EventEmitter{
      */
     _selectTheOne(){
         //savoir lequel est au centre
+        if(isMobile()){
+            this._selectTheOneMobile();
+        }else{
+            this._selectTheOneDesktop();
+
+        }
+
+    }
+    _selectTheOneDesktop(){
         let me=this;
-        let mouse;
-        mouse=STAGE.height/2;
+        let mouse=STAGE.height/2;
         if(me.speed !==0){
             me.pauseAllVideos();
             return ;
@@ -343,10 +369,36 @@ export default class Films extends EventEmitter{
             me.pauseAllVideos();
         }
     }
+    _selectTheOneMobile(){
+        let oldActive=this.activeOne;
+        let input=STAGE.scrollY;
+        let inputMin=this.$main.offset().top;
+        let inputMax=inputMin+this.$main.height()-STAGE.height;
+        let outputMin=0;
+        let outputMax=this.previews.length-1;
+        let index=ratio(
+           input,
+           inputMax,
+           outputMax,
+           inputMin,
+           outputMin
+           );
+        index=Math.round(index);
+        index=Math.max(index,outputMin);
+        index=Math.min(index,outputMax);
+        //console.log("input",input);
+        //console.log("inputMin",inputMin);
+        //console.log("inputMax",inputMax);
+        //console.log("outputMax",outputMax);
+        //console.log("idx",Math.round(index));
 
-
-
-
+        let theOne=this.previews[index];
+        if(oldActive!==theOne){
+            this.pauseAllVideos();
+            this.setActiveOne(theOne)
+            this.playTheOne();
+        }
+    }
 
     /**
      * Définit le film qui est actif (qui est au centre)

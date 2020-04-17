@@ -7,8 +7,6 @@ export default class PageTransition {
         this.$page = $("#main");
         this.$films = $("#films");
         this.$filmsContainer = this.$films.find(">.list");
-        this.$rect = $("#transition-rect");
-        this.rectColor = "#222222";
         this.transparent = "rgba(0,0,0,0)";
         this.runningTransition=null;
         this.TRANSI_FILM_HOME="TRANSI_FILM_HOME";
@@ -17,7 +15,6 @@ export default class PageTransition {
 
         this.$blockScroll=$("<div id='block-scroll'></div>");
         $body.append(this.$blockScroll);
-
 
         //fake film typo
         this.transiFilm=new TransiFilm();
@@ -284,11 +281,9 @@ export default class PageTransition {
         this._transiZoom(this.$page,"in",function(){
             me._resetTransiZoom(true,true);
         });
-        playSound(SOUNDS.subbass)
     }
     hidePageZoom(cb) {
         console.log("hide page zoom");
-        playSound(SOUNDS.tap)
         this._transiZoom(this.$page,"out",cb);
     }
     showFilmsZoom(cb) {
@@ -321,15 +316,10 @@ export default class PageTransition {
      */
     clickFilm($film){
         console.log("click film");
-        playSound(SOUNDS.subbass)
         let me=this;
-
-        if(navMenu.isOpen()){
+        if(navMenu.isOpen() || isMobile()){
             //ça doit se passer autrement...
-            //navMenu.saveScroll=0;
-            //navMenu.close();
             navMenu.hideElements();
-            //this.transiFilm.set$Film($film);
             pageTransition.hideFilmsZoom(function(){
                 me.scrollTop();
                 $body.removeClass("nav-open");
@@ -340,10 +330,11 @@ export default class PageTransition {
         //zoome typo et apparait
         this.runningTransition=this.TRANSI_HOME_FILM;
         let baseDuration=0.25;
-        me.transiFilm
-            .set$Film($film)
-            .clone$FilmPosition()
-            .setAutoSize(false)
+        me.transiFilm.set$Film($film);
+        if(!isMobile()){
+            me.transiFilm.clone$FilmPosition()
+        }
+        me.transiFilm.setAutoSize(false)
             .setAsPoster(false)
             .fadeIn(baseDuration,
                 function(){

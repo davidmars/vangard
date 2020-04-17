@@ -5,9 +5,9 @@ the()->htmlLayout()->pageInfo->isHome=false;
 $view->inside("layout/layout",$vv);
 ?>
 <div class="film-page">
-        <div class="fs-wrap">
+        <div id="fs-wrap" class="fs-wrap">
             <div class="top zzzcontainer-page full">
-                <div class="js-video-wrap">
+                <div  class="js-video-wrap">
                     <button class="play-button intro-fade">
                         <?=pov()->svg->use("startup-play-thin")?>
                     </button>
