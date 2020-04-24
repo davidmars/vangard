@@ -10,7 +10,7 @@
 <?/*<img src="<?=$vv->thumbnail()->href()?>" >*/?>
     <video size="<?=$vv->video(false)->humanFileSize()?>"
            preload="none"
-           loop="loop" muted="muted"
+           loop="loop" muted="muted" playsinline="playsinline"
            >
         <source src="<?=$vv->video(true,false,false)?>" type="<?=$vv->video(true,false,true)?>">
         <?if($vv->video(true,true)):?>
