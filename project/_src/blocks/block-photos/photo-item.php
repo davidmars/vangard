@@ -11,6 +11,7 @@ $imgSrc=pov()
     ->displayIfEmpty(true)
     ->sizeMax(1200,1200)
     ->jpg()->href();
+$small=$imgSrc;
 
 if($img && $img->isImage()){
     $small=$img->image()->sizeMax(500,500)->jpg(90)->href();
